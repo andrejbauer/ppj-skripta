@@ -1,0 +1,29 @@
+title: Principi programskih jezikov
+author: Andrej Bauer
+
+# Information about where the book exists on the web
+# repository:
+  # url: https://github.com/danelahman/lograc-2022
+  # branch: master  # Which branch of the repository should be used when creating links (optional)
+  # path_to_book: lectures  # Optional path to your book, relative to the repository root
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+# html:
+  # use_issues_button: true
+  # use_repository_button: true
+
+sphinx:
+  config:
+    language: sl
+  extra_extensions:
+    - sphinx_proof
+
+parse:
+  myst_enable_extensions:
+    - dollarmath
+    - linkify
+    - substitution
+    - colon_fence
+    - amsmath
+  myst_all_links_external: true 

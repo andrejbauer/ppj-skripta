@@ -1,0 +1,32 @@
+effect TooBig : unit -> empty
+
+let raise_TooBig () =
+  match perform (TooBig ()) with
+;;
+
+let rec f x =
+  match x with
+  | 0 -> 1
+  | 1 -> 1
+  | n ->
+     if n > 30 then
+       raise_TooBig ()
+     else
+       f (n - 1) + f (n - 2)
+
+let main =
+  handle
+    let a = f 10 in
+    perform (Print ("a = " ^ to_string a) ^ "\n") ;
+    let b =
+      (handle
+         f 50
+       with
+       | effect (TooBig ()) _ -> 42)
+    in
+    perform (Print ("b = " ^ to_string b) ^ "\n") ;
+    let c = f 500 in
+    perform (Print ("c = " ^ to_string c) ^ "\n")
+  with
+    effect (TooBig ()) _ ->
+      perform (Print "Prišlo je do tehničnih motenj. Hvala za pozornost.\n")

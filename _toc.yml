@@ -1,0 +1,24 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: 00-uvod
+options:
+  numbered: 3
+  maxdepth: 6
+chapters:
+  - file: 01-aritmeticni-izrazi/01-aritmeticni-izrazi
+  - file: 02-ukazni-programski-jezik/02-ukazni-programski-jezik
+  - file: 03-dokazovanje-pravilnosti/03-dokazovanje-pravilnosti
+  - file: 04-lambda-racun/04-lambda-racun
+  - file: 05-deklarativno-programiranje/05-deklarativno-programiranje
+  - file: 06-rekurzija/06-rekurzija
+  - file: 07-izpeljava-tipov/07-izpeljava-tipov
+  - file: 09-logicno-programiranje/09-logicno-programiranje
+  - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami
+  - file: 08-abstrakcija/08-abstrakcija
+  - file: 11-podtipi/11-podtipi
+  - file: 12-objektno-programiranje/12-objektno-programiranje
+  - file: 14-haskell-in-razredi-tipov/14-haskell-in-razredi-tipov
+  - file: 15-monade/15-monade
+  - file: 13-ucinki-in-prestrezniki/13-ucinki-in-prestrezniki

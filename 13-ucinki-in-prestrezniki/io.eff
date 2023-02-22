@@ -1,0 +1,48 @@
+let primer1 () =
+    perform (Print "Hush now baby, baby, dont you cry.\n") ;
+    perform (Print "Mother's gonna make all your nightmares come true.\n") ;
+    perform (Print "Mother's gonna put all her fears into you.\n") ;
+    perform (Print "Mother's gonna keep you right here under her wing.\n") ;
+    perform (Print "She wont let you fly, but she might let you sing.\n") ;
+    42
+;;
+
+let primer2 () =
+  handle
+    perform (Print "Hush now baby, baby, dont you cry.\n") ;
+    perform (Print "Mother's gonna make all your nightmares come true.\n") ;
+    perform (Print "Mother's gonna put all her fears into you.\n") ;
+    perform (Print "Mother's gonna keep you right here under her wing.\n") ;
+    perform (Print "She wont let you fly, but she might let you sing.\n")
+  with
+  | effect (Print msg) k ->
+      perform (Print ("You tried to print: " ^ msg))
+;;
+
+let primer3 () =
+  handle
+    perform (Print "Hush now baby, baby, dont you cry.\n") ;
+    perform (Print "Mother's gonna make all your nightmares come true.\n") ;
+    perform (Print "Mother's gonna put all her fears into you.\n") ;
+    perform (Print "Mother's gonna keep you right here under her wing.\n") ;
+    perform (Print "She wont let you fly, but she might let you sing.\n") ;
+    42
+  with
+  | effect (Print msg) k ->
+      perform (Print ("I will let you print: " ^ msg)) ;
+      continue k ()
+;;
+
+let primer4 () =
+  handle
+    perform (Print "Hush now baby, baby, dont you cry.\n") ;
+    perform (Print "Mother's gonna make all your nightmares come true.\n") ;
+    perform (Print "Mother's gonna put all her fears into you.\n") ;
+    perform (Print "Mother's gonna keep you right here under her wing.\n") ;
+    perform (Print "She wont let you fly, but she might let you sing.\n") ;
+    42
+  with
+  | x -> (x, [])
+  | effect (Print msg) k ->
+      let (x, msgs) = continue k () in
+      (x, msg :: msgs)

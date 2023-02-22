@@ -1,0 +1,120 @@
+(** Verjetnost *)
+
+(* Definiramo si operacijo [Toss p], ki si jo predstavljamo takole: z verjetnostjo
+   [p] vrne [true] in z verjetnostjo [1 - p] vrne [false]. *)
+effect Toss : float -> bool
+
+(* [uniform lst] naključno izbere enega od elementov danega seznama [lst].
+   Vsi elementi imajo enako verjetnost izbire. *)
+let rec uniform = function
+  | [] -> failwith "Ne morem izbrati iz praznega seznama"
+  | [x] -> x
+  | x :: xs ->
+      let n = length xs + 1 in
+      let p = 1.0 /. float_of_int n in
+      if perform (Toss p) then x else uniform xs
+;;
+
+(* Handler, ki dejansko naključno izbira [true] in [false].
+   Uporablja vgrajeno operacijo [RandomFloat x]. *)
+let random_value = handler
+  | effect (Toss p) k ->
+    let toss = perform (RandomFloat 1.0) < p in
+    continue k toss
+;;
+
+(** Vržemo dve kocki in seštejemo rezultata. *)
+let primer1 () =
+with random_value handle
+  let x = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  let y = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  x +. y
+;;
+
+(* Toss, ki vedno vrača true. *)
+let primer1' () =
+  handle
+    let x = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+    let y = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+    x +. y
+  with
+  | effect (Toss p) k -> continue k true
+
+
+(* Prestreznik, ki izračuna pričakovano vrednost (matematično upanje)
+   danega programa. *)
+let expectation = handler
+  | v -> v
+  | effect (Toss p) k ->
+     let x = continue k true in
+     let y = continute k false in
+     p *. x +. (1.0 -. p) *. y
+;;
+
+(** Izračunaj pričakovano vrednost vsote dveh kock *)
+let primer2 () =
+with expectation handle
+  let x = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  let y = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  x +. y
+;;
+
+let primer2' () =
+with expectation handle
+  let x = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  let y = uniform [1.; 2.; 3.; 4.; 5.; 6.] in
+  x *. y +. y +. 42.0
+;;
+
+(* Pomožna funkcija, ki sestavi dve porazdelitvi *)
+let combine p dist1 dist2 =
+  let scale p dist = map (fun (x, q) -> (x, p *. q)) dist in
+  let rec add (x, p) = function
+    | [] -> [(x, p)]
+    | (y, q) :: dist ->
+      if x = y then (x, p +. q) :: dist else (y, q) :: add (x, p) dist
+  in
+  let dist1 = scale p dist1 in
+  let dist2 = scale (1.0 -. p) dist2 in
+  fold_right add dist1 dist2
+;;
+
+(* Prestreznik, ki izračuna porazdelitev rezultatov *)
+let distribution = handler
+  | v -> [(v, 1.0)]
+  | effect (Toss p) k -> combine p (continue k true) (continue k false)
+;;
+
+(* Izračunaj porazdelitev vrednsti vsote dveh kock *)
+let primer3 () =
+with distribution handle
+  let x = uniform [1; 2; 3; 4; 5; 6] in
+  let y = uniform [1; 2; 3; 4; 5; 6] in
+  x + y
+;;
+
+let primer4 () =
+with distribution handle
+  if perform (Toss 0.5) then
+    let x = uniform [1; 2; 3; 4; 5; 6] in
+    let y = uniform [1; 2; 3; 4; 5; 6] in
+    x + y
+  else
+    let x = uniform [1; 2; 3; 4] in
+    let y = uniform [1; 2; 3; 4] in
+    let z = uniform [1; 2; 3; 4] in
+    x * y * z
+;;
+
+let primer4' () =
+with expectation handle
+  if perform (Toss 0.5) then
+    let x = uniform [1; 2; 3; 4; 5; 6] in
+    let y = uniform [1; 2; 3; 4; 5; 6] in
+    float_of_int (x + y)
+  else
+    let x = uniform [1; 2; 3; 4] in
+    let y = uniform [1; 2; 3; 4] in
+    let z = uniform [1; 2; 3; 4] in
+    float_of_int (x * y * z)
+;;

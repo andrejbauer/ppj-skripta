@@ -1,0 +1,29 @@
+effect Out : string -> unit
+
+let outHandler =
+  handler
+  | x -> (x, [])
+  | effect (Out msg) k ->
+      let (x, msgs) = continue k () in
+      (x, msg :: msgs)
+
+effect In : unit -> string
+
+let inHandler lst0 =
+  handler
+  | x -> (fun lst -> x)
+  | effect (In ()) k ->
+    (fun lst ->
+     match lst with
+     | [] -> failwith "Zmanjkalo je inputa"
+     | msg :: msgs -> (continue k msg) msgs)
+  | finally f -> f lst0
+
+let primer () =
+  with outHandler handle
+    with inHandler ["Timotej"; "Lazar"; "banana"; "jabolko"] handle
+      perform (Out "Kako ti je ime? ") ;
+      let ime = perform (In ()) in
+      perform (Out "Kako se pises? ") ;
+      let priimek = perform (In ()) in
+      perform (Out (ime ^ " " ^ priimek ^ " je ena brihtna buca."))
