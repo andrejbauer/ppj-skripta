@@ -83,12 +83,12 @@ tipa `α → β`.«
 Poglejmo si postopek še enkrat, tokrat zapisan z λ-računom:
 
 1. Prvotna definicija `f` se glasi:     `f n = if n = 0 then 1 else n * f (n - 1)`
-2. Zapišemo s pomočjo λ-abstrackije:  `f = λ n . if n = 0 then 1 else n * f (n - 1)`
+2. Zapišemo s pomočjo λ-abstrakcije:  `f = λ n . if n = 0 then 1 else n * f (n - 1)`
 3. Ločimo rekurzijo in telo funkcije: `f = t f` kjer je `t = (λ g n . if n = 0 then 1 else n * g (n - 1))`
 4. S pomočjo `rek` definiramo `f`:        `f = rek t`
 
 Kadar imamo preslikavo $h$ in točko $x$, ki zadošča enačbi $x = h(x)$, pravimo, da je $x$ **negibna
-točka** preslikave $h$. V numeričnih metodah je eden od osnovih postopkov reševanja enačb ta,
+točka** preslikave $h$. V numeričnih metodah je eden od osnovnih postopkov reševanja enačb ta,
 da enačbo zapišemo v obliki $x = h (x)$ in nato iščemo njeno rešitev kot zaporedje približkov
 
 $$
@@ -188,7 +188,7 @@ saj velja
 
 Tudi **iteracija** je negibna točka!
 
-*Opomba:* zanko `while` lahko na zgornji način »odvijamo v nedolged«:
+*Opomba:* zanko `while` lahko na zgornji način »odvijamo v nedogled«:
 
 Faza 0:
 
@@ -293,10 +293,10 @@ type seznam =
   | Cons of int * seznam
 ```
 
-Spet imamo opravka z rekuzijo. Tipi, ki se sklicujejo sami nase v svoji definiciji, se
+Spet imamo opravka z rekurzijo. Tipi, ki se sklicujejo sami nase v svoji definiciji, se
 imenujejo **rekurzivni tipi**.
 
-In spet vidimo, da je rekuzija negibna točka. Podatkovni tipi `seznam` je negibna točka za
+In spet vidimo, da je rekurzija negibna točka. Podatkovni tipi `seznam` je negibna točka za
 preslikavo `T`, ki slika tipe v tipe:
 
 ```none
@@ -349,7 +349,7 @@ Definicija naravnega števila:
 * `0` je naravno število
 * če je `n` naravno število, je tudi `n⁺` naravno število (ki mu rečemo »naslednik `n`«)
 
-Deficija podatkovnega tipa:
+Definicija podatkovnega tipa:
 
 ```ocaml
 type stevilo = Nic | Naslednik of stevilo
@@ -459,7 +459,7 @@ Sestavite funkcije za iskanje, vstavljanje in brisanje elementov v iskalnem drev
 ## Koinduktivni tipi
 
 Poznamo še en pomembno vrsto rekurzivnih tipov, to so **koinduktivni tipi**. Pojavljajo se v
-računskih postopkih, ki so po svoji naravi lahko neskonči.
+računskih postopkih, ki so po svoji naravi lahko neskončni.
 
 Tipičen primer koinduktivnega tipa je **komunikacijski tok podatkov:**
 
@@ -473,7 +473,7 @@ uporabnikom ipd.
 Če preberemo zgornjo definicijo kot induktivni tip, se ne razlikuje od
 definicije seznamov. To bi pomenilo, da bi moral biti komunikacijski tok vedno
 končen, kar je nespametna predpostavka. V praksi seveda komunikacija ni
-*dejansko* neksnončna, a je *potencialno* neskončna, kar pomeni, da lahko dva
+*dejansko* neskončna, a je *potencialno* neskončna, kar pomeni, da lahko dva
 procesa komunicirata v nedogled in brez vnaprej postavljene omejitve.
 
 **Koinduktivni tipi** so rekurzivni tipi, ki dovoljujejo tudi neskončne vrednosti.
@@ -523,7 +523,7 @@ V Haskellu podatkovne tipe pišemo nekoliko drugače:
 
 * imena tipov se piše z velikimi začetnicami: `Bool`, `Integer`, ...
 * produkt tipov `a` in `b` zapišemo `(a,b)`, se pravi tako kot urejene pare. Na
-  primer, elmenti tipa `(Bool, Int)` so `(False, 0)`, `(False, 42)`, `(True,
+  primer, elementi tipa `(Bool, Int)` so `(False, 0)`, `(False, 42)`, `(True,
   23)` itd.
 * enotski tip pišemo `()`, torej tako kot njegovo edino vrednost.
 * zapis `e :: t` pomeni »`e` ima tip `t`«, zapis `e : t` pa seznam z glavo `e`

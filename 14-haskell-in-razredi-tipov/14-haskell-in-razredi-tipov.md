@@ -40,7 +40,7 @@ Vrednost `t` tipa `A` zapišemo
 
 ```haskell
 t :: A
-t = defincija-t
+t = definicija-t
 ```
 
 Pozor: zapis `t :: A` pomeni »`t` ima tipa `A`« zapis `x :: ℓ` pa pomeni seznam z glavo `x` in repom `ℓ` (ravno obratno kot v OCamlu).

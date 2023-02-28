@@ -10,7 +10,7 @@ objekt skliče sam nase.
 
 ### Objekti v OCamlu
 
-V OCamlu in nekaterih drugih lahko objekte naredimo nesporedno
+V OCamlu in nekaterih drugih lahko objekte naredimo neposredno
 
 ```ocaml
 object (this)
@@ -22,7 +22,7 @@ end
 ```
 
 Funkcionalnost objekta (njegove metode) opišemo s tipom zapisa. S podtipi lahko
-objekte vmeščamo v hierarhijo.
+objekte umeščamo v hierarhijo.
 
 Več primerov bomo obdelali na vajah, poglejmo primere:
 
@@ -39,7 +39,7 @@ v dokumentaciji [Objects in OCaml](https://v2.ocaml.org/manual/objectexamples.ht
 ## Objektno programiranje z razredi
 
 Mnogi objektni jeziki pa poznajo mehanizem **razredov** (Java, C++, C#).
-Pogljemo še enkrat primer točke:
+Poglejmo še enkrat primer točke:
 
 ```ocaml
 let p =
@@ -58,7 +58,7 @@ let p =
 ```
 
 Zgornja koda naredi le *eno* točko. Če želimo narediti več točk, lahko napišemo
-funkcijo, ki sprejme začetno pozicijo in vrne objekt. Lahko pa defiramo razred, na
+funkcijo, ki sprejme začetno pozicijo in vrne objekt. Lahko pa definiramo razred, na
 primer v Javi:
 
 ```java
@@ -117,18 +117,18 @@ mehanizme:
 * abstrakne metode in razredi
 * ⋯
 
-Vsi ti mehanizmi lahko delo z razedi naredijo precej zapleteno. Verjetno je eden
+Vsi ti mehanizmi lahko delo z razredi naredijo precej zapleteno. Verjetno je eden
 od razlogov za kompleksnost ta, da programski jeziki kot so Java, C# in C++
 *vse* mehanizme za organizacijo kode izražajo s pomočjo razredov. Tako Java ne
-pozna modulov in funktorjev, algebrajskih podatkovnih tipv, ali parametričnega
+pozna modulov in funktorjev, algebrajskih podatkovnih tipov, ali parametričnega
 polimorfizma – vse to nadomešča z razredi.
 
 Naredimo kratek pregled osnovnih mehanizmov objektnega programiranja z razredi
 in jih primerjajmo s koncepti, ki smo jih spoznali do sedaj.
 
-### Enakpsulacija
+### Enkapsulacija
 
-Enakpsulacija je skrivanje stanja objekta, se pravi, da naredimo atribute (lahko
+Enkapsulacija je skrivanje stanja objekta, se pravi, da naredimo atribute (lahko
 pa tudi metode) nedostopne zunaj razreda. V Javi to naredimo z določilom
 `private`.
 
@@ -159,7 +159,7 @@ public class A extends B { ... }
 To pomeni, da ima `A` vse, kar ima `B` (torej atribute in metode).
 
 OCaml dopušča [večkratno dedovanje](https://v2.ocaml.org/manual/objectexamples.html#s%3Amultiple-inheritance),
-ko en razred deduje hkrati od večih nadrazredov.
+ko en razred deduje hkrati od več nadrazredov.
 
 ### Vmesniki
 
@@ -170,7 +170,7 @@ definiramo z
 interface I { ... }
 ```
 
-in od razreda zahtevamo, da zadosti vmesniku `I` (lahko tudi večim)
+in od razreda zahtevamo, da zadosti vmesniku `I` (lahko tudi več)
 
 ```
 class C implements I { ... }
@@ -183,7 +183,7 @@ O vmesnikih smo že govorili.
 Razred lahko nekatere od podedovanih metod *prekrije* z lastnimi definicijami.
 
 Tu se pojavi vprašanje, kako dostopati do prekritih metod, saj jih včasih
-potrebujemo. V Javi to naredimo s `super.imeMetode(⋯)`. Podobno vprašnje se
+potrebujemo. V Javi to naredimo s `super.imeMetode(⋯)`. Podobno vprašanje se
 pojavi pri konstruktorjih: kako iz konstruktorja pokličemo konstruktor iz
 nadrazreda?
 

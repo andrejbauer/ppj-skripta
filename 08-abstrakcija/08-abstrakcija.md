@@ -2,7 +2,7 @@
 
 ## Specifikacija & implementacija
 
-**Specifikacija (angl. specification)** `S` je *zaheva*, ki opisuje, kakšen
+**Specifikacija (angl. specification)** `S` je *zahteva*, ki opisuje, kakšen
 izdelek želimo.
 
 **Implementacija (angl. implementation)** `I` je izdelek. Implementacija `I`
@@ -24,7 +24,7 @@ primer vektorske prostore, grupe, monoide, kolobarje, Boolove algebre, ...
 Definicija takih struktur poteka v dveh korakih:
 
 * **signatura** pove, kakšne množice, konstante in operacije imamo
-* **aksiomi** povedo, kakšnim zakonam morajo zadoščati operacije
+* **aksiomi** povedo, kakšnim zakonom morajo zadoščati operacije
 
 :::{admonition} Primer
 Matematično strukturo **grupa** opišemo takole:
@@ -140,7 +140,7 @@ V Javi implementiramo vmesnik `I` tako, da definiramo razred `C`, ki mu zadošč
        ...
     }
 
-Razred lahko hkrati zadošča večim vmesnikom. (Opomba: podrazredi so mehanizem, ki
+Razred lahko hkrati zadošča več vmesnikom. (Opomba: podrazredi so mehanizem, ki
 se *ne* uporablja za specifikacijo.)
 
 ### Implementacija v OCamlu
@@ -197,7 +197,7 @@ implementacijo, ki bo preko ustreznega *vmesnika* dostopala do grafične kartice
 Proizvajalci grafičnih kartic bodo implementirali *gonilnike*, ki bodo zadoščali
 temu vmesniku.
 
-### Generično progarmiranje v Javi
+### Generično programiranje v Javi
 
 Java podpira generično programiranje. Ko definiramo razred, je ta lahko odvisen
 od kakega drugega razreda:
@@ -213,7 +213,7 @@ V OCamlu je generično programiranje omogočeno s **funktorji (angl. functor)**
 skupnega s funktorji v OCamlu).
 
 Funktor je preslikava iz struktur v strukture in je bolj splošen kot generični
-razredi v Javi (ker lahko struktura vsebuje podstrukture in definicije večih
+razredi v Javi (ker lahko struktura vsebuje podstrukture in definicije več
 tipov, razred pa ne more vsebovati definicij podrazredov).
 
 Funktor `F`, ki sprejme strukturo `A`, ki zadošča signaturi `S`, in vrne

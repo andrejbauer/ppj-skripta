@@ -6,13 +6,13 @@ V prvi lekciji bomo spoznali osnovni ustroj programskega jezika na primeru aritm
 
 Programski jeziki so eno od glavnih orodij v računalništvu.
 Poznamo jih na tisoče, a samo peščica je takih, ki jih uporablja veliko število programerjev.
-Pri tem predmetu se bomo učili **osnovne principe**, ki so podlaga za načttovanje, implementacijo in delovanje programskih jezikov. S tem nimamo v mislih prevajalnikov, strojne kode ipd. (to snov pokrivajo drugi predmeti), ampak **matematične koncepte**, ki jih srečamo v programskih jezikih.
+Pri tem predmetu se bomo učili **osnovne principe**, ki so podlaga za načrtovanje, implementacijo in delovanje programskih jezikov. S tem nimamo v mislih prevajalnikov, strojne kode ipd. (to snov pokrivajo drugi predmeti), ampak **matematične koncepte**, ki jih srečamo v programskih jezikih.
 
 Osnovno vodilo načrtovanja programskega jezika je:
 
 :::{important}
 Programski jezik je orodje, ki programerju omogoča, da na čim bolj neposreden
-način poda natančna navodila, kako naj računalik opravi neko nalogo.
+način poda natančna navodila, kako naj računalnik opravi neko nalogo.
 :::
 
 Človek bi si mislil, da bi do zdaj že lahko iznašli »najboljši programski jezik«, a v resnici jih je na tisoče. Zakaj?
@@ -33,7 +33,7 @@ Programski jezik je zasnovan kot sistem, ki ima naslednje komponente:
 
 * **sintaksa:** pravila, kako se piše kodo, na primer: »vsak oklepaj mora imeti svoj zaklepaj«
 
-* **statična semantika:** preverjanje, ali je program smiselen, na primer: »spremenljivka `i` ni
+* **statična semantika:** preverjanje, ali je program smiseln, na primer: »spremenljivka `i` ni
   nikjer deklarirana«
 
 * **dinamična semantika:** kako se program izvede
@@ -52,7 +52,7 @@ Pomemben del programskega jezika so tudi metode za **analizo programov**, s kate
 
 ## Sintaksa aritmetičnih izrazov
 
-Začneli bomo z zelo preprostim programskim jezikom, ki je tako preprost, da ga v praksi sploh ne obravnavamo kot samostojen programski jezik. Obravnavajmo **celoštevilske aritmetične izraze**: cela števila, operaciji `*` in `+` tera spremenljivkami. To bi lahko bil majhen košček resnega programskega jezika.
+Začeli bomo z zelo preprostim programskim jezikom, ki je tako preprost, da ga v praksi sploh ne obravnavamo kot samostojen programski jezik. Obravnavajmo **celoštevilske aritmetične izraze**: cela števila, operaciji `*` in `+` ter spremenljivkami. To bi lahko bil majhen košček resnega programskega jezika.
 
 Sintaksa pove, kakšne izraze in programe lahko pišemo v programskem jeziku.
 
@@ -280,7 +280,7 @@ pod črto pa je to del sintakse aritmetičnih izrazov, se pravi `+` je samo simb
 
 ### Semantika malih korakov
 
-Semantika velikih korako deluje hierarhično: najprej izračunamo vrednosti podizrazov in nato vrednost celotnega izraza. V šoli pa otroke učimo, da se računa »po korakih«, se pravi, da opravimo eno operacijo naenkrat. Tak postopek se imenuje **semantika malih korakov**. Podamo jo z relacijo (pozor, puščico `↪` smo spremenili v puščico `↦`)
+Semantika velikih korakov deluje hierarhično: najprej izračunamo vrednosti podizrazov in nato vrednost celotnega izraza. V šoli pa otroke učimo, da se računa »po korakih«, se pravi, da opravimo eno operacijo naenkrat. Tak postopek se imenuje **semantika malih korakov**. Podamo jo z relacijo (pozor, puščico `↪` smo spremenili v puščico `↦`)
 
 ```
 η | e ↦ e'

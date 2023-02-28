@@ -12,8 +12,8 @@ Haskell je čist programski jezik in vse računske učinke predstavi z monadami.
 * **izjeme**: program lahko nenadoma prekine izvajanje in javi napako ali vrže izjemo (`throw`, `catch`)
 * **vhod/izhod**: program lahko komunicira z zunanjim svetom preko vhodnega in izhodnega kanala (`input`, `print`)
 * **stanje**: program ima trenutno stanje, ki se spreminja, ko program teče (`set`, `get`)
-* **nedeterminizem**: program lahko izbira med večimi možnostmi
-* **verjetnostno računanje**: program lahko izbira med večimi možnostmi z verjetnostno porazdelitvijo
+* **nedeterminizem**: program lahko izbira med več možnostmi
+* **verjetnostno računanje**: program lahko izbira med več možnostmi z verjetnostno porazdelitvijo
 * **timeout**: izvajanje se lahko prekine, če traja predolgo
 
 Poznamo pa še veliko drugih računskih učinkov.
@@ -80,15 +80,15 @@ Poleg tega lahko izračune **komponiramo**, podobno kot funkcije, da se zgodijo 
 V funkcijskem programiranju monada predstavlja enega ali kombinacijo večih učinkov. Njene sestavine so:
 
 1. Preslikava `T : Type → Type`, ki vsak tip `a` preslika v `T a`. Lahko si mislimo, da so elementi `T a` izračuni, ki
-   izračunajo vrednost tipa `a` in sprožajo učinke, ki jih zakema `T`. To *ne* pomeni, da je element `c : T a` neke
-   vrste »vrednost tipa `a`, zapakirna v računske učinke `T`.
+   izračunajo vrednost tipa `a` in sprožajo učinke, ki jih zajema `T`. To *ne* pomeni, da je element `c : T a` neke
+   vrste »vrednost tipa `a`, zapakiran v računske učinke `T`.
 2. Preslikava `return : a → T a`, ki vrednost tipa `a` predstavi kot čisti izračun.
 3. Operacija `>>= : T a → (a → T b) → T b`, ki kombinira izračune. Če je `c` izračun, ki izračuna vrednost tipa `a` in
    je `f : a → T b` funkcija, ki vrednosti tipa `a` preslika v izračune `T b`, potem je `e >>= f` izračun, ki ju združi.
 
 :::{admonition} Primer
 
-Učinski računek **nedeterminizem** dobimo v primeru, da lahko program vrne več rezultatov, oziroma da v teku računanja izbira med večimi možnostmi. Ustrezna monada je:
+Učinski računek **nedeterminizem** dobimo v primeru, da lahko program vrne več rezultatov, oziroma da v teku računanja izbira med več možnostmi. Ustrezna monada je:
 
 1. `T a = [a]`, se pravi, izračun vrednosti tipa `a` predstavimo s seznamov vseh rezultatov, ki bi jih lahko dobili.
 2. `return v = [v]`, ker je čista vrednost `v` enakovredna seznamu `[v]`, torej izračunu, ki vrne natančno `v`.
@@ -102,7 +102,7 @@ Monada mora zadoščati se naslednjim zakonom:
 2. `(c >>= return) = c`
 3. `(c >>= f >>= g) = c >>= (\x -> f x >>= g)`
 
-Zakaj ravno ti zakoni? Poleg globljh matematičnih razlogov, se izkaže, da jim razni računski učinki zadoščajo.
+Zakaj ravno ti zakoni? Poleg globljih matematičnih razlogov, se izkaže, da jim razni računski učinki zadoščajo.
 
 Več o monadah lahko preberete na strani [Monad](https://wiki.haskell.org/Monad) v Haskell wiki.
 
