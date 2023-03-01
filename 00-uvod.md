@@ -22,6 +22,14 @@ To so zapiski predavanj pri predmetu <a href="https://ucilnica.fri.uni-lj.si/cou
 * [Zapiski s predavanj](https://www.andrej.com/zapiski/ISRM-PPJ-2023/)
 * **Discord server**: na spletni učilnici najdete povezavo.
 
+:::{important} 
+
+Ti zapiski so na voljo na GitHub repozitoriju [`ppj-skripa`](https://github.com/andrejbauer/ppj-skripta). Popravki so dobrodošli, prosim naredite [pull request](https://github.com/andrejbauer/ppj-skripta/pulls).
+
+Zahvaljujem se študentom, ki so poslali popravke: `samolego`, `LongarMD`.
+
+:::
+
 
 **Dodatna gradivo:**
 
