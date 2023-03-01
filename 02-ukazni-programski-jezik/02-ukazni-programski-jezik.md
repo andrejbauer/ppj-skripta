@@ -3,10 +3,10 @@
 Spoznali smo aritmetične izraze s spremenljivkami. Spremenljivke smo obravnavali
 po mačehovsko, saj se jim ni dalo nastavljati vrednosti in ni bilo možno definirati novih spremenljivk.
 
-V tej lekciji bomo spoznali ukazni programski jezik, ki ima prave spremnljivke,
+V tej lekciji bomo spoznali ukazni programski jezik, ki ima prave spremenljivke,
 pogojne stavke in zanko `while`.
 
-Po vrsti bomo obravnvali:
+Po vrsti bomo obravnavali:
 
 * sintakso jezika
 * operacijsko semantiko: kako se jezik izvaja
@@ -41,7 +41,7 @@ ukaze. Podajmo abstraktna sintaksa jezika:
    if ⟨boolov-izraz⟩ then ⟨ukaz⟩ else ⟨ukaz⟩ end
 ```
 
-Da bi iz zgornjih pravil dobili konkretno sintakso, moramo podati še informacijo o prioriteti in asociativnosti operatrojev.
+Da bi iz zgornjih pravil dobili konkretno sintakso, moramo podati še informacijo o prioriteti in asociativnosti operatorjev.
 Naštejmo operatorje od nižje do višje prioritete:
 
 * `;` (levo)
@@ -84,7 +84,7 @@ predstavlja ta program).
 
 :::
 
-Tu in v nadaljevanju se ne bomo preveč posvečali podrobnostim konkretne sintakše.
+Tu in v nadaljevanju se ne bomo preveč posvečali podrobnostim konkretne sintakse.
 To *ne* pomeni, da je konkretna sintaksa nepomembna v praksi; navsezadnje so se
 pripravljeni programerji skregati že zaradi zamikanja kode. V zvezi s tem
 omenimo [Wadlerjev zakon](https://wiki.haskell.org/Wadler's_Law).
@@ -200,10 +200,10 @@ Dodajte pravila za `=`, s katerim primerjamo dve celi števili in dobimo boolovo
 
 
 :::{admonition} Vaja
-Ko računamo boolove vrednosti, imamo pri račuanju `b₁ and b₂` izbiro:
+Ko računamo boolove vrednosti, imamo pri računanju `b₁ and b₂` izbiro:
 
-1. Izračuamo `b₁` *in* `b₂` in nato vrednost `b₁ and b₂`
-2. Najprej izračunamo `b₁`. Če dobimo `false`, je vrednnost `b₁ and b₂` enaka `false`
+1. Izračunamo `b₁` *in* `b₂` in nato vrednost `b₁ and b₂`
+2. Najprej izračunamo `b₁`. Če dobimo `false`, je vrednost `b₁ and b₂` enaka `false`
    ne glede na `b₂`, zato ga ne izračunamo.
 
 Zgoraj smo uporabili drugo možnost. (Kako se to razbere iz pravil?) Podajte še pravila za prvo možnost.
@@ -340,7 +340,7 @@ Pomen zanke `while` ni očiten in ga bomo na tem mestu preskočili. Bi znali pre
 Programa sta ekvivalenta, če se v vseh kontekstih obnašata enako. To pomeni, da lahko
 vedno enega zamenjamo z drugim.
 
-Natančneje, **evaluacijski kontekst** `C[ ]` je del programske kode `C`, ki ima »luknjo« `[ ]`.
+Natančneje, **evalvacijski kontekst** `C[ ]` je del programske kode `C`, ki ima »luknjo« `[ ]`.
 Programska koda `A` je **ekvivalentna** programski kodi `B`, če za *vse* kontekste `C[ ]` velja,
 da imata `C[A]` in `C[B]` enak rezultata in enako spreminjata okolje.
 
@@ -435,7 +435,7 @@ Ogledamo si sestavne dele implementacije:
 * prevajalnik iz `comm` v strojni jezik je v `compile.ml`
 * glavni program je v `comm.ml`
 
-Prevajalnik neposredno pretvori program v strojno kodo, ker je `comm` zelo preprost jezik. Prevajanje pravih programskih jezikov poteka preko večih stopenj, z vmesnimi jeziki. Vsak naslednji jezik je nekoliko bolj preprost in bližje strojni kodi.
+Prevajalnik neposredno pretvori program v strojno kodo, ker je `comm` zelo preprost jezik. Prevajanje pravih programskih jezikov poteka preko več stopenj, z vmesnimi jeziki. Vsak naslednji jezik je nekoliko bolj preprost in bližje strojni kodi.
 
 ### Primeri
 
