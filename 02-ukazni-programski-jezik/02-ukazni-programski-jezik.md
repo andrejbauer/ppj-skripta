@@ -289,7 +289,7 @@ s tem povemo, da je pomen *niza znakov* `"42"` število, ki mu po slovensko reč
 To pomeni, da je pomen *izraza* oblike `e₁ + e₂` (plus v oklepajih) enak *vsoti* (plus
 kot matematična operacija) pomenov podizrazov `e₁` in `e₂`.
 
-### Pomen aritmetičnih in boolvih izrazov
+### Pomen aritmetičnih in boolovih izrazov
 
 Če smo povsem natančni, je pomen aritmetičnega izraza `e` neka preslikava `⟦ e ⟧ : Env → ℤ`, saj se lahko v izrazu `e` pojavljajo spremenljivke.
 

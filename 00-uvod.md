@@ -11,7 +11,7 @@ To so zapiski predavanj pri predmetu <a href="https://ucilnica.fri.uni-lj.si/cou
 * **Urnik:**
 
    * **predavanja:** sreda od 8h do 11h, učilnica P01.
-   * **vaje:** po skupinah, glej <a href="https://urnik.fri.uni-lj.si/timetable/fri-2021_2022-letni-1-1/authenticated_allocations?subject=63220">urnik</a>
+   * **vaje:** po skupinah, glej <a href="https://urnik.fri.uni-lj.si/timetable/fri-2022_2023-letni-1-10/allocations?subject=63220">urnik</a>
 
 ## Gradivo
 
