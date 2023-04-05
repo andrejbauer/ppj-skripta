@@ -412,10 +412,17 @@ val p : string = "Cankar"
 val i : string = "Neza"
 ```
 
-Polj, ki nas ne zanimajo, v vzorcu ni treba omenjati:
+Polj, ki nas ne zanimajo, v vzorcu ni treba omenjati, lahko le uporabimo `_`:
 
 ```ocaml
-# let {ime = i} = mati ;;
+# let {ime = i; priimek = _} = mati ;;
+val i : string = "Neza"
+```
+
+Če ignoriramo več polj, lahko za vse skupaj uporabimo `_`:
+
+```ocaml
+# let {ime = i; _} = mati ;;
 val i : string = "Neza"
 ```
 
@@ -434,7 +441,7 @@ Za take primere OCaml podpira [sintaktični sladkorček](https://en.wikipedia.or
 val ime : string = "Neza"
 val priimek : string = "Cankar"
 
-# let {ime} = mati ;;
+# let {ime; _} = mati ;;
 val ime : string = "Neza"
 ```
 
@@ -669,6 +676,23 @@ Definicija funkcije je rekurzivna, če to naznanimo `let rec`:
 val fact : int -> int = <fun>
 # fact 10 ;;
 - : int = 3628800
+```
+
+V telesu funkcije smo uporabili pogojni stavek, a se v OCamlu bolje obnese `match`:
+
+```ocaml
+let rec fact n =
+  match n with
+  | 0 -> 1
+  | n -> n * fact (n - 1)
+```
+
+Sintagma `fun x -> match x with p₁ -> e₁ | ...` je pogosta in ju lahko nadomestimo s `function p₁ -> e₁ | ..`:
+
+```ocaml
+let rec fact = function
+  | 0 -> 1
+  | n -> n * fact (n - 1)
 ```
 
 Kot vidimo, OCaml sam izračuna tip funkcije. Pravzaprav vedno sam izračuna vse tipe.

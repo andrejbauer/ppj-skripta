@@ -107,15 +107,15 @@ različno od `a ↦ a + y`, kar preberemo »prištej `y`«.
 Operacija, ki v izrazu prosto spremenljivko zamenja z izrazom, se imenuje **zamenjava** ali **substitucija**.
 Zapišemo jo
 
-    e [x/e']
+    e [e'/x]
 
 in preberemo »v `e` zamenjaj `x` z `e'`«.
 
 Primeri:
 
-* `(x² + 3·x + 7)[e/3]` je enako `3² + 3·3 + 7`,
-* `f(a + b)[a/(b + 1)]` je enako `f((b + 1) + b)`,
-* `f(a + b)[f/(x ↦ x²)]` je enako `(x ↦ x²)((b + 1) + b)`.
+* `(x² + 3·x + 7)[3/x]` je enako `3² + 3·3 + 7`,
+* `f(a + b)[(b + 1)/a]` je enako `f((b + 1) + b)`,
+* `f(a + b)[(x ↦ x²)/f]` je enako `(x ↦ x²)((b + 1) + b)`.
 
 Ko napravimo substitucijo, moramo paziti, da se prosta spremenljivka ne »ujame«. S tem želimo povedati, da bi prosto
 spremenljivko vstavili v podizraz, v katerem je že veljavna enako poimenovana vezana spremenljivka, s čimer bi prišlo do
@@ -141,7 +141,7 @@ $$\int_0^1 t^2 + x + a \, d t.$$
 Vsi znamo računati s funkcijskimi predpisi in aplikacijami, čeprav se tega morda ne
 zavedamo. Računsko pravilo, ki se iz zgodovinski razlogov imenuje **β-redukcija**, pravi
 
-    (x ↦ e₁)(e₂)  =  e₁[x/e₂]
+    (x ↦ e₁)(e₂)  =  e₁[e₂/x]
 
 in ga preberemo:
 
