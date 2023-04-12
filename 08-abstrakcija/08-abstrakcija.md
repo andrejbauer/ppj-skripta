@@ -19,12 +19,14 @@ Brez specifikacije ne vemo, kaj je treba naprogramirati. Danes si bomo ogledali,
 kako v programskih jezikih poskrbimo za zapis specifikacij in kako programski
 jezik preveri, ali dana koda (implementacija) zadošča dani specifikaciji.
 
+### Signature in aksiomi
+
 Omenimo še povezavo z algebro. V algebri poznamo *algebraične strukture*, na
 primer vektorske prostore, grupe, monoide, kolobarje, Boolove algebre, ...
 Definicija takih struktur poteka v dveh korakih:
 
 * **signatura** pove, kakšne množice, konstante in operacije imamo
-* **aksiomi** povedo, kakšnim zakonam morajo zadoščati operacije
+* **aksiomi** povedo, kakšnim zakonom morajo zadoščati operacije
 
 :::{admonition} Primer
 Matematično strukturo **grupa** opišemo takole:
@@ -78,25 +80,31 @@ Torej imamo (vsaj) dve uporabi specifikacij:
 
 V Javi je specifikacija `S` podana z vmesnikom
 
-    public interface S {
-       ...
-    }
+```java
+public interface S {
+   ...
+}
+```
 
 v katerem lahko naštejemo metode. Tipe, ki nastopajo v specifikaciji, podamo kot
 generične razrede. Na primer, vmesnik za grupo bi zapisali takole:
 
-    public interface Group<G> {
-        public G getUnit();
-        public G multiply(G x, G y);
-        public G inverse(G x);
-    }
+```java
+public interface Group<G> {
+    public G getUnit();
+    public G multiply(G x, G y);
+    public G inverse(G x);
+}
+```
 
 Vmesnik za usmerjeni graf:
 
-    public interface Graph<V, E> {
-        public V src(E e);
-        public V trg(E e);
-    }
+```java
+public interface Graph<V, E> {
+   public V src(E e);
+   public V trg(E e);
+}
+```
 
 Seveda v praksi nihče ne piše takih vmesnikov, tu samo razmišljamo o zvezi med
 matematičnimi signaturami in vmesniki v programskih jezikih. Kasneje bomo videli
@@ -108,24 +116,27 @@ bolj uporabne vmesnike, ki opisujejo abstraktne podatkovne strukture.
 V OCamlu lahko podamo poljubno signaturo (tipe in vrednost), ne moremo pa zapisati
 aksiomov, ki jim zadoščajo. Takole zapišemo signaturo za grupo:
 
-    module type GROUP =
-    sig
-      type g
-      val mul : g * g -> g
-      val inv : g -> g
-      val e : g
-    end
+```ocaml
+module type GROUP =
+sig
+  type g
+  val mul : g * g -> g
+  val inv : g -> g
+  val e : g
+end
+```
 
 In takole za usmerjeni graf:
 
-    module type DIRECTED_GRAPH =
-    sig
-      type v
-      type e
-      val src : e -> v
-      val trg : e -> v
-    end
-
+```
+module type DIRECTED_GRAPH =
+sig
+  type v
+  type e
+  val src : e -> v
+  val trg : e -> v
+end
+```
 
 ## Implementacija
 
@@ -136,11 +147,13 @@ Zanimivo pa je vprašanje, kako so posamezne enote implementacije organizirane v
 
 V Javi implementiramo vmesnik `I` tako, da definiramo razred `C`, ki mu zadošča:
 
-    public class C implements I {
-       ...
-    }
+```
+public class C implements I {
+   ...
+}
+```
 
-Razred lahko hkrati zadošča večim vmesnikom. (Opomba: podrazredi so mehanizem, ki
+Razred lahko hkrati zadošča več vmesnikom. (Opomba: podrazredi so mehanizem, ki
 se *ne* uporablja za specifikacijo.)
 
 ### Implementacija v OCamlu
@@ -197,14 +210,16 @@ implementacijo, ki bo preko ustreznega *vmesnika* dostopala do grafične kartice
 Proizvajalci grafičnih kartic bodo implementirali *gonilnike*, ki bodo zadoščali
 temu vmesniku.
 
-### Generično progarmiranje v Javi
+### Generično programiranje v Javi
 
 Java podpira generično programiranje. Ko definiramo razred, je ta lahko odvisen
 od kakega drugega razreda:
 
-    public class Knjiznica3D<Driver extends GraphicsDriver> {
-      ...
-    }
+```java
+public class Knjiznica3D<Driver extends GraphicsDriver> {
+  ...
+}
+```
 
 ### Generično programiranje v OCamlu
 
@@ -213,16 +228,18 @@ V OCamlu je generično programiranje omogočeno s **funktorji (angl. functor)**
 skupnega s funktorji v OCamlu).
 
 Funktor je preslikava iz struktur v strukture in je bolj splošen kot generični
-razredi v Javi (ker lahko struktura vsebuje podstrukture in definicije večih
+razredi v Javi (ker lahko struktura vsebuje podstrukture in definicije več
 tipov, razred pa ne more vsebovati definicij podrazredov).
 
 Funktor `F`, ki sprejme strukturo `A`, ki zadošča signaturi `S`, in vrne
 strukturo `B` zapišemo takole:
 
-    module F(A : S) =
-    struct
-      ⟨definicija strukture B⟩
-    end
+```ocaml
+module F(A : S) =
+struct
+  ⟨definicija strukture B⟩
+end
+```
 
 Zgoraj smo videli primer preprostega funktorja `Cycle`, ki sprejme strukturo s številom `n` in vrne usmerjeni cikel na
 `n` vozliščih. Bolj uporaben primer sledi.
