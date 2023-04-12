@@ -3,7 +3,7 @@
 V logičnem programiranju je program spisek logičnih izjav, ki opisujejo rešitev
 (seveda morajo biti izjave izražene s Hornovimi formulami). V istem duhu bi
 lahko računanje s števili opisali z *enačbami* (in *neenačbami*) namesto z
-zaporedjem arimetičnih operacij in primerjav. Če bi prologu dodali algoritme za
+zaporedjem aritmetičnih operacij in primerjav. Če bi prologu dodali algoritme za
 reševanje sistemov enačb (in neenačb), bi lahko takšne opise uporabili za
 računanje z aritmetičnimi izrazi.
 
@@ -65,7 +65,7 @@ ERROR:    [7] <user>
 
 Napako se pojavi, ker `is` in `<` ne delujeta kot običajna predikata. V izrazu
 `X is E`, aritmetični izraz `E` ne sme vsebovati spremenljivk z neznano
-vredostjo. Na primer, če poskusimo izračunati `Y - Y`
+vrednostjo. Na primer, če poskusimo izračunati `Y - Y`
 
 ```prolog
 ?- Z is Y - Y.
@@ -269,7 +269,7 @@ X = 3,
 Y = 4.
 ```
 
-Pogljemo si primere, s katerimi bomo nabolje spoznali, kako deluje programiranje
+Poglejmo si primere, s katerimi bomo najbolje spoznali, kako deluje programiranje
 z omejitvami.
 
 :::{admonition} Primer
@@ -363,7 +363,7 @@ Pojasnimo vsako od zahtev:
 * `length(P, N)` pove, da je `P` seznam dolžine `N`,
 * `P ins 1..N` pove, da so vsi elementi seznama `P` števila med `1` in `N`
 * `all_distinct(P)` pove, da so vsi elementi seznama `P` med seboj različni.
-* `label(P)` je zahteva, da je treba našteti vse sesname `P`, ki zadoščajo navedenim trditvam.
+* `label(P)` je zahteva, da je treba našteti vse sezname `P`, ki zadoščajo navedenim trditvam.
 
 Poskusimo:
 
@@ -415,7 +415,7 @@ Načrt:
 5. Vsak stolpec je permutacija.
 6. Vsak podkvadrat 3 × 3 je permutacija.
 
-Vsakego od zgornjih omejitev zapišemo v prologu.
+Vsakega od zgornjih omejitev zapišemo v prologu.
 
 #### Vsak element `Rows` je dolžine 9
 

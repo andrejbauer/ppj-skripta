@@ -347,7 +347,7 @@ nenavadno sintakso:
 * namesto $A \land B$ pišemo `A, B`
 * namesto $A \lor B$ pišemo `A ; B`
 * namesto $A \Rightarrow B$ pišemo `B :- A` (pozor, zamenjal se je vrstni red, $B \Leftarrow A$!)
-* kvantifikatorjev $\forall$ in $\exists$ ne pišemo, ampak **kvantificirane spremenljivke pisemo z velikimi črkami**
+* kvantifikatorjev $\forall$ in $\exists$ ne pišemo, ampak **kvantificirane spremenljivke pišemo z velikimi črkami**
 * **konstante, predikate in funkcije pišemo z malimi črkami**.
 
 Na koncu vsake formule zapišemo piko.
@@ -359,7 +359,7 @@ za `sodo` zložimo skupaj, da se ne pritožuje):
 :language: prolog
 :::
 
-Datoteko naložimo v interkativno zanko. Ta nam omogoča, da vpišemo poizvedbo in dobimo odgovor:
+Datoteko naložimo v interaktivno zanko. Ta nam omogoča, da vpišemo poizvedbo in dobimo odgovor:
 
 ```prolog
 ?- liho(Z).
@@ -368,7 +368,7 @@ Z = succ(succ(succ(zero))) ;
 Z = succ(succ(succ(succ(succ(zero))))) .
 ```
 
-Ko nam prolog poda oddgovor, lahko z znakom `;` zahtevamo, da išče še naprej. Z znakom `.` zaključimo iskanje.
+Ko nam prolog poda odgovor, lahko z znakom `;` zahtevamo, da išče še naprej. Z znakom `.` zaključimo iskanje.
 
 :::{admonition} Naloga
 Ali se prolog res spusti v neskončno zanko, če zamenjamo vrsti red pravil za `sodo`?
@@ -506,7 +506,7 @@ smo jo zgoraj imenovali `join`). Preizkusimo:
 Z = [a, b, c, d, e, f].
 ```
 
-Lahko pa tudi vprašamo, kako razbiti seznam `[a,b,c,d,e,f]` na dva podeznama:
+Lahko pa tudi vprašamo, kako razbiti seznam `[a,b,c,d,e,f]` na dva podseznama:
 
 ```prolog
 ?- append(X, Y, [a,b,c,d,e,f]).

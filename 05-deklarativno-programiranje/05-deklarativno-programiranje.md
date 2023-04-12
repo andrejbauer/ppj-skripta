@@ -318,7 +318,7 @@ prazen, ampak ima en sam element, ki pa ga programer nikoli ne vidi (in ga tudi 
 Če namreč funkcija vrača v naprej predpisan element, potem vemo, kaj bo vrnila, in tega ni
 treba razlagati.
 
-Zapomnimo si torej, da funkcija, ki »ne vrne ničesar«v resnici vrne `()`. V OCaml se to
+Zapomnimo si torej, da funkcija, ki »ne vrne ničesar« v resnici vrne `()`. V OCaml se to
 dejansko vidi, v Javi in C pa ne.
 
 Kaj pa funkcija, ki »ne sprejme ničesar"? Če funkcija sprejme argumente `x`, `y` in `z`,
@@ -374,7 +374,7 @@ Težave z vrstnim redom izginejo, ker je v zapisu pomembno ime komponente in ne 
 - : oseba = {ime = "Mojca"; priimek = "Pokraculja"}
 ```
 
-Z zapisom lahko zapišemu tudi urejeno »enerico«:
+Z zapisom lahko zapišemo tudi urejeno »enerico«:
 
 ```ocaml
 # type zajec = { masa : int } ;;
@@ -544,7 +544,7 @@ match e with
   | pᵢ -> eᵢ
 ```
 
-Tu so `p₁`, ..., `pᵢ` **vzorci**. Vrednost izraza `match ...` je pvi `eⱼ`, za katerega `e` zadošča vzorcu `pⱼ`. V OCaml je `match` dosti bolj uporaben kot `switch` v C in Javi ali `if … elif … elif …` v Pythnu, ker OCaml izračuna, ali smo pozabili obravnavati kakšno možnost. Primer:
+Tu so `p₁`, ..., `pᵢ` **vzorci**. Vrednost izraza `match ...` je prvi `eⱼ`, za katerega `e` zadošča vzorcu `pⱼ`. V OCaml je `match` dosti bolj uporaben kot `switch` v C in Javi ali `if … elif … elif …` v Pythnu, ker OCaml izračuna, ali smo pozabili obravnavati kakšno možnost. Primer:
 
 ```ocaml
 # match (Palica 7) with

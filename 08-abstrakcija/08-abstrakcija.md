@@ -2,7 +2,7 @@
 
 ## Specifikacija & implementacija
 
-**Specifikacija (angl. specification)** `S` je *zaheva*, ki opisuje, kakšen
+**Specifikacija (angl. specification)** `S` je *zahteva*, ki opisuje, kakšen
 izdelek želimo.
 
 **Implementacija (angl. implementation)** `I` je izdelek. Implementacija `I`

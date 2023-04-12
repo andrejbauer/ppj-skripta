@@ -9,13 +9,13 @@ Okoli leta 1985 je Eugenio Moggi iz Genove odkril, da lahko računske učinke
 obravnavamo z monadami, ki se uporabljajo v Haskellu za računske učinke. V
 začetku tega tisočletja sta Gordon Plotkin in John Power iz Edinburgha
 ugotovila, da lahko večino računskih učinkov predstavita z *algebrajskimi
-operacijami*. Kasneje sta Gordon Plotkin in njegov doktrorski študent Matija
+operacijami*. Kasneje sta Gordon Plotkin in njegov doktorski študent Matija
 Pretnar odkrila še *prestreznike*. Nekaj let za tem sta Andrej Bauer in Matija
 Pretnar iz Ljubljane ustvarila Eff, prvi programski jezik zasnovan na teoriji
 algebrajskih učinkov in prestreznikov. Kmalu so se pojavile knjižnice za
 prestreznike, nadgradnje programskih jezikov in novi jeziki, ki so uporabljali
 prestreznike. Aprila 2018 smo bili na delovnem srečanju , kjer smo se s
-predstavniki večjih podjetih (Facebook, Google, Microsoft) pogovarjali o
+predstavniki večjih podjetjih (Facebook, Google, Microsoft) pogovarjali o
 vključitvi prestreznikov v njihove tehnološke rešitve, kot je na primer
 [WebAssembly](https://webassembly.org) (naslednik Javascript).
 
@@ -32,7 +32,7 @@ obravnava drugače kot običajno računanje, saj imajo **učinek**. Na primer:
 * `write` je operacija, ki spremeni stanje pomnilnika
 * `read` je operacija, ki vrne trenutno stanje pomnilnika
 * `toss` je operacija, ki vrne naključni bit
-* `spawn` je operacija, ki sproži izvajanje novega vzoporednega vlakna
+* `spawn` je operacija, ki sproži izvajanje novega vzporednega vlakna
 
 Vsem operacijam je skupno to, da *začasno prekinejo* izvajanje programa,
 opravijo svoj računski učinek, nato pa nadaljujejo z izvajanjem programa (ali pa
@@ -60,7 +60,7 @@ Operacija `input` v 4. vrstici je bolj zanimiva. Za nadaljevanje ima
 
 kjer smo z `□` označili "luknjo", v katero je treba vstaviti rezultat, ki ga
 vrne `read` (namreč niz, ki ga prebere s tipkovnice). Lahko si mislimo, da je
-nadeljevanje neke vrste funkcija, ki sprejme rezultat operacije `read` in
+nadaljevanje neke vrste funkcija, ki sprejme rezultat operacije `read` in
 nadaljuje izračun:
 
     fun x ->
@@ -91,7 +91,7 @@ Narišimo računsko drevo programa
     print x ;
     length x
 
-Drevo (pri `input` bi morali imeti po eno poddrevo za vsak niz, torej neskočno
+Drevo (pri `input` bi morali imeti po eno poddrevo za vsak niz, torej neskončno
 poddreves, prikazana so samo tri):
 
                   print "Hello"
@@ -158,7 +158,7 @@ ki jih vračajo operacije.
 ## Prestrezniki
 
 **Prestrezniki** so nov programski konstrukt, ki sta ga iznašla Gordon Plotkin
-in Matija Pretnar. So posplošitev prestrenizkov izjem, ki jih poznajo standardni
+in Matija Pretnar. So posplošitev prestreznikov izjem, ki jih poznajo standardni
 programski jeziki.
 
 Če na program gledamo kot na drevo izračuna, se nam porodi ideja, da bi lahko
@@ -183,7 +183,7 @@ Pri tem se operacije obdelajo rekurzivno. Prestreznik je pravzaprav neke vrste
 Programski jezik [Eff](https://www.eff-lang.org) sta ustvarila Andrej Bauer in
 Matija Pretnar. Je eksperimentalni programski jezik, s katerim sta pokazala,
 kako lahko uporabljamo operacije in prestreznike kot programske konstrukte.
-Programski jezik je vplival na razvoj nekaterih drugih jeziko in knjižnic za
+Programski jezik je vplival na razvoj nekaterih drugih jezikov in knjižnic za
 programiranje s programskimi učinki.
 
 V Eff so operacije in prestrezniki prvovrstne vrednosti. Se pravi, da lahko

@@ -109,7 +109,7 @@ Vedno smemo uporabiti veljavno logično in matematično sklepanje, na primer:
          { P₁ ∧ P₂ } c { Q₁ ∧ Q₂ }
 
 Naj bodo `FV(P)` vse spremenljivke, ki se pojavljajo v formuli `P` (free variables)
-in `FA(c)` vse spremnljivke, ki jih `c` nastavlja (assigned variables). Na primer:
+in `FA(c)` vse spremenljivke, ki jih `c` nastavlja (assigned variables). Na primer:
 
     FV(x ≤ y ∨ x > 0) = {x, y}
 

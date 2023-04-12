@@ -39,7 +39,7 @@ Poznamo delitev glede na *fazo*, v kateri se uporabijo tipi:
 Programski jezik lahko tipe **preverja** ali **izpeljuje**:
 
 * **preverja** jih, če programer v večji meri zapiše tipe spremenljivk, funkcij in
-  atributov, programski jezik pa preveri, da so pravino uporabljeni. Primeri:
+  atributov, programski jezik pa preveri, da so pravilno uporabljeni. Primeri:
   C, C++, Java, C#.
 
 * **izpeljuje** jih, če programerju ni treba podajati tipov spremenljivk,
@@ -80,12 +80,12 @@ Od vseh je zadnji najbolj splošen, ker lahko vse ostale dobimo tako, da
 *glavni* tip funkcije `fun x -> x`.
 
 **Definicija:** Tip izraza je **glavni**, če lahko vse njegove tipe dobimo tako,
-da v glavnem tipu parametre zamenjamo s tipi (ki lahko vsebujejo nadaljne
-parameter).
+da v glavnem tipu parametre zamenjamo s tipi (ki lahko vsebujejo nadaljnje
+parametere).
 
 OCaml je načrtovan tako, da ima vsak veljaven izraz glavni tip, ki ga OCaml
 izpelje sam. (Izjema so rekurzivne polimorfne funkcije, kjer mora programer sam
-opredeliti tip, saj algoritem za izračun glavniega tip rekurzivne funkcije ne
+opredeliti tip, saj algoritem za izračun glavnega tipa rekurzivne funkcije ne
 obstaja.)
 
 
@@ -199,7 +199,7 @@ v neznankah `α`, `β`, `γ`, `δ`, ... Rešujemo z naslednjim postopkom:
 
 2. Če je `E` prazna množica, vrnemo rešitev `r`.
 
-3. Sicer iz `E` odstranimo katerokoli enačbo `l = d` in jo obravnvamo:
+3. Sicer iz `E` odstranimo katerokoli enačbo `l = d` in jo obravnavamo:
 
     * če sta leva in desna stran povsem enaki, enačbo zavržemo ter gremo na korak 2
 

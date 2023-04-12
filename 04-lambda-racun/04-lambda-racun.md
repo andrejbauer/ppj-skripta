@@ -206,7 +206,7 @@ krajše zapišemo
     λ x y z . e
 
 
-### Evaluacijske strategije
+### Evalvacijske strategije
 
 Pravilo za računanje lahko uporabimo na različne načine. Primer:
 
