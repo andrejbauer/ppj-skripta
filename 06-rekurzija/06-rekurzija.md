@@ -65,7 +65,7 @@ Vsa rekurzija je shranjena v `rek`, od tu naprej je ne potrebujemo več:
 let f = rek (fun self -> (fun n -> if n = 0 then 1 else n * self (n - 1)))
 ```
 
-Poglejmo si tip funkcije `rek`. OCaml je izpeljal njen tip:
+Poglejmo tip funkcije `rek`. OCaml je izpeljal njen tip:
 
 ```ocaml
 (('a -> 'b) -> 'a -> 'b) -> 'a -> 'b
@@ -80,7 +80,7 @@ Tipa `'a` in `'b` sta *parametra*, ki označujeta poljubna tipa. Zapišimo lepš
 Preberemo: »`rek` je funkcija, ki sprejme funkcijo `t` tipa `(α → β) → (α → β)` in vrne funkcijo
 tipa `α → β`.«
 
-Poglejmo si postopek še enkrat, tokrat zapisan z λ-računom:
+Poglejmo postopek še enkrat, tokrat zapisan z λ-računom:
 
 1. Prvotna definicija `f` se glasi:     `f n = if n = 0 then 1 else n * f (n - 1)`
 2. Zapišemo s pomočjo λ-abstrackije:  `f = λ n . if n = 0 then 1 else n * f (n - 1)`
@@ -269,7 +269,7 @@ Do sedaj smo spoznali podatkovne tipe:
 * eksponent `a → b`
 
 S temi konstrukcijami ne moremo dobro predstaviti bolj naprednih podatkovnih tipov, kot so
-seznami in drevesa. Poglejmo si na primer, kako se tvori sezname celih števil:
+seznami in drevesa. Poglejmo na primer, kako se tvori sezname celih števil:
 
 * prazen seznam: `[]` je seznam
 * sestavljen seznam: če je `x` celo število in `ℓ` seznam, je tudi `x :: ℓ` seznam
@@ -330,7 +330,7 @@ Ali se mora to kdaj zaključiti z `Nil`? Možna sta dva odgovora. Če zahtevamo,
 biti elementi rekurzivnega tipa končni, govorimo o *induktivnih* tipih. Če pa dovolimo
 neskončne elemente, govorimo o *koinduktivnih* tipih.
 
-Poglejmo si najprej **induktivne podatkovne tipe**. To so rekurzivni tipi, v katerih
+Poglejmo najprej **induktivne podatkovne tipe**. To so rekurzivni tipi, v katerih
 vrednosti sestavljamo začenši z osnovnimi s pomočjo konstruktorjev in neskončne vrednosti
 niso dovoljene. Primeri:
 
@@ -485,7 +485,7 @@ Haskell ima koinduktivne podatkovne tipe.
 
 ### Tokovi
 
-Poglejmo si različico tokov, ki so vedno neskončni, ker pri njih koinduktivna narava pride
+Poglejmo različico tokov, ki so vedno neskončni, ker pri njih koinduktivna narava pride
 še bolj do izraza. Tok je:
 
 * sestavljen iz sporočila in preostanka toka
@@ -533,24 +533,11 @@ V Haskellu podatkovne tipe pišemo nekoliko drugače:
 
 A to so le podrobnosti konkretne sintakse.
 
-Poglejmo si definicijo tokov:
+Poglejmo definicijo tokov in njihovo uporavo na preprostih primerih:
 
-```haskell
-data Stream a = Cons (a, Stream a)
-
--- tok iz samih enic
-enice :: Stream Integer
-enice = Cons (1, enice)
-
--- prvih n elementov toka daj v seznam
-to_list :: Integer -> Stream a -> [a]
-to_list 0 _ = []
-to_list n (Cons (x, s)) = x : (to_list (n-1) s)
-
--- tok števil od k naprej
-from :: Integer -> Stream Integer
-from k = Cons (k, from (k + 1))
-```
+:::{literalinclude} tok.hs
+:language: haskell
+:::
 
 ### Tokovi v OCamlu
 
@@ -571,7 +558,7 @@ Primeri uporabe:
 :language: ocaml
 :::
 
-#### Vhod/izhod kot koinduktivni tip
+### Vhod/izhod kot koinduktivni tip
 
 Še en primer koinduktivnega tipa je vhod/izhod (input/output). Tokrat s koinduktivnim tipom izrazimo strukturo programa, ki izvaja operaciji `Read` in `Write`:
 

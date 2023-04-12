@@ -1,7 +1,4 @@
--- prazna vrstica, ker se ni vidi vrha zaslona
---
-
--- Program, ki izvaja operaciji Read in Write
+-- Program, ki simulira operaciji Read in Write s podatkovnim tipom
 
 data InputOutput a =
     Read (String -> InputOutput a) -- program prebere niz in nadaljuje delo
