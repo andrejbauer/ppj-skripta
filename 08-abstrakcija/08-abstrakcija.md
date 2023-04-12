@@ -237,12 +237,23 @@ strukturo `B` zapišemo takole:
 ```ocaml
 module F(A : S) =
 struct
-  ⟨definicija strukture B⟩
+  (* definicija strukture B *)
 end
 ```
 
 Zgoraj smo videli primer preprostega funktorja `Cycle`, ki sprejme strukturo s številom `n` in vrne usmerjeni cikel na
 `n` vozliščih. Bolj uporaben primer sledi.
+
+
+:::{admonition} Primer
+
+Kot primer uporabe modulov in funktorjev v OCamlu priporočamo [MirageOS](https://mirageos.org). To je sistem za gradnjo
+unijeder (angl [unikernel](https://en.wikipedia.org/wiki/Unikernel)) -- minuaturinih operacijskih sistemov, ki
+opravljajo samo eno opravilo, npr. odgovorijo na [DNS request](https://en.wikipedia.org/wiki/Domain_Name_System). So
+zelo majhni in za zagon potrebujejo le nekaj milisekund, MirageOS pa jih gradi z intenzivno uporabo OCaml modulov in
+funktorjev.
+
+:::
 
 
 ## Primer: prioritetne vrste
