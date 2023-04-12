@@ -14,9 +14,9 @@ chapters:
   - file: 05-deklarativno-programiranje/05-deklarativno-programiranje
   - file: 06-rekurzija/06-rekurzija
   - file: 07-izpeljava-tipov/07-izpeljava-tipov
+  - file: 08-abstrakcija/08-abstrakcija
   - file: 09-logicno-programiranje/09-logicno-programiranje
   - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami
-  - file: 08-abstrakcija/08-abstrakcija
   - file: 11-podtipi/11-podtipi
   - file: 12-objektno-programiranje/12-objektno-programiranje
   - file: 14-haskell-in-razredi-tipov/14-haskell-in-razredi-tipov
