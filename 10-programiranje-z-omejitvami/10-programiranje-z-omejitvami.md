@@ -395,27 +395,35 @@ false.
 
 ### Primer: Sudoku
 
-Skupaj poskusimo razumeti naslednji program, ki rešuje Sudoku:
-
-:::{literalinclude} sudoku.pl
-:language: prolog
-:::
+Skupaj implementirajmo [Sudoku](https://sl.wikipedia.org/wiki/Sudoku). Zasnovati moramo ustrezno predstavitev igre in
+zapisati pogoje, ki opisujejo pravila. Ostalo bo prolog naredil sam.
 
 
 Načrt:
 
-1. Imamo seznam vrstic `Rows`.
-2. `Rows` predstavlja matriko 9 × 9:
-     * imamo 9 vrstic: `length(Rows, 9)`.
-     * vsaka vrstica ima dolžino 9: vsak element `Rows` je seznam dolžine `9`.
-3. Vsi elementi matrike `Rows` so med 1 in 9: vsak element `V` iz `Rows`, za vsak element `X`
-   iz `V`, velja `X in 1..9`.
-4. Vsaka vrstica je permutacija: vsak element `V` seznama `Rows` zadošča pogoju
-   `all_distinct(V)`.
-5. Vsak stolpec je permutacija.
-6. Vsak podkvadrat 3 × 3 je permutacija.
+1. Igralno polje 9 × 9 predstavimo se seznamom vrstic:
+     * imamo 9 vrstic,
+     * vsaka vrstica ima dolžino 9.
+2. Vsi elementi, ki se pojavljajo v vrsticah so števila med 1 in 9
+3. Vsaka vrstica je permutacija
+4. Vsak stolpec je permutacija.
+5. Vsak podkvadrat 3 × 3 je permutacija.
 
-Vsakega od zgornjih omejitev zapišemo v prologu.
+Vsako od zgornjih omejitev zapišemo v prologu.
+
+#### `Rows` je seznam dolžine 9
+
+Pogoj lahko izrazimo kot
+
+```
+Rows = [X1,X2,X3,X4,X5,X6,X7,X8,X9]
+```
+
+ali kot
+
+```
+length(Rows, 9)
+```
 
 #### Vsak element `Rows` je dolžine 9
 
@@ -512,3 +520,10 @@ kvadrati_permutacija(
    all_distinct([P1, P2, P3, Q1, Q2, Q3, R1, R2, R3]),
    kvadrati_permutacija(Ps, Qs, Rs).
 ```
+
+### Končni izdelek
+
+:::{literalinclude} sudoku.pl
+:language: prolog
+:::
+
