@@ -160,7 +160,7 @@ Zapišimo pravilo za podtipe zapisov, ki izhaja iz zgornjega razmisleka:
 
 $$
 \frac{
-\text{za vsaj $j \leq m$ ostaja $i \leq n$, da je $\ell_i = k_j in A_i = B_j$}
+\text{za vsaj $j \leq m$ obstaja $i \leq n$, da je $\ell_i = k_j$ in $A_i = B_j$}
 }{
 \{ \ell_1 : A_1; \ldots; \ell_n : A_n \} \leq \{ k_1 : B_1; \ldots; k_m : B_m \}
 }
