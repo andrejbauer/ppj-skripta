@@ -143,7 +143,7 @@ $$
 in
 
 $$
-B = \{ x : \mathtt{float}; y : \mathtt{float} ; z : float \}
+B = \{ x : \mathtt{float}; y : \mathtt{float} ; z : \mathtt{float} \}
 $$
 
 Ali morda velja $A \leq B$ in $B \leq A$?
@@ -173,7 +173,7 @@ po širini**, ker je podtip »širši« (ima več polj) kot njegov podtip.
 Velja torej:
 
 $$
-\{ z : float; x : float; y : float \} \leq \{ x : float; y : float \}
+\{ z : \mathtt{float}; x : \mathtt{float}; y : \mathtt{float} \} \leq \{ x : \mathtt{float}; y : \mathtt{float} \}
 $$
 
 :::{admonition} Vaja
@@ -233,8 +233,8 @@ A = { mutable x : int; mutable y : int}
 
 in
 
-```
-B = { mutable x : float; mutable x : float}
+```ocaml
+B = { mutable x : float; mutable y : float}
 ```
 
 potem *ne* velja `A ≤ B`. Če bi to veljalo, bi lahko v zapis `v : A` vrednost
