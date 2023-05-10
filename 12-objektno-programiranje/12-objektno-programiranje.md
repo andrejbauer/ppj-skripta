@@ -211,8 +211,8 @@ Definicija razreda `A` je *parametrizirana* z razredom `B`.
 
 V C++ v ta namen uporabljamo predloge (angl. templates).
 
-V OCaml poznamo dva mehanizma za generično programiranje: parametrični
-polimorfizem in module.
+V OCaml poznamo tri mehanizme za generično programiranje: parametrični
+polimorfizem, moduli in [parametrizirani razredi](https://v2.ocaml.org/manual/objectexamples.html#s%3Aparameterized-classes).
 
 ### Abstraktne metode in razredi
 

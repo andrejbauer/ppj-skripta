@@ -153,13 +153,13 @@ Imena tipov pišemo z velikimi črkami
 
 #### Definicije tipov
 
-Haskell poznam definicije tipov
+Haskell pozna definicije tipov
 
 ```haskell
 type T = ...
 ```
 
-in definicije koinduktivnih algebraičnih tipov
+in definicije (koinduktivnih) algebraičnih tipov
 
 ```haskell
 data T = ...
