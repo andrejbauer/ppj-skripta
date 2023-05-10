@@ -218,11 +218,11 @@ Pravilo za popolno pravilnost `while` se glasi:
 
 Naj bo `e` količina, ki se ne more v nedogled zmanjševati (na primer naravno število):
 
-     [ P ∧ b ∧ e = z ] c [P ∧ e < z ]        z ∉ FV(c)
+     [ P ∧ b ∧ e = z ] c [P ∧ e < z ]        z ∉ FA(c)
      ————————————————————————————————————————————————
           [ P ] while b do c done [ ¬ b ∧ P ]
 
-V tem pravilu je `z` duh, kar formalno napišemo kot `z ∉ FV(c)`.
+V tem pravilu je `z` duh, kar formalno napišemo kot `z ∉ FA(c)`.
 Kako pa ta pravila v praksi uporabljamo? Poglejmo nekaj primerov.
 
 
