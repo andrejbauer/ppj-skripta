@@ -224,7 +224,7 @@ $$
 
 Katera pravila za podtipe zapisov pridejo v poštev, je odvisno od tega, kako
 lahko zapise uporabljamo. Denimo, če imamo zapise s *spremenljivimi* polji, se
-pravi, da lahko zapisu spremenjamo vrednosti polj, potem podtipi v globino niso
+pravi, da lahko zapisu spreminjamo vrednosti polj, potem podtipi v globino niso
 več veljavni. Na primer, če imamo tipa
 
 ```ocaml
@@ -274,7 +274,7 @@ Zaradi tranzitivnosti sledi $A \leq D$, kar lahko izpeljemo na *dva* načina:
 To pa lahko vpliva na implicitne pretvorbe. Če imamo $e : A$, ga lahko pretvorimo
 v $D$ preko pretvorb $A \to B \to D$ ali preko $A \to C \to D$. Kako vemo, da bomo obakrat
 dobili isto? Temu pravimo problem koherentnosti. Pojavi se vedno, ko imamo
-implicitna (ali samodejne) pretvorbe vrednosti iz enega tipa v drugega.
+implicitne (ali samodejne) pretvorbe vrednosti iz enega tipa v drugega.
 
 
 ## Podtipi na nivoju struktur
