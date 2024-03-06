@@ -24,7 +24,7 @@ Delovanje programa bomo opisali s t.i. Hoarovo logiko, v kateri pišemo **Hoarov
 
     { P } c { Q }
 
-Tu sta `P`in `Q` logični formuli in `c` ukaz. Formuli `P` pravimo **predpogoj** (angl.
+Tu sta `P` in `Q` logični formuli in `c` ukaz. Formuli `P` pravimo **predpogoj** (angl.
 *precondition*), formuli `Q` pravimo **končni pogoj** (ang. *postcondition*).
 
 Izkaže se, da je prikladno razdeliti preverjanje pravilnosti programov na dva dela:
@@ -55,7 +55,7 @@ Kaj lahko počnemo s specifikacijami?
 :::{prf:example}
 :nonumber: true
 
-Poiščite program `c` zamenja vrednosti spremenljivk `x` in `y`:
+Poiščite program `c`, ki zamenja vrednosti spremenljivk `x` in `y`:
 
     { x = m ∧ y = n } c { x = n ∧ y = m }
 
