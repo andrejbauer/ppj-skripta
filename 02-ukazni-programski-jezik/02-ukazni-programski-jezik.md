@@ -211,22 +211,17 @@ Zgoraj smo uporabili drugo možnost. (Kako se to razbere iz pravil?) Podajte še
 
 #### Operacijska semantika ukazov
 
-Semantika malih korakov je podana z dvema relacijama:
+Semantika malih korakov je podana z dvema relacijo `(η, c) ↦ (η', c')`:
+v okolju `η` ukaz `c` c enem koraku spremeni okolje v `η'` in se nadaljuje z ukazom `c'`.
+Tako kot smo pri semantiki malih korakov za aritmetične izraze z izvajanjem prenehali,
+ko smo prišli do celoštevilske konstante, nam pri ukazih par `(η, skip)` predstavlja ustavitveno stanje v okolju `η`.
 
-* relacija `(η, c) ↦ η'` pomeni: v okolju `η` ukaz `c` v enem koraku konča v okolju `η'`.
-* relacija `(η, c) ↦ (η', c')`: v okolju `η` ukaz `c` c enem koraku spremeni okolje v `η'`
-  in se nadaljuje z ukazom `c'`.
-
-Relaciji sta določeni z naslednjimi pravili:
+Relacija je določena z naslednjimi pravili:
 
 ```
-—–————————————–
-(η, skip)  ↦  η
-
-
        η | e ↪ n
 ————————————––—————————–
-(η, (x := e))  ↦  η[x↦n]
+(η, (x := e))  ↦  (η[x↦n], skip)
 
 
        (η, c₁) ↦ (η', c₁')
@@ -234,9 +229,8 @@ Relaciji sta določeni z naslednjimi pravili:
 (η, (c₁ ; c₂))  ↦  (η', (c₁' ; c₂))
 
 
-          (η, c₁) ↦ η'
-—————————————––—————————–——————————
-   (η, (c₁ ; c₂))  ↦  (η', c₂)
+———————————————––—————————–——————————
+   (η, (skip ; c₂))  ↦  (η', c₂)
 
 
              η | b ↪ true
@@ -250,8 +244,8 @@ Relaciji sta določeni z naslednjimi pravili:
 
 
       η | b ↪ false
-———————————––—————————–——————
-(η, (while b do c done)) ↦ η
+———————————––—————————–—————————————
+(η, (while b do c done)) ↦ (η, skip)
 
 
                       η | b ↪ true
