@@ -115,7 +115,7 @@ Primeri:
 
 * `(x² + 3·x + 7)[3/x]` je enako `3² + 3·3 + 7`,
 * `f(a + b)[(b + 1)/a]` je enako `f((b + 1) + b)`,
-* `f(a + b)[(x ↦ x²)/f]` je enako `(x ↦ x²)((b + 1) + b)`.
+* `f(a + b)[(x ↦ x²)/f]` je enako `(x ↦ x²)(a + b)`.
 
 Ko napravimo substitucijo, moramo paziti, da se prosta spremenljivka ne »ujame«. S tem želimo povedati, da bi prosto
 spremenljivko vstavili v podizraz, v katerem je že veljavna enako poimenovana vezana spremenljivka, s čimer bi prišlo do
