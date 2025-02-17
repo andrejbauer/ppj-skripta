@@ -82,7 +82,7 @@ programer sam pretvoriti celoštevilsko vrednost v realno s funkcijo $\mathtt{fl
 
 Lahko se celo zgodi, da v programskem jeziku velja $\mathtt{int} \leq \mathtt{float}$ *in hkrati*
 $\mathtt{float} \leq \mathtt{int}$, na primer, če jezik samodejno zaokroži realno vrednost, kadar
-potrebuje celoštevilsko. A takih jezikov in veliko.
+potrebuje celoštevilsko. A takih jezikov ni veliko.
 
 
 ## Podtipi zapisov

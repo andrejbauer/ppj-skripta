@@ -84,7 +84,7 @@ V funkcijskem programiranju monada predstavlja enega ali kombinacijo večih uči
    vrste »vrednost tipa `a`, zapakiran v računske učinke `T`.
 2. Preslikava `return : a → T a`, ki vrednost tipa `a` predstavi kot čisti izračun.
 3. Operacija `>>= : T a → (a → T b) → T b`, ki kombinira izračune. Če je `c` izračun, ki izračuna vrednost tipa `a` in
-   je `f : a → T b` funkcija, ki vrednosti tipa `a` preslika v izračune `T b`, potem je `e >>= f` izračun, ki ju združi.
+   je `f : a → T b` funkcija, ki vrednosti tipa `a` preslika v izračune `T b`, potem je `c >>= f` izračun, ki ju združi.
 
 :::{admonition} Primer
 
