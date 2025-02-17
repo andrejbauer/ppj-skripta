@@ -88,7 +88,7 @@ V funkcijskem programiranju monada predstavlja enega ali kombinacijo večih uči
 
 :::{admonition} Primer
 
-Učinski računek **nedeterminizem** dobimo v primeru, da lahko program vrne več rezultatov, oziroma da v teku računanja izbira med več možnostmi. Ustrezna monada je:
+Računski učinek **nedeterminizem** dobimo v primeru, da lahko program vrne več rezultatov, oziroma da v teku računanja izbira med več možnostmi. Ustrezna monada je:
 
 1. `T a = [a]`, se pravi, izračun vrednosti tipa `a` predstavimo s seznamov vseh rezultatov, ki bi jih lahko dobili.
 2. `return v = [v]`, ker je čista vrednost `v` enakovredna seznamu `[v]`, torej izračunu, ki vrne natančno `v`.

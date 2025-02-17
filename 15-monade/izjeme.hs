@@ -19,8 +19,20 @@ instance Applicative Computation where
 instance Monad Computation where
     -- return = pure
 
-    Error >>= _        =  Error
+    Error >>= f        =  Error
     (Result v) >>= f   =  f v
+
+-- catch C H
+-- C = izračun
+-- H = če C javi napako, jo ujamemo in nadomestimo s H
+--
+-- try:
+--   C
+-- except Error:
+--   H
+catch :: Computation a -> Computation a -> Computation a
+catch (Result v) _ = Result v
+catch Error h      = h
 
 -- trije načini, da se naredi isto
 
@@ -37,7 +49,7 @@ demo3 = do v <- return 5
 -- uporabimo error
 demo4 :: Computation Integer
 demo4 = do x <- return 5
-           y <- return (x + 5)
+           y <- return (x + 1)
            z <- if y < 7 then return 7 else Error
            w <- return (z + 3)
            return (x + y + z + w)

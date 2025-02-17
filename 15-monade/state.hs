@@ -40,6 +40,7 @@ demo = do x <- get
           set (x + 30)
           y <- get
           set (x + y)
-          return "foo"
+          z <- get
+          return (if z < 100 then "foo" else "bar")
 
 -- run demo 15
