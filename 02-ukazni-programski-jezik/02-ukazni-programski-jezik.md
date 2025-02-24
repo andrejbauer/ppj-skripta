@@ -211,7 +211,7 @@ Zgoraj smo uporabili drugo možnost. (Kako se to razbere iz pravil?) Podajte še
 
 #### Operacijska semantika ukazov
 
-Semantika malih korakov je podana z dvema relacijo `(η, c) ↦ (η', c')`:
+Semantika malih korakov je podana z relacijo `(η, c) ↦ (η', c')`:
 v okolju `η` ukaz `c` c enem koraku spremeni okolje v `η'` in se nadaljuje z ukazom `c'`.
 Tako kot smo pri semantiki malih korakov za aritmetične izraze z izvajanjem prenehali,
 ko smo prišli do celoštevilske konstante, nam pri ukazih par `(η, skip)` predstavlja ustavitveno stanje v okolju `η`.
@@ -230,7 +230,7 @@ Relacija je določena z naslednjimi pravili:
 
 
 ———————————————––—————————–——————————
-   (η, (skip ; c₂))  ↦  (η', c₂)
+   (η, (skip ; c₂))  ↦  (η, c₂)
 
 
              η | b ↪ true
