@@ -59,7 +59,7 @@ pravila za presledke, nove vrste, komentarje ipd.)
 :::{admonition} Primer
 Program, ki sešteje števila od `1` do `100` in rezultat shrani v `s`:
 
-```
+```none
 s := 0;
 i := 0;
 while i < 101 do
@@ -220,7 +220,7 @@ Relacija je določena z naslednjimi pravili:
 
 ```
        η | e ↪ n
-————————————––—————————–
+————————————––—————————–––––––––
 (η, (x := e))  ↦  (η[x↦n], skip)
 
 
@@ -289,7 +289,7 @@ kot matematična operacija) pomenov podizrazov `e₁` in `e₂`.
 
 ```
 ⟦ x ⟧(η) = η(x)
-⟦ k ⟧(η) = k
+⟦ n ⟧(η) = n
 ⟦ e₁ + e₂ ⟧(η) = ⟦ e₁ ⟧(η) + ⟦ e₂ ⟧(η)
 ⟦ e₁ * e₂ ⟧(η) = ⟦ e₁ ⟧(η) · ⟦ e₂ ⟧(η)
 ```
@@ -297,13 +297,13 @@ kot matematična operacija) pomenov podizrazov `e₁` in `e₂`.
 Podobno je pomen boolovega izraza `b` preslikava `⟦ b ⟧ : Env → {⊥, ⊤}`:
 
 ```
-⟦false⟧(η) = ⊥
-⟦true⟧(η) = ⊤
-⟦ b₁ and b₂ ⟧(η) = ⟦b₁⟧(η) ∧ ⟦b₂⟧(η)
-⟦ b₁ or b₂ ⟧(η) = ⟦b₁⟧(η) ∨ ⟦b₂⟧(η)
+⟦ false ⟧(η) = ⊥
+⟦ true ⟧(η) = ⊤
+⟦ b₁ and b₂ ⟧(η) = ⟦ b₁ ⟧(η) ∧ ⟦ b₂ ⟧(η)
+⟦ b₁ or b₂ ⟧(η) = ⟦ b₁ ⟧(η) ∨ ⟦ b₂ ⟧(η)
 ⟦ not b ⟧(η) = ¬ ⟦b⟧(η)
-⟦ e₁ = e₂ ⟧(η) = (⟦e₁](η) = ⟦e₂⟧(η)
-⟦ e₁ < e₂ ⟧(η) = (⟦e₁](η) < ⟦e₂⟧(η)
+⟦ e₁ = e₂ ⟧(η) = (⟦ e₁ ⟧(η) = ⟦ e₂ ⟧(η)
+⟦ e₁ < e₂ ⟧(η) = (⟦ e₁ ⟧(η) < ⟦ e₂ ⟧(η)
 ```
 
 Ali razumete zadnji dve vrstici definicije?
@@ -316,27 +316,24 @@ Pomen programa `e` v ukaznem jeziku funkcija, ki slika okolja v okolja:
 ⟦ e ⟧ : Env → Env
 ```
 
-Tu je `Env` množica vseh okolij. Pomen definiramo takole, kjer smo predpostavili, da smo že definirali matematični pomen aritmetičnih in boolovih izrazov:
+Tu je `Env` množica vseh okolij. Pomen definiramo takole, kjer smo uporabili zgornje definicije pomenov aritmetičnih in boolovih operatorjev:
 
 ```
-⟦ skip ⟧(η)                = η
-⟦ x := e ⟧(η)              = η⟦x ↦ ⟦e⟧(η)⟧
-⟦ c₁ ; c₂ ⟧(η)             = ⟦c₂⟧(⟦c₁⟧(η))
-⟦ if b then c₁ else c₂⟧(η) = ⟦c₁⟧(η)        če ⟦b⟧(η) = ⊤
-⟦ if b then c₁ else c₂⟧(η) = ⟦c₂⟧(η)        če ⟦b⟧(η) = ⊥
-⟦ while b do c ⟧(η)        = ?
+⟦ skip ⟧(η)                 = η
+⟦ x := e ⟧(η)               = η⟦x ↦ ⟦e⟧(η)⟧
+⟦ c₁ ; c₂ ⟧(η)              = ⟦ c₂ ⟧ (⟦ c₁ ⟧(η))
+⟦ if b then c₁ else c₂ ⟧(η) = ⟦ c₁ ⟧(η)        če ⟦ b ⟧(η) = ⊤
+⟦ if b then c₁ else c₂ ⟧(η) = ⟦ c₂ ⟧(η)        če ⟦ b ⟧(η) = ⊥
+⟦ while b do c ⟧(η)         = ?
 ```
 
 Pomen zanke `while` ni očiten in ga bomo na tem mestu preskočili. Bi znali predlagati definicijo?
 
 ## Ekvivalenca programov
 
-Programa sta ekvivalenta, če se v vseh kontekstih obnašata enako. To pomeni, da lahko
-vedno enega zamenjamo z drugim.
+Programa sta ekvivalenta, če se v vseh kontekstih obnašata enako. To pomeni, da lahko vedno enega zamenjamo z drugim.
 
-Natančneje, **evalvacijski kontekst** `C[ ]` je del programske kode `C`, ki ima »luknjo« `[ ]`.
-Programska koda `A` je **ekvivalentna** programski kodi `B`, če za *vse* kontekste `C[ ]` velja,
-da imata `C[A]` in `C[B]` enak rezultata in enako spreminjata okolje.
+Natančneje, **evalvacijski kontekst** `C[ ]` je del programske kode `C`, ki ima »luknjo« `[ ]`. Programska koda `A` je **ekvivalentna** programski kodi `B`, če za *vse* evalvacijske kontekste `C[ ]` velja, da imata `C[A]` in `C[B]` enak rezultata in enako spreminjata okolje.
 
 :::{admonition} Primer
 Programa
@@ -383,7 +380,7 @@ y := 0 ;
 :::{admonition} Naloga
 Ugotovite, ali je program, ki sešteje prvih 100 števil
 
-```
+```none
 i := 1 ;
 s := 0 ;
 while i < 101 do
@@ -394,7 +391,7 @@ done
 
 ekvivalentne programu
 
-```
+```none
 s := 5050
 ```
 
@@ -418,7 +415,7 @@ Jezik `comm` vsebuje naslednje komponente:
 * pogojni stavek `if b then c₁ else c₂ done`
 * zanka `while b do c done`
 * ukaz `skip`
-* sestavljani ukaz `c₁ ; c₂`
+* sestavljeni ukaz `c₁ ; c₂`
 * ukaz `print e`
 
 Ogledamo si sestavne dele implementacije:
@@ -459,4 +456,3 @@ Rezultati zelo nestrokovno izvedene meritve, ki ji ne moremo zaupati:
 |C               |`0.22` |
 |Python          |`16.73`|
 |comm            |`44.88`|
-
