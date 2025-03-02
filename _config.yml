@@ -16,8 +16,9 @@ author: Andrej Bauer
 sphinx:
   config:
     language: sl
-  extra_extensions:
-    - sphinx_proof
+
+  exclude_patterns:
+    - "README.md"
 
 parse:
   myst_enable_extensions:
