@@ -188,7 +188,9 @@ saj velja
 
 Tudi **iteracija** je negibna točka!
 
-*Opomba:* zanko `while` lahko na zgornji način »odvijamo v nedogled«:
+:::{note}
+
+Zanko `while` lahko na zgornji način »odvijamo v nedogled«:
 
 Faza 0:
 
@@ -239,7 +241,7 @@ else skip
 ```
 
 In tako naprej. Če bi lahko imeli neskončno programsko kodo, ne bi potrebovali zank!
-
+:::
 
 ### Rekurzivne podatkovne strukture
 

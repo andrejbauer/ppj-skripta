@@ -5,7 +5,7 @@ Kako vemo, ali program deluje pravilno? Kako vemo, kakšen program želimo sesta
 Ločimo med **specifikacijo** in **implementacijo** programa:
 
 * **Specifikacija** je opis, kaj naj želeni program počne.
-* **Implementacija** je konkreten program, ki počne to, kar zahteva specifikacija.
+* **Implementacija** je program, ki počne to, kar zahteva specifikacija.
 
 Specifikacija je lahko podana bolj ali manj natančno, v človeškem jeziku ali
 zapisana v formalnem matematičnem jeziku. Specifikacije imajo več namenov:
@@ -34,14 +34,12 @@ Izkaže se, da je prikladno razdeliti preverjanje pravilnosti programov na dva d
 
 V ta namen uvedemo dve vrsti Hoarovih trojic:
 
-:::{prf:definition} Delna pravilnost
-:nonumber: true
+:::{admonition} Definicija (Delna pravilnost)
 
 `{ P } c { Q }` pomeni “*Če velja `P` in če bo ukaz `c` končal, potem bo veljal `Q`.*”
 :::
 
-:::{prf:definition} Popolna pravilnost
-:nonumber: true
+:::{admonition} Definicija (Popolna pravilnost)
 
 `[ P ] c [ Q ]` pomeni: “*Če velja `P`, potem se bo `c` končal in veljal bo `Q`.*”
 :::
@@ -52,8 +50,7 @@ zagotavlja.
 Kaj lahko počnemo s specifikacijami?
 Če imam dano specifikacijo, lahko poiščemo program, ki ji ustreza.
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 
 Poiščite program `c` zamenja vrednosti spremenljivk `x` in `y`:
 
@@ -63,8 +60,7 @@ Tu predpostavimo, da sta `m` in `n` **duhova** (angl. ghost variable), se pravi
 spremenljivki, ki se ne pojavljata v `c`. 
 :::
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 
 Poiščite program `c`, ki uredi `x` in `y` po velikosti:
 
@@ -187,7 +183,9 @@ ki ga predelamo takole
     ——————————————————————————————————
           [ R ∧ P ] c [ Q ∧ P ]
 
-(Opomba: pravilo
+:::{caution}
+
+Pravilo
 
     FV(P) ∩ FA(c) = ∅
     —————————————————
@@ -197,14 +195,14 @@ ki ga predelamo takole
 
     [ x > 0 ] while true do skip done [x > 0]
 
-kar pa ne velja.)
-
+kar pa ne velja.
+:::
 
 Pri zanki `while` zagotovimo, da se bo končala, tako da poiščemo količino, ki se
 zmanjšuje, a se ne more zmanjševati v nedogled. Na primer, to je lahko celoštevilska
 pozitivna vrednost.
 
-:::{warning}
+:::{caution}
 Realna pozitivna vrednost se lahko zmanjšuje v nedogled:
 
     0.1 > 0.01 > 0.001 > 0.0001 > ...
@@ -228,8 +226,7 @@ Kako pa ta pravila v praksi uporabljamo? Poglejmo nekaj primerov.
 
 ## Primeri
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 Dokaži pravilnost programa:
 
     { x ≤ 7 }
@@ -238,8 +235,7 @@ Dokaži pravilnost programa:
 :::
 
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 
 Zapiši s Hoarovo logiko:
 
@@ -249,8 +245,7 @@ Zapiši s Hoarovo logiko:
 :::
 
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 Dokaži pravilnost programa, kjer predpostavimo, da v spremenljivkah hranimo realna števila (da ni težav z deljenjem z 2):
 
     { x ≤ y }
@@ -258,8 +253,7 @@ Dokaži pravilnost programa, kjer predpostavimo, da v spremenljivkah hranimo rea
     { x ≤ s ≤ y }
 :::
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 
 Dogovor: namesto `P ∧ Q` pišemo tudi `P, Q`
 
@@ -319,8 +313,7 @@ Imamo invarianto `Q ≡ (p = a ^ i ∧ i ≤ b)`
     done
 :::
 
-:::{prf:example}
-:nonumber: true
+:::{admonition} Primer
 Dokaži pravilnost programa:
 
     [x = m ∧ y = n]
