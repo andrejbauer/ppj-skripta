@@ -36,7 +36,7 @@ V ta namen uvedemo dve vrsti Hoarovih trojic:
 
 :::{admonition} Definicija (Delna pravilnost)
 
-`{ P } c { Q }` pomeni “*Če velja `P` in če bo ukaz `c` končal, potem bo veljal `Q`.*”
+`{ P } c { Q }` pomeni “*Če velja `P` in če se bo ukaz `c` končal, potem bo veljal `Q`.*”
 :::
 
 :::{admonition} Definicija (Popolna pravilnost)
@@ -44,8 +44,7 @@ V ta namen uvedemo dve vrsti Hoarovih trojic:
 `[ P ] c [ Q ]` pomeni: “*Če velja `P`, potem se bo `c` končal in veljal bo `Q`.*”
 :::
 
-Zapomnimo si: delna pravilnost ne zagotavlja, da se bo `c` končal, popolna pravilnost to
-zagotavlja.
+Zapomnimo si: delna pravilnost ne zagotavlja, da se bo `c` končal, popolna pravilnost to zagotavlja.
 
 Kaj lahko počnemo s specifikacijami?
 Če imam dano specifikacijo, lahko poiščemo program, ki ji ustreza.
