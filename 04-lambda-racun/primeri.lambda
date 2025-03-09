@@ -30,14 +30,6 @@ and := ^ x y . if x y false ;
 9  := ^ f x . f (f (f (f (f (f (f (f (f x)))))))) ;
 10 := ^ f x . f (f (f (f (f (f (f (f (f (f x))))))))) ;
 
--- Church-Scottova
-
-0' := ^ f x . x ;
-1' := ^ f x . f 0' x ;
-2' := ^ f x . f 1' (f 0' x) ;
-3' := ^ f x . f 2' (f 1' (f 0' x)) ;
-4' := ^ f x . f 3' (f 2' (f 1' (f 0' x)))
-
 succ := ^n f x . f (n f x) ;
 
 + := ^n m f x . (n f) ((m f) x) ;
@@ -53,3 +45,12 @@ pred := ^n . second (n (^p. pair (succ (first p)) (first p)) (pair 0 0)) ;
 < := ^m n . <= (succ m) n ;
 
 > := ^m n . >= m (succ n) ;
+
+-- Church-Scottova števila
+
+0' := ^ f x . x ;
+1' := ^ f x . f 0' x ;
+2' := ^ f x . f 1' (f 0' x) ;
+3' := ^ f x . f 2' (f 1' (f 0' x)) ;
+4' := ^ f x . f 3' (f 2' (f 1' (f 0' x)))
+

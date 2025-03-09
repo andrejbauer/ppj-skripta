@@ -238,8 +238,7 @@ in
     (λ z . g z) u =
     g u
 
-Dobili smo izraz, v katerem ne moremo več narediti računskega koraka. Pravimo, da je tak
-izraz v **normalni obliki**.
+Dobili smo izraz, v katerem ne moremo več narediti računskega koraka. Pravimo, da je tak izraz v **normalni obliki**.
 
 Postavi se vprašanje, kako sistematično računati. Poznamo nekaj strategij:
 
@@ -280,6 +279,16 @@ Računamo tudi znotraj λ-abstrakcij neučakano:
 
 :::
 
+:::{note}
+
+Obstajajo izrazi, ki nimajo normalne oblike. Takih izrazov ne moremo »izračunati do konca«. Tak izraz je `(λ x . x x) (λ x . x x)`, ki ima natanko en možen računski korak, a ta pripelje spet do istega izraza:
+
+    (λ x . x x) (λ x . x x) =
+    (λ x . x x) (λ x . x x) =
+    (λ x . x x) (λ x . x x) =
+    ⋯
+
+:::
 
 
 ## Programiranje v λ-računu
@@ -351,16 +360,65 @@ Preverimo, da velja druga enačba:
     (λ x y. y) a b =
     b
 
-### Zahtevnejši primeri
+#### Churcheva števila
 
-Zahtevnejše primere, kot so naravna števila in seznami, zapišimo v programskem jeziku `lambda` iz [PL
-Zoo](http://plzoo.andrej.com/). Da ohranimo kompatibilnost z računalniki iz leta 1968, se izognemo simbolu `λ` in ga
-nadomestimo z `^`.
+Tudi naravna števila lahko predstavimo z λ-izrazi: število `n` predstavimo z izrazom, ki sprejme funkcijo in jo `n`-krat gnezdi:
+
+    0 := λ f x . x
+    1 := λ f x . f x
+    2 := λ f x . f (f x)
+    3 := λ f x . f (f (f x))
+    4 := λ f x . f (f (f (f x)))
+    5 := λ f x . f (f (f (f (f x))))
+    6 := λ f x . f (f (f (f (f (f x)))))
+    7 := λ f x . f (f (f (f (f (f (f x))))))
+    8 := λ f x . f (f (f (f (f (f (f (f x)))))))
+    9 := λ f x . f (f (f (f (f (f (f (f (f x))))))))
+
+
+Na primer `3 foo bar = foo (foo (foo bar))`.
+
+S Churchevimi števili lahko računamo. Ali razumete, kako delujejo naslednik, vsota in množenje?
+
+    succ := λ n f x . f (n f x)
+    
+    + := λ n m f x . (n f) ((m f) x)
+    
+    * := λ m n f x . m (n f) x
+
+Kako izračunamo predhodnik števila `n`? Vse kar lahko naredimo z `n` je, da `n`-krat uporabimo neko funkcijo.
+Poglejmo, kaj dobimo, če trikrat uporabimo `f (x, y) := (x + 1, x)` na paru `(0, 0)`:
+
+    f (f (f (0, 0))) =
+    f (f (1, 0)) =
+    f (2, 1) =
+    (3, 2)
+
+Dobili smo število `3` in njegov predhodnik `2`, kar pripelje do programa
+
+    pred := λ n . second (n (λ p. pair (succ (first p)) (first p)) (pair 0 0))
+
+Še nekaj programov, s katerimi primerjamo števila:
+
+    iszero := λ n . n (K false) true
+    
+    <= := λ m n . iszero (n pred m)
+    
+    >= := λ m n . iszero (m pred n)
+    
+    < := λ m n . <= (succ m) n
+    
+    > := λ m n . >= m (succ n)
+
+Ročno računanje z λ-računom je mukotrpno. V [PL Zoo](http://plzoo.andrej.com/) najdete programski jezik `lambda`, ki olajša delo.
+Na voljo je tudi [spletni vmesnik](http://www.andrej.com/zapiski/ISRM-PPJ-2022/lambda/) za `lambda`. (Kogar zanima, kako se
+tak vmesnik naredi, si lahko ogleda [`repl-in-browser`](https://github.com/andrejbauer/repl-in-browser)).
+
+
+Da ohranimo kompatibilnost z računalniki iz leta 1968, se izognemo simbolu `λ` in ga nadomestimo z `^`.
 
 :::{literalinclude} primeri.lambda
 :language: none
 :::
 
 
-Na voljo je [spletni vmesnik](http://www.andrej.com/zapiski/ISRM-PPJ-2022/lambda/) za `lambda`. Kogar zanima, kako se
-naredi tak vmesnik, si lahko ogleda repozitorij [`repl-in-browser`](https://github.com/andrejbauer/repl-in-browser)).
