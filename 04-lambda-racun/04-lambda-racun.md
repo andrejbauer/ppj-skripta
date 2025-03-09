@@ -254,6 +254,33 @@ Poleg tega lahko računamo znotraj abstrakcij ali ne. Programski jeziki znotraj 
 ne računajo (to bi pomenilo, da se računa telo funkcije, še preden smo funkcijo
 poklicali).
 
+:::{admonition} Primer
+
+Izračunajmo `(λ x . (λ y . x) z) ((λ t . t) u)` na različne načine.
+
+**Neučakano** (argument izračunamo, preden ga vstavimo):
+
+    (λ x . (λ y . x) z) ((λ t . t) u) =
+    (λ x . (λ y . x) z) u =
+    (λ y . u) z =
+    u
+
+**Leno** (argument vstavimo takoj):
+
+    (λ x . (λ y . x) z) ((λ t . t) u) =
+    (λ y . ((λ t . t) u)) z =
+    (λ t . t) u =
+    u
+
+Računamo tudi znotraj λ-abstrakcij neučakano:
+
+    (λ x . (λ y . x) z) ((λ t . t) u) =
+    (λ x . x) u =
+    u
+
+:::
+
+
 
 ## Programiranje v λ-računu
 
@@ -278,8 +305,8 @@ Izraz `const e` je funkcija, ki vedno vrne `e`.
 
 Kako pa lahko dobimo Boolove vrednosti in pogojni stavek? Iščemo λ-izraze `true`, `false`, in `if`, za katere velja
 
-    if true x y = x
-    if false x y = y
+    if true a b = a
+    if false a b = b
 
 V λ-računu ustrezne izraze definiramo takole:
 
@@ -287,15 +314,42 @@ V λ-računu ustrezne izraze definiramo takole:
     false := λ x y . y
     if := λ b t e . b t e
 
+Preverimo, da imajo ustrezne lastnosti:
+
+    if true a b =
+    (λ b t e . b t e) true a b =
+    (λ t e . true t e) a b =
+    (λ e . true a e) b =
+    true a b =
+    (λ x y . x) a b =
+    (λ y . a) b =
+    a
+
+Sami preverite, da velja `if false a b = b`.
+
 ### Urejeni pari
 
-Tu je kodiranje urejenih parov:
+Da bomo lahko programirali z večimi vrednostmi hkrati, potrebujemo urejene pare, ki jih lahko gnezdimo, da dobimo urejene trojice, četverice itd.
+Potrebujemo izraze `pair`, `first`, in `second`, ki zadoščajo enačbam:
 
-    pair := λ a b . λp . p a b
-    first := λ p . p (λx y . x)
-    second := λ p . p (λx y. y)
+    first (pair a b) = a
+    second (pair a b) = b
 
-Na predavanjih bomo pojasnili, kako to deluje.
+Naslednji programi delujejo:
+
+    pair := λ x y . λ p . p x y
+    first := λ p . p (λ x y . x)
+    second := λ p . p (λ x y. y)
+
+Preverimo, da velja druga enačba:
+
+    second (pair a b) =
+    second ((λ x y . λ p . p x y) a b) =
+    second (λ p . p a b) =
+    (λ q . q (λ x y. y)) (λ p . p a b) =
+    (λ p . p a b) (λ x y. y) =
+    (λ x y. y) a b =
+    b
 
 ### Zahtevnejši primeri
 
