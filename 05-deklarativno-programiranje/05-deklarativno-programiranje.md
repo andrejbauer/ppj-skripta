@@ -3,10 +3,9 @@
 Z λ-računom smo spoznali uporabno vrednost funkcij in dejstvo, da lahko z njimi
 programiramo na nove in zanimive načine. A kot programski jezik λ-račun ni primeren, saj
 je zelo neučinkovit, poleg tega pa se programer večino časa ukvarja s kodiranjem podatkov
-s pomočjo funkcij. Da ne omenjamo grozne sintakse in neučinkovitosti.
+s pomočjo funkcij. Da ne omenjamo grozne sintakse.
 
-Obdržimo, kar ima λ-račun koristnega, a ga nato nadgradimo z manjkajočimi koncepti.
-Pomembna spoznanja so:
+Obdržimo, kar smo se od λ-račun naučili:
 
 1. **Funkcije so podatki.** V programskem jeziku lahko funkcije obravnavamo enakovredno vsem
    ostalim podatkom. To pomeni, da lahko funkcije sprejmejo druge funkcije kot argumente,
@@ -17,6 +16,7 @@ Pomembna spoznanja so:
    naj se izvede zaporedje ukazov. Kot smo videli, je vrstni red računanja nedoločen, saj
    je v splošnem možno izraz v λ-računu poenostaviti na več načinov (ki pa vsi vodijo do
    istega odgovora).
+
 
 Kakšne vrste programiranje pa potemtakem je λ-račun, če ni ukazno? Nekateri uporabljajo
 izraz **funkcijsko programiranje**, mi pa bomo raje rekli **deklarativno programiranje**.
@@ -29,7 +29,9 @@ rezultata je nato v večji ali manjši meri prepuščen programskemu jeziku.
 V λ-računu moramo vse podatke predstaviti, ali *kodirati*, s funkcijami. Tako opravilo je
 zamudno in podvrženo napakam, ker krši načelo:
 
-> **Programski jezik naj programerju omogoči neposredno izražanje idej.**
+:::{admonition} Pomni!
+**Programski jezik naj programerju omogoči neposredno izražanje idej.**
+:::
 
 Če mora programer neki koncept v programu izraziti tako, da ga simulira s
 pomočjo drugih konceptov, je večja možnost napake. Poleg tega prevajalnik ne bo
@@ -37,33 +39,28 @@ imel informacije o tem, kaj programer počne, zato bo prepoznal manj napak in
 imel manj možnosti za optimizacijo.
 
 Ponazorimo to načelo z idejo. Denimo, da želimo računati s seznami. Od
-programskega jezika pričakujemo *neposredno* podporo za sezname: sezname lahko
-preprosto naredimo, jih analiziramo, podajamo kot argumente. Ali programski
+programskega jezika pričakujemo *neposredno* podporo za sezname. Pričakujemo, da lahko seznam preprosto naredimo, dostopamo do njegovih sestavnih delov, analiziramo, podamo kot argument funkciji itd. Ali programski
 jeziki, ki jih že poznamo, podpirajo sezname? Poglejmo:
 
 * **C**: sezname moramo simulirati s pomočjo struktur (`struct`) in kazalcev
 * **Java**: sezname moramo simulirati z objekti
 * **Python**: seznami so vgrajeni, z njimi lahko delamo neposredno
 
-Python težavo torej reši tako, da ima sezname kar vgrajene v jezik. To je prikladna
-rešitev, vendar pa ne moremo pričakovati, da bomo lahko z vgrajenimi podatkovnimi
-strukturami zadovoljili vse potrebe. V vsakem primeru moramo programerju omogočiti, da
-definira *nove* strukture in *nove* načine organiziranja idej, ki jih načrtovalec jezika
-ni vnaprej predvidel. Različni programski jeziki to omogočajo na različne načine:
+Python težavo torej reši tako, da ima sezname kar vgrajene. To je prikladna
+rešitev, vendar pa ne moremo pričakovati, da bomo lahko z vgrajenimi podatkovnimi strukturami zadovoljili vse potrebe. Programerju moramo dodatno omogočiti, da definira *nove* strukture in *nove* načine organiziranja idej, ki jih načrtovalec jezika ni vnaprej predvidel. Različni programski jeziki to omogočajo na različne načine:
 
 * **C**: definiramo lahko strukture (`struct`), unije (`union`), uporabljamo kazalce, itd.
 * **Java**: definiramo razrede in podatke organiziramo kot objekte
 * **Python**: definiramo razrede in podatke organiziramo kot objekte
 
 Zdi se, da se novejši jeziki vsi zanašajo na objekte. A to še zdaleč ni edina
-rešitev za predstavitev podatkov – in tudi ne najboljša. Spoznali bomo *neposredne*
-konstrukcije podatkovnih tipov, ki *niso* simulacije s pomočjo kazalcev ali
-objektov. Navdih bomo vzeli iz matematike, kjer namesto podatkovnih tipov delamo z množicami.
+rešitev za predstavitev podatkov – in tudi ne najboljša. Spoznali bomo *neposredne* konstrukcije podatkovnih tipov, ki *niso* simulacije s pomočjo kazalcev ali objektov. (Seveda prevajalnik podatke v pomnilniku predstavi s kazalci, a programerju tega ni treba vedeti, ali o tem razmišljati.)
+
+Navdih bomo vzeli iz matematike, kjer namesto podatkovnih tipov delamo z množicami.
 
 ## Konstrukcije množic
 
-V matematiki gradimo nove množice z nekaterimi osnovnimi operacijami, ki jih večinoma že
-poznamo, a jih vseeno ponovimo.
+V matematiki gradimo nove množice z nekaterimi osnovnimi operacijami, ki jih večinoma že poznamo, a jih vseeno ponovimo.
 
 ### Zmnožek ali kartezični produkt
 
@@ -72,8 +69,7 @@ urejeni pari:
 
 * za vsak $x \in A$ in $y \in B$ lahko tvorimo **urejeni par** $(x, y) \in A \times B$
 
-Če imamo element $p \in A \times B$, lahko dobimo njegovo **prvo komponento** $\pi_1(p) \in A$ in
-**drugo komponento** $\pi_2(p) \in B$. Pri tem velja:
+Če imamo element $p \in A \times B$, lahko dobimo njegovo **prvo komponento** $\pi_1(p) \in A$ in **drugo komponento** $\pi_2(p) \in B$. Pri tem velja:
 
 $$
 \pi_1(x, y) = x
@@ -83,8 +79,7 @@ $$
 
 Operacijama $\pi_1$ in $\pi_2$ pravimo **projekciji**.
 
-Tvorimo lahko tudi zmnožek več množic, na primer $A \times B \times C \times D$, v tem primeru imamo
-urejene četverice $(x, y, z, t)$ in štiri projekcije, $\pi_1$, $\pi_2$, $\pi_3$ in $\pi_4$.
+Tvorimo lahko tudi zmnožek več množic, na primer $A \times B \times C \times D$, v tem primeru imamo urejene četverice $(x, y, z, t)$ in štiri projekcije, $\pi_1$, $\pi_2$, $\pi_3$ in $\pi_4$.
 
 
 ### Vsota ali disjunktna unija
@@ -94,17 +89,11 @@ urejene četverice $(x, y, z, t)$ in štiri projekcije, $\pi_1$, $\pi_2$, $\pi_3
 * za vsak $x \in A$ lahko tvorimo element $\iota_1(x) \in A + B$
 * za vsak $y \in A$ lahko tvorimo element $\iota_2(x) \in A + B$
 
-Predstavljamo si, da je vsota $A + B$ sestavljena iz dveh ločenih kosov $A$ in $B$ Simbola
-$\iota_1$ in $\iota_2$ sta *oznaki*, ki povesta, iz katerega kosa je element. To je pomembno, kadar
-tvorimo vsoto $A + A$. Če je $x \in A$, potem sta $\iota_1(x)$ in $\iota_2(x)$ *različna* elementa
-vsote $A + A$.
+Predstavljamo si, da je vsota $A + B$ sestavljena iz dveh ločenih kosov $A$ in $B$. Simbola $\iota_1$ in $\iota_2$ sta *oznaki*, ki povesta, iz katerega kosa je element. To je pomembno, kadar tvorimo vsoto $A + A$. Če je $x \in A$, potem sta $\iota_1(x)$ in $\iota_2(x)$ *različna* elementa vsote $A + A$.
 
 Operacijama $\iota_1$ in $\iota_2$ pravimo **injekciji**.
 
-Vsoti pravimo tudi **disjunktna unija**. Ločiti jo moramo od običajne unije. V vsoti
-$A + B$ se $A$ in $B$ nikoli ne prekrivata, ker elemente razločimo z oznakama $\iota_1$ in $\iota_2$.
-V uniji $A \cup B$ so lahko nekateri elementi *hkrati* v $A$ in v $B$. V skrajnem primeru
-imamo celo $A \cup A = A$, tako da je vsak element v obeh kosih.
+Vsoti pravimo tudi **disjunktna unija**. Ločiti jo moramo od običajne unije. V vsoti $A + B$ se $A$ in $B$ nikoli ne prekrivata, ker elemente razločimo z oznakama $\iota_1$ in $\iota_2$. V uniji $A \cup B$ so lahko nekateri elementi *hkrati* v $A$ in v $B$. V skrajnem primeru imamo celo $A \cup A = A$, tako da je vsak element v obeh kosih.
 
 Če želimo uporabiti element $u \in A + B$ v neki konstrukciji ali dokazu, **obravnavamo primera**:
 
@@ -113,29 +102,19 @@ imamo celo $A \cup A = A$, tako da je vsak element v obeh kosih.
 
 To je matematična zasnova konstrukcij za obravnavanje primerov v programskih jezikih (`match` v OCamlu, `case` v C/C++).
 
-Matematiki ne poznajo prikladnega zapisa za obravnavanje primerov. Nasploh matematiki vsoto množic slabo
-poznajo in jo neradi uporabljajo (kdo bi vedel, zakaj). V programiranju so vsote izjemno
-koristne, a na žalost jih programski jeziki bodisi ne podpirajo bodisi implementirajo
-narobe.
+Matematiki ne poznajo prikladnega zapisa za obravnavanje primerov. Nasploh matematiki vsoto množic slabo poznajo in jo neradi uporabljajo (kdo bi vedel, zakaj). V programiranju so vsote izjemno koristne, a na žalost jih pogosto programski jeziki bodisi ne podpirajo bodisi implementirajo narobe.
 
-Poglejmo si primer uporabe vsot v programiranju. Na primer, da v spletni trgovini
-prodajamo čevlje, palice in posode. Čevelj ima barvo in velikost, palica velikost in
-posoda prostornino. Če je $B$ množica vseh barv in $\mathbb{N}$ množica naravnih števil, lahko
-izdelek predstavimo kot element množice
+Poglejmo si primer uporabe vsot v programiranju. Na primer, da v spletni trgovini prodajamo čevlje, palice in posode. Čevelj ima barvo in velikost, palica velikost in posoda prostornino. Če je $B$ množica vseh barv in $\mathbb{N}$ množica naravnih števil, lahko izdelek predstavimo kot element množice
 
 $$
 (B \times \mathbb{N}) + \mathbb{N} + \mathbb{N}
 $$
 
-Res: črn čevelj velikosti $42$ je element $\iota_1(\mathsf{črna}, 42)$, palica dolžine $7$ je $\iota_2(7$),
-posoda s prostornino $7$ pa je $\iota_3(7)$. Oznaki $\iota_2$ in $\iota_3$ ločita med palicami in
-posodami. Seveda je tak zapis s programerskega stališča nepraktičen, zato ga bomo
-v programskem jeziku izboljšali.
+Res: črn čevelj velikosti $42$ je element $\iota_1(\mathsf{črna}, 42)$, palica dolžine $7$ je $\iota_2(7$), posoda s prostornino $7$ pa je $\iota_3(7)$. Oznaki $\iota_2$ in $\iota_3$ ločita med palicami in posodami. Seveda je tak zapis s programerskega stališča nepraktičen, zato ga bomo v programskem jeziku izboljšali.
 
 ### Eksponent ali množica funkcij
 
-**Eksponent** $B^A$, ki ga pišemo tudi $A \to B$, je množica vseh funkcij iz $A$ v $B$. Če je
-$f \in B^A$, pravimo, da je $A$ **domena** in $B$ **kodomena** funkcije $f$.
+**Eksponent** $B^A$, ki ga pišemo tudi $A \to B$, je množica vseh funkcij iz $A$ v $B$. Če je $f \in B^A$, pravimo, da je $A$ **domena** in $B$ **kodomena** funkcije $f$.
 
 Dogovorimo se, da je $\to$ asociira desno, se pravi
 
@@ -188,6 +167,7 @@ Spletni viri za OCaml:
 
 * [Uradna spletna stran za OCaml](https://www.ocaml.org)
 * [REPL za OCaml na glot.io](https://glot.io/new/ocaml) (kaj pomeni [REPL](https://www.abbreviations.com/REPL)?)
+* Poglavje [Funkcijsko programiranje](https://matija.pretnar.info/programiranje-1/02-uvod-v-funkcijsko-programiranje.html#osnove-ocamla) v zapiskih Matije Pretnarja
 * Učbenik [OCaml from the ground up](https://ocamlbook.org)
 
 ### Zmnožek tipov
@@ -222,6 +202,16 @@ Projekciji $\pi_1$ in $\pi_2$ v OCamlu zapišemo `fst` in `snd` (okrajšavi za �
 # snd (1, "banana") ;;
 - : string = "banana"
 ```
+
+Ti dve projekciji delujeta samo na urejenih parih! Na primer, s `fst` ne moremo projecirati prve komponente urejene trojice:
+
+```ocaml
+# fst (1, "banana", false) ;;
+Error: This expression has type 'a * 'b * 'c
+       but an expression was expected of type 'd * 'e
+```
+
+To je tako, ker v OCamlu redko uporabljamo projekcije, saj so dosti bolj prikladno in bolj splošno prirejanje z vzorci, ki ga bomo kmalu obravnavali.
 
 ### Definicije vrednosti
 
@@ -283,8 +273,7 @@ val r : bool = false
 val q : int = 8
 ```
 
-S pomočjo vzorcev lahko definiramo tudi ostale projekcije (tretja, čerta, peta, ...), a te v praksi malokdaj pridejo
-prav, saj so vzorci dosti bolj uporabni:
+S pomočjo vzorcev lahko definiramo tudi ostale projekcije (tretja, čerta, peta, ...), a te v praksi malokdaj pridejo prav, saj so vzorci dosti bolj uporabni:
 
 ```ocaml
 # let thd (_, _, z) = z ;;
@@ -407,9 +396,6 @@ Do polj zapisa lahko dostopamo tudi z vzorci:
 # let {ime = i; priimek = p} = mati ;;
 val i : string = "Neza"
 val p : string = "Cankar"
-
-# let {ime = i; priimek = _} = mati ;;
-val i : string = "Neza"
 ```
 
 Polj, ki nas ne zanimajo, v vzorcu ni treba omenjati, lahko le uporabimo `_`:
@@ -610,8 +596,6 @@ val b : float = 0.
 val r : float = 1.
 val v : int = 43
 ```
-
-Vzorcem se bomo bolj podrobno še posvetili.
 
 ### Tip funkcij
 
