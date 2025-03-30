@@ -1,10 +1,12 @@
 # Rekurzija in rekurzivni tipi
 
-Rekurzija je eden od osnovnih konceptov v računalništvu, ki se pojavlja na različnih nivojih.
+Rekurzija je osnovni koncept v logiki, matematiki in računalništvu. V tej lekciji bomo spoznali
+vlogo rekurzije v programiranju in programskih jezikih.
 
-## Splošna oblika rekurzije
+## Rekurzija in negibne točke
 
-Obravnavajmo rekurzivno funkcijo `f`, ki računa faktorielo. V Javi bi jo zapisali takole:
+Pravimo, da je funkcija *rekurzivna*, kadar kliče sama sebe. Kot primer vzemimo funkcijo `f`,
+ki računa faktorielo. V Javi bi jo zapisali takole:
 
 ```java
 public static int f(int n) {
@@ -33,110 +35,92 @@ let rec f n =
   if n = 0 then 1 else n * f (n - 1)
 ```
 
-Definicijo razstavimo na dva dela: na *telo* rekurzije, ki samo po sebi ni rekurzivno, in na
+Ekvivalenta definicija v Haskellu:
+
+```haskell
+f :: Integer -> Integer
+f n = if n == 0 then 1 else n * f (n - 1)
+```
+
+Obravnavajmo verzijo v Haskellu. Funkcijo prepišemo takole:
+
+```haskell
+f :: Integer -> Integer
+f = \n -> if n == 0 then 1 else n * f (n - 1)
+```
+
+Sedaj definicijo razstavimo na dva dela: na *telo* rekurzije, ki samo po sebi ni rekurzivno, in na
 *rekurzivni sklic* funkcije `f` same nase:
 
-```ocaml
-let telo g n =
-    if n = 0 then 1 else n * g (n - 1)
+```haskell
+telo :: (Integer -> Integer) -> (Integer -> Integer)
+telo g =  \n -> if n == 0 then 1 else n * g  (n - 1)
 
-let rec f n = telo f n
+f :: Integer -> Integer
+f = telo f
 ```
 
-Samo drugi del je rekurziven. Še malo drugače:
+Rekurzivno funkcijo smo zapisali kot negibno točko funkcije `telo`.
 
-```ocaml
-let telo g = fun n -> if n = 0 then 1 else n * g (n - 1)
+:::{admonition} Definicija
+**Negibna točka** funkcije $h : X \to X$ je tak $x \in X$, da velja $x = h(x)$.
+:::
 
-let rec f n = telo f n
-```
+V našem primeru je $h$ funkcija `telo`, $X$ je tip `Integer -> Integer` in $x$ je `f`.
+Negibne točke so pomembne tudi na drugih področjih matematike in o njih matematiki veliko vedo.
 
-*Vsako* rekurzivno funkcijo lahko razstavimo na ta način in drugi del je vedno enak.
-Definirajmo si funkcijo `rek` (v angleščini običajno `rec` ali `fix`), ki sprejme telo
-rekurzivne definicije `t` in vrne pripadajočo rekurzivno funkcijo:
+:::{admonition} Primer
 
-```ocaml
-let rec rek t = fun x -> t (rek t) x
-```
-
-Vsa rekurzija je shranjena v `rek`, od tu naprej je ne potrebujemo več:
-
-```ocaml
-let f = rek (fun self -> (fun n -> if n = 0 then 1 else n * self (n - 1)))
-```
-
-Poglejmo tip funkcije `rek`. OCaml je izpeljal njen tip:
-
-```ocaml
-(('a -> 'b) -> 'a -> 'b) -> 'a -> 'b
-```
-
-Tipa `'a` in `'b` sta *parametra*, ki označujeta poljubna tipa. Zapišimo lepše z `α` in `β`:
-
-```
-((α → β) → (α → β)) → (α → β)
-```
-
-Preberemo: »`rek` je funkcija, ki sprejme funkcijo `t` tipa `(α → β) → (α → β)` in vrne funkcijo
-tipa `α → β`.«
-
-Poglejmo postopek še enkrat, tokrat zapisan z λ-računom:
-
-1. Prvotna definicija `f` se glasi:     `f n = if n = 0 then 1 else n * f (n - 1)`
-2. Zapišemo s pomočjo λ-abstrakcije:  `f = λ n . if n = 0 then 1 else n * f (n - 1)`
-3. Ločimo rekurzijo in telo funkcije: `f = t f` kjer je `t = (λ g n . if n = 0 then 1 else n * g (n - 1))`
-4. S pomočjo `rek` definiramo `f`:        `f = rek t`
-
-Kadar imamo preslikavo $h$ in točko $x$, ki zadošča enačbi $x = h(x)$, pravimo, da je $x$ **negibna
-točka** preslikave $h$. V numeričnih metodah je eden od osnovnih postopkov reševanja enačb ta,
-da enačbo zapišemo v obliki $x = h (x)$ in nato iščemo njeno rešitev kot zaporedje približkov
+V numeričnih metodah enačbo oblike $x = h (x)$ poiščemo z zaporedjem približkov
 
 $$
 x_0,  h(x_0),  h(h(x_0)),  h(h(h(x_0))), \ldots
 $$
 
-Negibne točke so pomembne tudi na drugih področjih matematike in o njih matematiki veliko vedo.
-
-*Opomba:* če imam enačbo $\ell(x) = d(x)$, jo lahko prepišemo v obliko $x = d(x) - \ell(x) + x$ in definiramo
-$h(x) = d(x) - \ell(x) + x$, da dobimo $x = h(x)$.
-
-Ugotovili smo, da je tudi rekurzivna definicija funkcije $f$ pravzaprav enačba, ki ima
-oblike negibne točke:
+Če imamo srečo (kar pomeni, da je absolutna vrednost odvoda $h$ v okolici negibne točke manjša od $1$ in je $x_0$ v taki okolici), zaporedje konvergira k negibni točki. 
+Na primer, enačbo $x^2 = 1/2$ prepišemo v obliko $x = 1/2 - x^2 + x$, se pravi $x = h(x)$, kjer je $h(x) = 1/2 - x^2 + x$.
+Če vzamemo $x_0 = 1$, dobimo zaporedje
 
 $$
-f = t f
+1.0, 0.5, 0.75, 0.6875, 0.714844, 0.703842, 0.708448, 0.706549, 0.707337, 0.707011, 0.707146,
 $$
 
-Pomnimo:
+ki konvergira k rešitvi enačbe $1/\sqrt{2} = 0.70710678118654752440$.
 
-> **Rekurzivno definirana funkcija je negibna točka.**
+:::
 
-### Rekurzivna funkcija več argumentov
+Ali je tudi rekurzivna funkcija dveh argumentov negibna točka, na primer funkcija, ki računa binomske koeficiente?
 
-Ali to deluje tudi za rekurzivne funkcije dveh argumentov? Seveda!
+```haskell
+binom :: (Integer, Integer) -> Integer
+binom (n, k) = if k == 0 || k == n then 1 else binom (n - 1, k - 1) + binom (n - 1, k)
+```
 
-1. `s (n, k) = (if k = 0 then n else s (n + k, k - 1))`
-2. `s = λ (n, k) . if k = 0 then n else s (n + k, k - 1)`
-3. `s = t s`, kjer je `t = λ self . λ (n, k) . if k = 0 then n else self (n + k, k - 1)`
-4. `s = rek t`
+Seveda, saj lahko `binom` še vedno razstavimo na telo funkcije in sklic samega nase:
 
-### Hkratna rekurzivna definicija
+```haskell
+telo :: ((Integer, Integer) -> Integer) -> ((Integer, Integer) -> Integer)
+telo self = \(n, k) -> if k == 0 || k == n then 1 else self (n - 1, k - 1) + self (n - 1, k)
+
+binom :: (Integer, Integer) -> Integer
+binom = telo binom
+```
 
 Kaj pa definicija rekurzivnih funkcij `f` in `g`, ki kličeta druga drugo?
-Primer: funkcija `f` kliče `f` in `g`, funkcija `g` pa kliče `f`:
 
-```ocaml
-let rec f x = if x = 0 then 1 + f (x - 1) else 2 + g (x - 1)
-    and g y = if y = 0 then 1 else 3 * f (y - 1)
+Na primer, obravnavajmo funkcijo `f`, ki kliče `f` in `g`, ter funkcijo `g`, ki kliče `f`:
+
+```haskell
+f x = if x == 0 then 1 + f (x - 1) else 2 + g (x - 1)
+g y = if y == 0 then 1 else 3 * f (y - 1)
 ```
 
-Če obravnavamo `f` in `g` skupaj kot urejeni par `(f, g)` dobimo
+Če ju združimo v urejeni par `(f, g)` in ju zapišemo z λ-računom, dobimo
 
 ```none
-(f, g) = ((λ x . if x = 0 then 1 + f (x - 1) else 2 + g (x - 1)),
-          (λ y . if y = 0 then 1 else 3 * f (y - 1)))
+(f, g) = ((λ x . if x == 0 then 1 + f (x - 1) else 2 + g (x - 1)),
+          (λ y . if y == 0 then 1 else 3 * f (y - 1)))
 ```
-
 To je *rekurzivna definicija urejenega para (funkcij)*, kar prepišemo v
 
 ```none
@@ -150,34 +134,68 @@ t = λ (f', g') . ((λ x . if x = 0 then 1 + f' (x - 1) else 2 + g' (x - 1)),
                  (λ y . if y = 0 then 1 else 3 * f' (y - 1)))
 ```
 
-Torej tudi za hkratne rekurzivne definicije velja, da so to **negibne točke**.
+Torej tudi za hkratne rekurzivne definicije velja, da so to negibne točke.
+
+## Operator `fix`
+
+Recept za rekurzivno funkcijo je vedno isti:
+
+1. Zapišemo telo `t` funkcije.
+2. Definiramo negibno točko `f = t f`.
+
+Pri tem je samo drugi korak rekurziven in vedno enak. Zapišemo ga lahko kot funkcijo `fix`, ki izračuna negibno točko dane funkcije:
+
+```haskell
+fix :: (a -> a) -> a
+fix t = t (fix t)
+```
+
+V Haskellu tip `(a -> a) -> a` pomeni »funkcija, ki sprejme funkcjo tipa `a -> a` in vrne vrednost tipa `a`. Pri tem je tip `a` poljuben, pravimo, da je *parameter*.
+
+Vso rekurzijo smo "spravili" v `fix`. Od tu naprej bi lahko rekurzivne funkcije definirali s pomočjo `fix`:
+
+```haskell
+f :: Integer -> Integer
+f = fix (\ self n -> if n == 0 then 1 else n * self (n - 1))
+```
+
+:::{admonition} Vaja
+
+Katero vrednost zavzame tip `a` iz definicije `fix` v zgornji definiciji `f`?
+:::
+
+Poglejmo postopek še enkrat, tokrat zapisan z λ-računom:
+
+1. Prvotna definicija `f` se glasi:     `f n = if n = 0 then 1 else n * f (n - 1)`
+2. Zapišemo s pomočjo λ-abstrakcije:  `f = λ n . if n = 0 then 1 else n * f (n - 1)`
+3. Ločimo rekurzijo in telo funkcije: `f = t f` kjer je `t = (λ g n . if n = 0 then 1 else n * g (n - 1))`
+4. S pomočjo `fix` definiramo `f`:        `f = fix t`
 
 
-### Iteracija je poseben primer rekurzije
+## Iteracija je poseben primer rekurzije
 
-V proceduralnem programiranju poznamo zanke, na primer zanko `while`. Ali je tudi ta negibna
-točka? Če upoštevamo ekvivalenco
+V ukaznem programiranju poznamo zanke, na primer zanko `while`:
 
 ```none
 while b do c done
 ```
 
-in
+ Tudi ta je negibna točka! Res, taka zanka je ekvivalentna svojemu »odvitju«
 
 ```none
 if b then (c ; while b do c done) else skip
 ```
 
-vidimo, da je zanka `while b do c done` negibna točka. Če pišemo `W` za našo zanko:
+Če pišemo `W` za našo zanko, dobimo:
 
 ```none
 W ≡ (if b then (c ; W) else skip)
 ```
 
-Torej je `W` in s tem zanka `while b do c done` negibna točka funkcije:
+Torej je `W`  negibna točka funkcije
 
 ```none
-t = (λ W . if b then (c ; W) else skip)
+t = (λ V . if b then (c ; V) else skip)
 ```
 
 saj velja
@@ -186,19 +204,17 @@ saj velja
 (while b do c done) = t (while b do c done)
 ```
 
-Tudi **iteracija** je negibna točka!
-
 :::{note}
 
 Zanko `while` lahko na zgornji način »odvijamo v nedogled«:
 
-Faza 0:
+Odvitje 0:
 
 ```none
 while b do c done
 ```
 
-Faza 1:
+Odvitje 1:
 
 ```none
 if b
@@ -207,7 +223,7 @@ then
 else skip
 ```
 
-Faza 2:
+Odvitje 2:
 
 ```none
 if b
@@ -243,28 +259,36 @@ else skip
 In tako naprej. Če bi lahko imeli neskončno programsko kodo, ne bi potrebovali zank!
 :::
 
-### Rekurzivne podatkovne strukture
+## Rekurzivni seznami
 
-Rekurzivno lahko definiramo tudi ostale strukture, ne samo funkcije. Na primer,
+Rekurzivno lahko definiramo tudi razne druge strukture, ne samo funkcij. Na primer,
 neskončni seznam
 
-```none
-ℓ = [1; 2; 1; 2; 1; 2; ...]
+```haskell
+ℓ = [1, 2, 1, 2, 1, 2, ...]
 ```
 
-lahko definiramo kot
+lahko v Haskellu definiramo rekurzivno:
 
-```none
-ℓ = 1 :: 2 :: ℓ
+```haskell
+ℓ = 1 : 2 : ℓ
 ```
 
-OCaml dopušča take definicije v omejeni meri (in tudi niso uporabne, ker je OCaml neučakan jezik).
-Haskell omogoča splošne rekurzivne definicije podatkov.
+:::{admonition} Primer
+
+Še bolj zanimiv primer rekurzivno definiranega seznama:
+
+```haskell
+fibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)
+```
+
+Ugotovite, kaj počneta `zipWith` in `drop` in nato razložite, kakšen seznam je to.
+:::
 
 
-## Rekurzivni in induktivni tipi
+## Rekurzivni tipi
 
-Do sedaj smo spoznali podatkovne tipe:
+V tem razdelku bomo spet delali z OCamlom, kasneje pa v Haskellu. Do sedaj smo spoznali podatkovne tipe:
 
 * produkt `a * b` in zapisi
 * vsota `a + b`
@@ -414,8 +438,7 @@ Rekurzivni tipi so lahko zelo nenavadni:
 type d = Foo of (d -> bool)
 ```
 
-Poskusite si predstavljati, kaj so vrednosti tega tipa...
-
+Vrednost tipa `d` je oblike `Foo f`, kjer je `f` funkcija iz `d` v `bool`. Ali znate zapisati kako tako vrednost?
 
 ### Strukturna rekurzija
 
