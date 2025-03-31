@@ -77,7 +77,7 @@ $$
 x_0,  h(x_0),  h(h(x_0)),  h(h(h(x_0))), \ldots
 $$
 
-Če imamo srečo (kar pomeni, da je absolutna vrednost odvoda $h$ v okolici negibne točke manjša od $1$ in je $x_0$ v taki okolici), zaporedje konvergira k negibni točki. 
+Če imamo srečo (kar pomeni, da je absolutna vrednost odvoda $h$ v okolici negibne točke manjša od $1$ in je $x_0$ v taki okolici), zaporedje konvergira k negibni točki.
 Na primer, enačbo $x^2 = 1/2$ prepišemo v obliko $x = 1/2 - x^2 + x$, se pravi $x = h(x)$, kjer je $h(x) = 1/2 - x^2 + x$.
 Če vzamemo $x_0 = 1$, dobimo zaporedje
 
@@ -261,8 +261,7 @@ In tako naprej. Če bi lahko imeli neskončno programsko kodo, ne bi potrebovali
 
 ## Rekurzivni seznami
 
-Rekurzivno lahko definiramo tudi razne druge strukture, ne samo funkcij. Na primer,
-neskončni seznam
+Rekurzivno lahko definiramo tudi razne druge strukture, ne samo funkcij. Na primer, neskončni seznam
 
 ```haskell
 ℓ = [1, 2, 1, 2, 1, 2, ...]
@@ -319,11 +318,9 @@ type seznam =
   | Cons of int * seznam
 ```
 
-Spet imamo opravka z rekurzijo. Tipi, ki se sklicujejo sami nase v svoji definiciji, se
-imenujejo **rekurzivni tipi**.
+Spet imamo opravka z rekurzijo. Tipi, ki se sklicujejo sami nase v svoji definiciji, se imenujejo **rekurzivni tipi**.
 
-In spet vidimo, da je rekurzija negibna točka. Podatkovni tipi `seznam` je negibna točka za
-preslikavo `T`, ki slika tipe v tipe:
+In spet vidimo, da je rekurzija negibna točka. Podatkovni tipi `seznam` je negibna točka za preslikavo `T`, ki slika tipe v tipe:
 
 ```none
 seznam = T (seznam)
@@ -385,19 +382,18 @@ Ta definicija ni učinkovita, ker predstavi naravna števila z naslednikom, tore
 Naravna števila bi lahko definirali tudi takole:
 
 * `0` je naravno število
-* če je `n` naravno število, je tudi `shl0 n` naravno število
-* če je `n` naravno število, je tudi `shl1 n` naravno število
+* če je `n` naravno število, je tudi `Shl0 n` naravno število
+* če je `n` naravno število, je tudi `Shl1 n` naravno število
 
-Ideja: z `shl0 n` predstavimo število `2 · n + 0` in z `shl1 n` predstavimo število `2 · n + 1`.
-Primer: število
+Oznaka `Shl` je okrajšava za »shift left«. S `Shl0 n` predstavimo število `2 · n + 0` in s `Shl1 n` število `2 · n + 1`. Na primer
 
-```none
-shl0 (shl1 (shl0 (shl1 0)))
+```ocaml
+Shl0 (Shl1 (Shl0 (Shl1 0)))
 ```
 
 je število `10`. Kot podatkovni tip:
 
-```none
+```ocaml
 type stevilo = Zero | Shl0 of stevilo | Shl1 of stevilo
 ```
 
@@ -415,7 +411,7 @@ imelo vsako nenegativno celo število natanko enega predstavnika.
 
 :::{admonition} Primer
 
-[Definicijo standarda JSON](http://json.org) in iz nje izluščimo podatkovni tip:
+[Standard za predstavitev podatkov JSON](http://json.org) se kot podatkovni tip glasi takole:
 
 ```ocaml
 type json =
@@ -590,4 +586,3 @@ Primeri uporabe:
 :::{literalinclude} io.hs
 :language: haskell
 :::
-
