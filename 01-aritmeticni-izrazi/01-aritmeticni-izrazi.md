@@ -147,7 +147,7 @@ Ali bi lahko `1 * 2 + x` razčlenili kot `1 * (2 + x)` glede na zgornja pravila?
 Konkretno sintakso predelamo v abstraktno sintakso s postopkom **razčlenjevanja** (angl.
 **parsing**), ki ima dve fazi:
 
-* **leksična analiza:** niz razbijemo niz **gradnikov** (angl. **token**)
+* **leksična analiza:** niz razbijemo na niz **gradnikov** (angl. **token**)
 
 * **razčlenjevanje** (angl. **parsing**): niz gradnikov predelamo v drevo
 
