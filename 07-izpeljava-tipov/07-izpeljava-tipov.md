@@ -173,6 +173,15 @@ V prvi fazi izračunamo kandidata za tip in nabiramo enačbe, ki morajo veljati:
   Tip izraza `e₁ e₂` je `α`, z enačbami `E₁`, `E₂`, `τ₁ = τ₂ → α`
 
 
+* prazen seznam `[]`: uvedemo nov parameter `α`, tip je `α list`
+
+* sestavljen seznam `e₁ :: e₂`:
+
+    * izračunamo tip `τ₁` izraza `e₁` in dobimo še enačbe `E₁`
+    * izračunamo tip `τ₂` izraza `e₂` in dobimo še enačbe `E₂`
+
+  Tip izraza `e₁ :: e₂` je `τ₁ list`, z enačbami `E₁`, `E₂` in `τ₂ = τ₁ list`
+
 
 * rekurzivna definicija `x = e` (kjer se `x` pojavi v `e`): uvedemo nov parameter `α`, zabeležimo,
   da ima `x` tip `α`, ter
