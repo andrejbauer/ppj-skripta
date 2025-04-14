@@ -262,3 +262,9 @@ Kakšen je tip števila `3`?
 
 To naj izračuna OCaml:
 
+     let zero'  = (fun f x -> x) ;;
+     let one'   = (fun f x -> f zero' x) ;;
+     let two'   = (fun f x -> f one' (f zero' x)) ;;
+     let three' = (fun f x -> f two' (f one' (f zero' x))) ;;
+     let four'  = (fun f x -> f three' (f two' (f one' (f zero' x)))) ;;
+     let five'  = (fun f x -> f four' (f three' (f two' (f one' (f zero' x))))) ;;

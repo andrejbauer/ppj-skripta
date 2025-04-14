@@ -365,7 +365,7 @@ niso dovoljene. Primeri:
    * jeziki za označevanje podatkov
 5. hierarhija elementov v uporabniškem vmesniku
 
-## Primer: naravna števila
+#### Primer: naravna števila
 
 Definicija naravnega števila:
 
