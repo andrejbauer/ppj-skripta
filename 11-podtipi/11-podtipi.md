@@ -68,7 +68,7 @@ $$
 Pravilo za funkcijske tipe je bolj zanimivo, pozorno ga preberite:
 
 $$
-\frac{B_1 \leq a_1 \quad A_2 \leq B_2}{A_1 \to A_2 \leq B_1 \leq B_2}
+\frac{B_1 \leq A_1 \quad A_2 \leq B_2}{A_1 \to A_2 \leq B_1 \to B_2}
 $$
 
 Obrnili smo vrsti red v domeni! Pravimo, da je $\to$ **kontravarianten** (obrača

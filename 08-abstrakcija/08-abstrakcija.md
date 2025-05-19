@@ -196,7 +196,7 @@ Programski jeziki omogočajo abstrakcijo v večji ali manjši meri:
 
 * Java nadzoruje dostopnost do komponent z določili `private`, `public` in
   `protected`
-* Python nima nikakršne abstrakcije
+* Python omogoča skrivanje s poimenovanjem `__xyz` (glej [name mangling](https://peps-dir-aaturner.readthedocs.io/en/latest/pep-0008/)).
 * OCaml omogoča abstrakcijo z določilom `M : S`, kjer je `M` module in `S` signatura.
   S tem skrijemo vsebino modula `M`, razen tistih komponent, ki so naštete v `S`.
 
