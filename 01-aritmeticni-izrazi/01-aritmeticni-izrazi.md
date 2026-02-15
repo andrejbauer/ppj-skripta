@@ -118,9 +118,9 @@ Kako implementiramo drevesa, je odvisno od programskega jezika, ki ga uporabimo.
 Kasneje bomo spoznali še druge načine.
 
 
-### Slovnica in slovnična pravila
+### Pravila sintakse
 
-Pravila, ki opisujejo, kako tvorimo izraze ali drevesa, se imenujejo **slovnična pravila** ali **gramatika**. Poznamo več načinov, kako podamo pravila, mi si bomo ogledali poenostavljeno verzijo t.i. [oblike BNF](https://en.wikipedia.org/wiki/Backus–Naur_form), ki delno določa konkretno sintakso:
+Pravila, ki opisujejo, kako tvorimo izraze ali drevesa, se imenujejo **pravila sintakse** ali **slovnična pravila**. Poznamo več načinov, kako podamo pravila, mi si bomo ogledali poenostavljeno verzijo t.i. [oblike BNF](https://en.wikipedia.org/wiki/Backus–Naur_form), ki delno določa konkretno sintakso:
 
 ```
 ⟨izraz⟩ ::= ⟨aditivni-izraz⟩ EOF
@@ -147,11 +147,11 @@ Ali bi lahko `1 * 2 + x` razčlenili kot `1 * (2 + x)` glede na zgornja pravila?
 Konkretno sintakso predelamo v abstraktno sintakso s postopkom **razčlenjevanja** (angl.
 **parsing**), ki ima dve fazi:
 
-* **leksična analiza:** niz razbijemo niz **gradnikov** (angl. **token**)
+* **leksikalna analiza:** niz razbijemoo na zaporedje podnizov, ki jih imenujemo **leksikalne enote** (angl. **lexemes**). Posamezne podnize predstavimo z 
 
 * **razčlenjevanje** (angl. **parsing**): niz gradnikov predelamo v drevo
 
-Leksična analiza odstrani nebistvene znake, kot so presledki in prehodi v novo vrsto,
+Leksikalna analiza odstrani nebistvene znake, kot so presledki in prehodi v novo vrsto,
 pogosto tudi komentarje.
 
 Za aritmetične izraze so osnovni gradniki:

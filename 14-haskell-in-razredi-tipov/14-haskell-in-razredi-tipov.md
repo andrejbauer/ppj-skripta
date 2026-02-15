@@ -43,7 +43,7 @@ t :: A
 t = definicija-t
 ```
 
-Pozor: zapis `t :: A` pomeni »`t` ima tipa `A`« zapis `x :: ℓ` pa pomeni seznam z glavo `x` in repom `ℓ` (ravno obratno kot v OCamlu).
+Pozor: zapis `t :: A` pomeni »`t` ima tipa `A`« zapis `x : ℓ` pa pomeni seznam z glavo `x` in repom `ℓ` (ravno obratno kot v OCamlu).
 
 Definicija ima lahko tudi več vrstic, na primer:
 
@@ -129,6 +129,7 @@ vzorec, ki se ujema. Torej je `case` podoben izrazu `match` iz OCaml.
 
 :::{warning}
 OCaml opozori na manjkajoče primere v `match`, Haskell tega ne počne.
+Če uporabimo opcijo `-Wall` (vsa opozorila), nas opozori na manjkajoče primere.
 :::
 
 Primeri morajo biti pravilno zamaknjeni, lahko pa uporabimo tudi sintakso

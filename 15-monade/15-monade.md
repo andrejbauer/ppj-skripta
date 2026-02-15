@@ -79,28 +79,29 @@ Poleg tega lahko izračune **komponiramo**, podobno kot funkcije, da se zgodijo 
 
 V funkcijskem programiranju monada predstavlja enega ali kombinacijo večih učinkov. Njene sestavine so:
 
-1. Preslikava `T : Type → Type`, ki vsak tip `a` preslika v `T a`. Lahko si mislimo, da so elementi `T a` izračuni, ki
-   izračunajo vrednost tipa `a` in sprožajo učinke, ki jih zajema `T`. To *ne* pomeni, da je element `c : T a` neke
-   vrste »vrednost tipa `a`, zapakiran v računske učinke `T`.
-2. Preslikava `return : a → T a`, ki vrednost tipa `a` predstavi kot čisti izračun.
-3. Operacija `>>= : T a → (a → T b) → T b`, ki kombinira izračune. Če je `c` izračun, ki izračuna vrednost tipa `a` in
-   je `f : a → T b` funkcija, ki vrednosti tipa `a` preslika v izračune `T b`, potem je `c >>= f` izračun, ki ju združi.
+1. Preslikava `m : Type → Type`, ki tip `a` preslika v tip `m a`. Lahko si mislimo, da so elementi `m a` izračuni, ki
+   izračunajo vrednost tipa `a` in sprožajo učinke, ki jih zajema `m`.
+2. Preslikava `return : a → m a`, ki vrednost tipa `a` predstavi kot čisti izračun.
+3. Operacija `>>= : m a → (a → m b) → m b`, s katero kombiniramo izračune. Če je `c` izračun, ki izračuna vrednost tipa `a` in
+   je `f : a → m b` funkcija, ki vrednosti tipa `a` preslika v izračun tipa `m b`, potem je `c >>= f` izračun, ki ju združi v izračun tipa `m b`.
 
 :::{admonition} Primer
 
 Računski učinek **nedeterminizem** dobimo v primeru, da lahko program vrne več rezultatov, oziroma da v teku računanja izbira med več možnostmi. Ustrezna monada je:
 
-1. `T a = [a]`, se pravi, izračun vrednosti tipa `a` predstavimo s seznamov vseh rezultatov, ki bi jih lahko dobili.
-2. `return v = [v]`, ker je čista vrednost `v` enakovredna seznamu `[v]`, torej izračunu, ki vrne natančno `v`.
-3. `>>=` je `concat`, funkcija, ki združuje sezname.
+1. `m a = [a]`, se pravi izračun vrednosti tipa `a` predstavimo s seznamov vseh rezultatov, ki bi jih lahko dobili.
+2. `return v = [v]`, ker je čista vrednost `v` enakovredna seznamu `[v]`, torej izračunu, ki vrne natančno eno vrednost `v`.
+3. `c >>= f` je `concat (map f c)`.
+
+Kako deluje
 
 :::
 
-Monada mora zadoščati se naslednjim zakonom:
+Monada mora zadoščati še naslednjim zakonom:
 
-1. `(return x) >>= f = f x`
-2. `(c >>= return) = c`
-3. `(c >>= f >>= g) = c >>= (\x -> f x >>= g)`
+1. `(return x) >>= f   =   f x`
+2. `(c >>= return)     =   c`
+3. `(c >>= f >>= g)    =   c >>= (\x -> f x >>= g)`
 
 Zakaj ravno ti zakoni? Poleg globljih matematičnih razlogov, se izkaže, da jim razni računski učinki zadoščajo.
 
