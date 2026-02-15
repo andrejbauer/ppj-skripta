@@ -118,9 +118,9 @@ Kako implementiramo drevesa, je odvisno od programskega jezika, ki ga uporabimo.
 Kasneje bomo spoznali še druge načine.
 
 
-### Slovnica in slovnična pravila
+### Pravila sintakse
 
-Pravila, ki opisujejo, kako tvorimo izraze ali drevesa, se imenujejo **slovnična pravila** ali **gramatika**. Poznamo več načinov, kako podamo pravila, mi si bomo ogledali poenostavljeno verzijo t.i. [oblike BNF](https://en.wikipedia.org/wiki/Backus–Naur_form), ki delno določa konkretno sintakso:
+Pravila, ki opisujejo, kako tvorimo izraze ali drevesa, se imenujejo **pravila sintakse** (angl. syntax rules). Poznamo več načinov, kako podamo pravila, mi si bomo ogledali poenostavljeno verzijo t.i. [oblike BNF](https://en.wikipedia.org/wiki/Backus–Naur_form), ki jo pogosto srečamo v praksi:
 
 ```
 ⟨izraz⟩ ::= ⟨aditivni-izraz⟩ EOF
@@ -128,8 +128,10 @@ Pravila, ki opisujejo, kako tvorimo izraze ali drevesa, se imenujejo **slovničn
 ⟨multiplikativni-izraz⟩ ::= ⟨osnovni-izraz⟩ | ⟨multiplikativni-izraz⟩ * ⟨osnovni-izraz⟩
 ⟨osnovni-izraz⟩ ::= ⟨spremenljivka⟩ | ⟨številka⟩ | ( ⟨aditivni-izraz⟩ )
 ⟨spremenljivka⟩ ::= [a-zA-Z]+
-⟨številka⟩ ::= -? [0-9]+
+⟨številka⟩ ::= -?[0-9]+
 ```
+
+V trikotnih oklepajih `⟨⋯⟩` so zapisani **neterminalni simboli**. Vsak od njih ima svoje pravilo, ki pove, kako ga razčlenimo. Ostali simboli (`+`, `*`, `(`, `)`, in regularni izrazi, ki opisujejo spremenljivke in številke) so **osnovni** ali **terminalni simboli** (v teoriji formalnih jezikov razlikujemo med tema dvema pojmoma, a se mi s tem be bomo obremenjevali).
 
 Pri opisu spremenljivk in številke smo uporabili **regularne izraze**: v oglatih oklepajih navedemo, kateri znaki so dovoljeni, znak `+` pa pomeni »ena ali več ponovitev«.
 
@@ -139,47 +141,54 @@ Glede na pravila, je dani izraz veljaven ali ne. Primeri:
 * izraz `x * + 5` je neveljaven
 * izraz `1 * 2 + x` je veljaven
 
-Ali bi lahko `1 * 2 + x` razčlenili kot `1 * (2 + x)` glede na zgornja pravila?
-
+Ali bi lahko `1 * 2 + x` razčlenili kot »enica pomnožena z vsoto dvojke in `x`, se pravi `1 * (2 + x)`, glede na zgornja pravila?
 
 ### Iz konkretne v abstraktno sintakso
 
-Konkretno sintakso predelamo v abstraktno sintakso s postopkom **razčlenjevanja** (angl.
-**parsing**), ki ima dve fazi:
+Konkretno sintakso predelamo v abstraktno sintakso s postopkomaa leksikalne in sintaksne analize:
 
-* **leksična analiza:** niz razbijemo niz **gradnikov** (angl. **token**)
+* **leksikalna analiza:** (angl. lexical analysis) niz znakov razbijemo na niz **leksikalnih elementov** (angl. lexical element)in vsakega od njih predstavimo z **osnovnim simbolom** (angl. token, uporablja se tudi »žeton«)
 
-* **razčlenjevanje** (angl. **parsing**): niz gradnikov predelamo v drevo
+* **sintaksna analiza** (angl. parsing): niz osnovnih simbolov razčlenimo v sintaksno drevo
 
-Leksična analiza odstrani nebistvene znake, kot so presledki in prehodi v novo vrsto,
-pogosto tudi komentarje.
+Leksikalna analiza odstrani nebistvene znake, kot so presledki in prehodi v novo vrsto, pogosto tudi komentarje.
 
-Za aritmetične izraze so osnovni gradniki:
+Za aritmetične izraze so leksikalni elementi in pripadajoči osnovni simboli:
 
+* niz `+` in simbol `PLUS`
+* niz `*` in simbol `KRAT`
+* spremenljivka, opisana z regularnim izrazom `[a-zA-Z]+` in simbol `SPREMENLJIVKA(x)`, kjer je `x` niz
+* številka, opisana z regularnim izrazom `-?[0-9]+` in simbol `ŠTEVILKA(n)`, kjer je `n` število
+* niz `(` in simbol `OKLEPAJ`
+* niz `)` in simbol `ZAKLEPAJ`
 * `EOF` poseben gradnik, ki pomeni »konec«
-* `PLUS` znak za seštevanje
-* `KRAT` znak za množenje
-* `SPREMENLJIVKA(x)` spremenljivka
-* `ŠTEVILKA(n)` številka
-* `OKLEPAJ` in `ZAKLEPAJ`
 
-Primer: `x * (5 + 8)` nam da niz gradnikov
-
+Primer: `foo * (5 + 42)` nam da leksikalnih elementov
 ```
-SPREMENLJIVKA(x) KRAT OKLEPAJ ŠTEVILKA(5) PLUS ŠTEVILKA(8) ZAKLEPAJ
+"foo", "*", "(", "5", "+", "42", ")"
 ```
-
+s pripadajočim nizom osnovnih simbolov
+```
+SPREMENLJIVKA("foo") KRAT OKLEPAJ ŠTEVILKA(5) PLUS ŠTEVILKA(42) ZAKLEPAJ EOF
+```
 Ta niz nam da ustrezno drevo.
 
-Primer: `x * ((5 + 8` nam da niz gradnikov
-
+Primer: `x * ((5 + 8` nam da niz leksikalnih elementov
+```
+"x", "*", "(", "(", "5", "+", "8"
+```
+s pripadajočim nizom osnovnih simbolov
 ```
 SPREMENLJIVKA(x) KRAT OKLEPAJ OKLEPAJ ŠTEVILKA(5) PLUS ŠTEVILKA(8)
 ```
-
 Ta niz ni veljaven in ne določa drevesa. Javimo sintaktično napako.
 
-Na vajah boste spoznali razčlenjevalnik za aritmetične izraze, implementiran v Javi. Običajno pa razčlenjevalnika ne implementiramo z golimi rokami, ker je to precej zamudno, ampak uporabimo **parser generator** - program, ki sprejme slovnična pravila in iz njih generira razčlenjevalnik (primer takega opisa za [aritmetične izraze](https://github.com/andrejbauer/plzoo/blob/master/src/calc/parser.mly) v OCamlu).
+Zakaj ločimo med leksikalnim elementom in osnovnim simbolom? Na primer, zakaj je treba imeti `*` in `KRAT`? Iz vsaj dveh razlogov:
+
+1. Morda želimo imeti več različnih znakov za množenje `*`, `×` in `·`, ki jih vse predstavimo z istim osnovnim simbolom, saj vsi predstavljajo isto enoto v abstraktni sintaksi
+2. Osnovne simbole naštejemo (na primer kot algebraični tip, to bomo še spoznali) v kodi, da prevajalnik točno ve, kateri simboli se lahko pojavijo. Če bi uporabljali nize, nas prevajalnik ne more opozoriti na morebitne tipkarske napake v kodi. Konkretno, če preverjamo `if (simbol == KART) then ...`, bo prevajalnik javil napako, saj ne ve, kaj je `KART`. Če bi preverjali neposredno nize z `if (simbol = "**") then ...`, prevajalnik ne bi vedel, da smo se zatipkali in da bi moralo pisati `*`.
+
+Na vajah boste spoznali **sitnaksni analizator** (angl. parser) za aritmetične izraze, implementiran v Javi. Običajno pa razčlenjevalnika ne implementiramo z golimi rokami, ker je to precej zamudno, ampak uporabimo **sintaksni generator** - program, ki sprejme slovnična pravila in iz njih naredi sintaksni analizator (primer takega opisa za [aritmetične izraze](https://github.com/andrejbauer/plzoo/blob/master/src/calc/parser.mly) v OCamlu).
 
 
 ### Iz abstraktne v konkretno sintakso
