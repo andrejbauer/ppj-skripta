@@ -63,7 +63,7 @@ let rec velikost' t =
 (** Seznam elementov v drevesu *)
 let rec to_list = function
   | Empty -> []
-  | (Node (x, l, r)) -> to_list l @ [x] @ to_list r
+  | Node (x, l, r) -> to_list l @ [x] @ to_list r
 
 let rec to_list' = function
   | Empty -> []

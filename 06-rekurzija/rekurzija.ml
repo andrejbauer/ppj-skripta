@@ -31,5 +31,29 @@ type stevilo = Nic | Naslednik of stevilo
 (* Čuden tip *)
 type d = Foo of (d -> bool)
 
+let cow = Foo (fun v -> true)
+let rabbit = Foo (fun v -> false)
+
 (* Čudna vrednost *)
 let x = Foo (fun (Foo f) -> f (Foo (fun _ -> false)))
+
+type cow =
+  | Cow of int * bool
+  | Tail of cow
+
+(* Cow = 0 *)
+(* Tail = 1 *)
+
+let demo = Cow (3, false)
+(* p: [0, 3, 0] *)
+
+let demo' = Tail demo
+(* [1, p]
+
+let f = function
+  | Cow (a, b) -> (a, b)
+
+type dog = Dog of (int * bool)
+
+let g = function
+  | Dog a -> a

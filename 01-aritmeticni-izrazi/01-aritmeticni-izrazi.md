@@ -147,7 +147,7 @@ Ali bi lahko `1 * 2 + x` razčlenili kot »enica pomnožena z vsoto dvojke in `x
 
 Konkretno sintakso predelamo v abstraktno sintakso s postopkomaa leksikalne in sintaksne analize:
 
-* **leksikalna analiza:** (angl. lexical analysis) niz znakov razbijemo na niz **leksikalnih elementov** (angl. lexical element)in vsakega od njih predstavimo z **osnovnim simbolom** (angl. token, uporablja se tudi »žeton«)
+* **leksikalna analiza:** niz razbijemoo na zaporedje podnizov, ki jih imenujemo **leksikalne enote** (angl. **lexemes**). Posamezne podnize predstavimo z 
 
 * **sintaksna analiza** (angl. parsing): niz osnovnih simbolov razčlenimo v sintaksno drevo
 
