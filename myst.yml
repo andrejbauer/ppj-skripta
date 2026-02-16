@@ -1,0 +1,35 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 2700c8c4-889f-4322-8482-405ee64264a2
+  title: Principi programskih jezikov
+  description: 2. letnik, FRI
+  keywords: []
+  authors: [Andrej Bauer]
+  github: https://github.com/andrejbauer/ppj-skripta
+  toc:
+    - file: 00-uvod.md
+    - file: 01-aritmeticni-izrazi/01-aritmeticni-izrazi.md
+    # - file: 02-ukazni-programski-jezik/02-ukazni-programski-jezik.md
+    # - file: 03-dokazovanje-pravilnosti/03-dokazovanje-pravilnosti.md
+    # - file: 04-lambda-racun/04-lambda-racun.md
+    # - file: 05-deklarativno-programiranje/05-deklarativno-programiranje.md
+    # - file: 06-rekurzija/06-rekurzija.md
+    # - file: 07-izpeljava-tipov/07-izpeljava-tipov.md
+    # - file: 08-abstrakcija/08-abstrakcija.md
+    # - file: 09-logicno-programiranje/09-logicno-programiranje.md
+    # - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami.md
+    # - file: 11-podtipi/11-podtipi.md
+    # - file: 12-objektno-programiranje/12-objektno-programiranje.md
+    # - file: 14-haskell-in-razredi-tipov/14-haskell-in-razredi-tipov.md
+    # - file: 15-monade/15-monade.md
+    # - file: 13-ucinki-in-prestrezniki/13-ucinki-in-prestrezniki.md
+    
+site:
+  template: book-theme
+  parts:
+      primary_sidebar_footer: _includes/blank.md
+  options:
+    logo_text: "Principi programskih jezikov"
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
