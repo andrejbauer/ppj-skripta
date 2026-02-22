@@ -4,13 +4,15 @@ Spoznali smo aritmetične izraze s spremenljivkami. Spremenljivke smo obravnaval
 po mačehovsko, saj se jim ni dalo nastavljati vrednosti in ni bilo možno definirati novih spremenljivk.
 
 V tej lekciji bomo spoznali ukazni programski jezik, ki ima prave spremenljivke,
-pogojne stavke in zanko `while`.
+pogojne stavke in zanke.
 
 Po vrsti bomo obravnavali:
 
-* sintakso jezika
-* operacijsko semantiko: kako se jezik izvaja
-* prevajalnik v poenostavljeno strojno kodo
+* sintaksa jezika
+* operacijska semantika – kako se jezik izvaja
+* ekvivalenca programov – kaj pomeni, da sta dva programa ekvivalentna?
+* denotacijska semantika - kaj je matematični pomen programa?
+* prevajalnik v strojno kodo
 
 ## Sintaksa
 
@@ -55,7 +57,9 @@ Na primer, `or` je levo asociativen in ima prednost pred `;`. To še vedno ni do
 primer, dodati bi morali še pravila za pisanje oklepajev in pojasniti, kako se naredi leksikalno analizo (kakšna so
 pravila za presledke, nove vrste, komentarje ipd.)
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
+
 Program, ki sešteje števila od `1` do `100` in rezultat shrani v `s`:
 
 ```none
@@ -109,8 +113,10 @@ ustrezno operacijo, s katero to naredimo. Če je `η` okolje, `x` spremenljivka 
 
 pomeni okolje `η`, v katerem je vrednost `x` nastavljena na `n`.
 
-:::{admonition} Primer
-Če je `η = [x ↦ 10, y ↦ 5]`, potem je `η[x↦20]` enako `[x ↦ 20, y ↦ 5]`.
+:::{tip}
+**Primer**
+
+Če je `η = [x ↦ 10, y ↦ 5]`, potem je `η[x ↦ 20]` enako `[x ↦ 20, y ↦ 5]`.
 :::
 
 ### Operacijska semantika aritmetičnih in boolovih izrazov
@@ -192,26 +198,37 @@ Tudi Boolovi izrazi ne predstavljajo večje težave:
       η | e₁ < e₂ ↪ false
 ```
 
-:::{admonition} Vaja
-Dodajte pravila za `==`, s katerim primerjamo dve celi števili in dobimo boolovo vrednost.
-:::
-
-:::{admonition} Vaja
 Ko računamo boolove vrednosti, imamo pri računanju `b₁ and b₂` izbiro:
 
-1. Izračunamo `b₁` *in* `b₂` in nato vrednost `b₁ and b₂`
-2. Najprej izračunamo `b₁`. Če dobimo `false`, je vrednost `b₁ and b₂` enaka `false`
-   ne glede na `b₂`, zato ga ne izračunamo.
+1. **Polno vrednotenje:** (angl. complete evaluation): vedno izračunamo `b₁` *in* `b₂` in nato vrednost `b₁ and b₂`
+2. **Kratkostično vrednotenje** (angl. short-circuit evaluation): najprej izračunamo samo `b₁`. Če dobimo `false`, je vrednost `b₁ and b₂` enaka `false`
+   ne glede na `b₂`, zato ga ne izračunamo. Če je vrednost `b₁` enaka `true`, izračunamo še `b₂`.
 
-Zgoraj smo uporabili drugo možnost. (Kako se to razbere iz pravil?) Podajte še pravila za prvo možnost.
+Zgoraj smo uporabili kratkostično vrednotenje.
+
+:::{attention}
+**Naloga**
+
+1. Kako se iz zgoraj podanih pravil vidi, da se `b₁ and b₂` vrednoti kratkostično?
+2. Podajte pravilo za polno vrednotenje `b₁ and b₂`.
+3. Ali ima tudi `b₁ or b₂` polno in kratkostično vrednotenje?
+4. Podajte primer iz programerske prakse, kjer je pomembno, da vrednotimo boolove izraze kratkostično.
 :::
+
+:::{attention}
+**Naloga**
+
+Dodajte pravila za enakost celih števil `==`.
+:::
+
 
 ### Operacijska semantika ukazov
 
-Semantika malih korakov za ukaze je podana z relacijo `(η, c) ↦ (η', c')`:
-v okolju `η` ukaz `c` c enem koraku spremeni okolje v `η'` in se nadaljuje z ukazom `c'`.
-Tako kot smo pri semantiki malih korakov za aritmetične izraze z izvajanjem prenehali,
-ko smo prišli do celoštevilske konstante, nam pri ukazih par `(η, skip)` predstavlja ustavitveno stanje v okolju `η`.
+Semantika malih korakov za ukaze je podana z relacijo
+```
+(η, c) ↦ (η', c')`
+```
+ki jo preberemo: »v okolju `η` ukaz `c` v enem koraku spremeni okolje v `η'` in se nadaljuje z ukazom `c'`«.
 
 Relacija je določena z naslednjimi pravili:
 
@@ -250,55 +267,113 @@ Relacija je določena z naslednjimi pravili:
  (η, (while b do c done))  ↦ (η, (c ; while b do c done))
 ```
 
+Pravila določajo, kako se ukaz `c₁` v okolju `η₁` izvaja kot zaporedje korakov
+```
+(η₁, c₁) ↦ (η₂, c₂) ↦ (η₃, c₃) ↦ ⋯
+``` 
+Zaporedje se lahko nadaljuje v nedogled ali pa se ustavi pri ukazu `skip`, saj je to edini ukaz, ki nima naslednjega koraka.
+
+:::{tip}
+**Primer**
+
+V okolju `[x ↦ 3, y ↦ 10]` izvedemo ukaz
+```
+x := y + 2 ; if x < 8 then y := 0 else y := 1 end
+```
+takole:
+```
+( [x ↦  3, y ↦ 10],   x := y + 2 ; if x < 8 then y := 0 else y := 1 end ) ↦
+( [x ↦ 12, y ↦ 10],   skip ; if x < 8 then y := 0 else y := 1 end       ) ↦
+( [x ↦ 12, y ↦ 10],   if x < 8 then y := 0 else y := 1 end              ) ↦
+( [x ↦ 12, y ↦ 10],   y := 1                                            ) ↦
+( [x ↦ 12, y ↦  1],   skip)
+```
+
+:::
+
+
+:::{attention}
+**Naloga**
+
+Podajte čim bolj preprost program, ki se izvaja v nedogled.
+
+:::
+
+
+
 ## Ekvivalenca programov
 
-Programa sta ekvivalenta, če se v vseh pogledih obnašata enako. To pomeni, da lahko vedno enega zamenjamo z drugim.
+Pravimo, dasta dva ukaza ekvivalentna, če se v vseh pogledih obnašata enako. To pomeni, da lahko vedno enega zamenjamo z drugim. Kako bi to razložili natančneje?
 
-Natančneje, **evalvacijski kontekst** `C[ ]` je del programske kode `C`, ki ima »luknjo« `[ ]`. Programska koda `A` je **ekvivalentna** programski kodi `B`, če za *vse* evalvacijske kontekste `C[ ]` velja, da imata `C[A]` in `C[B]` enak rezultata in enako spreminjata okolje.
+Najprej definiramo **evalvacijski kontekst**, to je del programske kode z »luknjo«, v katero lahko vstavimo kodo, označimo ga z  `C[ ]`, kjer `[ ]` predstavlja luknjo. Če v `C[ ]` vstavimo kodo `A`, dobimo kodo `C[A]`.
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
+
+Naj bo `C[ ]` evalvacijski kontekst:
+
+```
+while i < n do
+  i := i + 1 ;
+  [ ]
+done
+```
+Tedaj je `C[s := s + i ; p := p * s]` koda
+```
+while i < n do
+  i := i + 1 ;
+  s := s + i ;
+  p := p * s
+done
+```
+:::
+
+:::{important}
+**Definicija**
+
+Programska koda `A` je **ekvivalentna** programski kodi `B`, če za *vse* evalvacijske kontekste `C[ ]` velja, da imata `C[A]` in `C[B]` enak rezultata in enako spreminjata okolje.
+
+:::
+
+:::{tip}
+**Primer**
+
 Programa
-
 ```
 x := x + 1 ;
 x := x + 2
 ```
-
 in
-
 ```
 x := x + 3
 ```
-
-sta ekvivalentna.
+sta ekvivalentna. Kako bi to dokazali?
 :::
 
-:::{admonition} Primer
-Programa
+:::{tip}
+**Primer**
 
+Programa
 ```
 x := x + 1 ;
 x := x + 2
 ```
-
 in
-
 ```
 y := y + 3
 ```
-
 *nista* ekvivalentna, saj ju lahko razločimo s kontekstom in okoljem `η = [x ↦ 0, y ↦ 0]`.
-
 ```
 x := 0 ;
 y := 0 ;
 [ ]
 ```
-
 Če vstavimo v luknjo prvi program, bo okolje spremenil v `[x ↦ 3, y ↦ 0]`, drugi pa v `[x ↦ 0, y ↦ 3]`.
 :::
 
-:::{admonition} Naloga
+:::{attention}
+**Naloga**
+
 Ugotovite, ali je program, ki sešteje prvih 100 števil
 
 ```none
@@ -318,16 +393,14 @@ s := 5050
 
 :::
 
-(Odgovor: nista ekvivalentna, ker drugi program ne nastavi vrednosti `i`. Ekvivalentno bi bilo `i := 101 ; s := 5050`.)
-
 
 ## Prevajalnik
 
-Implementiramo prevajalnik v strojno kodo. Ogledali si bomo implementacijo v
-OCamlu, glej programski jezik [comm](http://plzoo.andrej.com/language/comm.html) v [Programming Languages Zoo](http://plzoo.andrej.com/).
-Implementirana je razširjena različica jezika, ki ima še ukaz za izpisovanje na zaslon in lokalne spremenljivke.
+Implementirajmo prevajalnik za ukazni programski jezik. Zlgedovali se bomo po prevajalniku za
+[comm](http://plzoo.andrej.com/language/comm.html) v [Programming Languages Zoo](http://plzoo.andrej.com/),
+ki je razširitev ukaznega jezika, ki smo ga obravnavali do sedaj.
 
-Jezik `comm` vsebuje naslednje komponente:
+Jezik `comm` podpira:
 
 * aritmetične in boolove izraze
 * spremenljivke
@@ -339,7 +412,100 @@ Jezik `comm` vsebuje naslednje komponente:
 * sestavljeni ukaz `c₁ ; c₂`
 * ukaz `print e`
 
-Ogledamo si sestavne dele implementacije:
+Ukaz `print e` ni presenetljiv, saj le na zaslon izpiše vrednost izraza `e`.
+
+Bolj zanimiv je ukaz `let x := e in c`, s katerim deklariramo spremenljivko `x` z začetno vrednostjo `e`, ki je veljavna v ukazu `c`.
+Na primer, ukaz
+
+```
+let i := 1 in
+let s := 0 in
+  while i < 100 do
+    let j := i * s in
+    i := i + 1 ;
+    s := s + j
+  done
+```
+
+bi v Javi zapisali kot blok
+
+```java
+{
+   int i = 1 ;
+   int s = 0 ;
+   while (i < 100) {
+      int j = i * s ;
+      i = i + 1 ;
+      s = s + j
+   }
+}
+```
+
+:::{attention}
+**Naloga**
+
+Ukaz `let x := e in c` programernja prisili, da novo spremenjivko inicializira, kar pomeni, da mora podati njeno začetno vrednost.
+Mnogi programski jeziki dopuščajo deklaracijo nove spremenljivke tako, da ni treba podati njene začetne vrednosti.
+
+1. Kaj dopušča Java?
+2. Kakšne prednosti ima jezik, ki programerja sili v inicializacijo spremenljivk?
+3. Kakšne prednosti ima jezik, ki dopušča neinicializirane spremenljivke?
+
+:::
+
+### Strojni jezik
+
+Ukaze bomo prevajali v strojni jezik za preprost procesor. Vsa aritmetična in logična obdelava podatkov poteka na **skladu**, trajnejše vrednosti so v **RAM-u**, potek izvajanja pa vodi **števec ukazov**. 
+
+Arhitektura stroja sestoji iz:
+
+*   **Program**: tabela ukazov, ki naj jih stroj izvaja (opisani so spodaj)
+*   **Pomnilnik RAM**: tabela celih števil (`int`), dostop po indeksih
+*   **Števec ukazov (`cp`)**: indeks trenutno izvajajočega se ukaza v programu.
+*   **Kazalec na sklad (`sp`)**: sklad je shranjen v RAM in raste navzdol. Vrh sklada je na naslovu, na katerega kaže `sp`.
+*   **Logične vrednosti**: `0` pomeni neresnica, vsak neničelni `int` pomeni resnica.
+*   **Vhod/izhod**: ukaz `PRINT` izpiše celo število z vrha sklada.
+
+Ob inicializaciji: RAM je zapolnjen z ničlami, `pc = 0`, `sp = ram_size - 1`. Sklad je torej sprva prazen.
+
+Stroj izvaja program v zanki: prebere navodilo na naslovu `pc`, ga izvede, nato se `pc` običajno poveča za `1`. Izjema so skoki:
+
+*   **relativni skoki** (`JMP k`, `JMPZ k`) popravijo `pc` z relatvnim odmikom `k`, nato glavni cikel `pc` še poveča za `1`. Efektivni cilj izvedenega skoka je zato `pc + k + 1` glede na začetni `pc` ukaza skoka.
+*   `JMPZ` pred odločitvijo porabi (pop) vrh sklada in skoči le, če je ta vrednost `0`.
+
+Vsi aritmetični in logični ukazi delujejo na vrhu sklada. Binarne operacije vedno vzamejo najprej `y = pop`, nato `x = pop`, izračunajo rezultat `x ∘ y` in ga potisnejo nazaj (`push`). Unarne operacije vzamejo en `pop` in vrnejo en `push`.
+
+Ukazni nabor stroja:
+
+*   `NOOP` — ne naredi ničesar (niti sklada niti `pc` ne spremeni).
+*   `SET k` — vzemi `a = pop` in zapiši `a` v RAM na naslov `k`.
+*   `GET k` — preberi RAM na naslovu `k` in prebrano potisni na sklad.
+*   `PUSH c` — potisni celoštevilsko konstanto `c` na sklad.
+*   `ADD` — `x + y`.
+*   `SUB` — `x - y`.
+*   `MUL` — `x * y`.
+*   `DIV` — `x / y`; če je `y = 0`, sproži napako *division by zero*.
+*   `MOD` — `x mod y`; če je `y = 0`, sproži napako *division by zero*.
+*   `EQ` — vrne `1`, če `x = y`, sicer `0`.
+*   `LT` — vrne `1`, če `x < y`, sicer `0`.
+*   `AND` — logična konjunkcija: `1` iff (`x ≠ 0` in `y ≠ 0`), sicer `0`.
+*   `OR` — logična disjunkcija: `1` iff (`x ≠ 0` ali `y ≠ 0`), sicer `0`.
+*   `NOT` — logična negacija vrha sklada: neničelen → `0`, `0` → `1`.
+*   `JMP k` — relativni skok z odmikom `k` (glej razdelek o skokih).
+*   `JMPZ k` — relativni pogojni skok: vzemi `a = pop`; če je `a = 0`, skoči z odmikom `k`.
+*   `PRINT` — `a = pop`; izpiši `a` na standardni izhod.
+
+Stroj lahko med izvajanjem sproži izjemo:
+
+*   **`Illegal_address`** — poskus branja ali pisanja izven meja RAM-a.
+*   **`Zero_division`** — deljenje ali ostanek z ničelnim deliteljem (`DIV`, `MOD`).
+*   **`Illegal_instruction`** — rezervirano za neveljavna navodila (v dani različici je definirano, a se ne sproža).
+
+Opomba: model je namerno minimalen — ni preverjanja prepolnitve/podpraznjenja sklada (push/pop lahko trčita izven dovoljenega območja RAM-a, kar se izrazi kot `Illegal_address`).
+
+### Implementacija v OCamlu
+
+Podrobneje si oglejmo implementacijo `comm` v OCAmlu. Še posebej nas zanima, kako deluje prevajalnik.
 
 * abstraktna sintaksa je definirana s podatkovnimi tipi v `syntax.ml`
 * konkretna sintaksa je opisana v `lexer.mll` in `parser.mly`; uporabimo generator parserjev Menhir
@@ -348,6 +514,7 @@ Ogledamo si sestavne dele implementacije:
 * glavni program je v `comm.ml`
 
 Prevajalnik neposredno pretvori program v strojno kodo, ker je `comm` zelo preprost jezik. Prevajanje pravih programskih jezikov poteka preko več stopenj, z vmesnimi jeziki. Vsak naslednji jezik je nekoliko bolj preprost in bližje strojni kodi.
+
 
 ### Primeri
 

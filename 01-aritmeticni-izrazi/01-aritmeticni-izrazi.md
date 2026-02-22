@@ -11,6 +11,8 @@ Pri tem predmetu se bomo učili **osnovne principe**, ki so podlaga za načrtova
 Osnovno vodilo načrtovanja programskega jezika je:
 
 :::{important}
+**Osnovni princip**
+
 Programski jezik je orodje, ki programerju omogoča, da na čim bolj neposreden
 način poda natančna navodila, kako naj računalnik opravi neko nalogo.
 :::
@@ -334,7 +336,8 @@ Pravila se glasijo:
  η | n₁ * n₂ ↦ n
 ```
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 V okolju `[x ↦ 3, y ↦ 2, z ↦ 5]` izračunamo `x + 2 * y`:
 
@@ -355,7 +358,9 @@ Pravila ne dopuščajo nobene svobode pri računanju. Na primer, če želimo izr
 
 potem *moramo* naprej izračunati `2 * 3`, da dobimo `6 + 5 * 6` in šele nato `5 * 6`, da dobimo `6 + 30`. Ugotovite, zakaj je tako.
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
+
 Izvajanje se lahko tudi zatakne, na primer, če spremenljivka nima vrednosti:
 
 ```

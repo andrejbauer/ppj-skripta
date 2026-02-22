@@ -1,4 +1,4 @@
-# Uvod
+# Principi programskih jezikov
 
 To so zapiski predavanj pri predmetu <a href="https://ucilnica.fri.uni-lj.si/course/view.php?id=67">Principi programskih jezikov</a> za 2. letnik Interdisciplinarnega študija računalništva in matematike na 1. stopnji. Predmet lahko izberejo tudi študenti Računalništva in informatike.
 
@@ -22,7 +22,8 @@ To so zapiski predavanj pri predmetu <a href="https://ucilnica.fri.uni-lj.si/cou
 * [Zapiski s predavanj](https://www.andrej.com/zapiski/ISRM-PPJ-2026/)
 * **Discord server**: na spletni učilnici najdete povezavo.
 
-:::{important} 
+:::{hint}
+**Namig**
 
 Ti zapiski so na voljo na GitHub repozitoriju [`ppj-skripa`](https://github.com/andrejbauer/ppj-skripta). Popravki so dobrodošli, prosim naredite [pull request](https://github.com/andrejbauer/ppj-skripta/pulls).
 

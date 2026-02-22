@@ -1,16 +1,32 @@
 # See docs at: https://mystmd.org/guide/frontmatter
 version: 1
 project:
+
   id: 2700c8c4-889f-4322-8482-405ee64264a2
+
   title: Principi programskih jezikov
+
   description: 2. letnik, FRI
+
   keywords: []
+
   authors: [Andrej Bauer]
+
   github: https://github.com/andrejbauer/ppj-skripta
+
+  exports:
+    - format: typst
+      template: plain_typst_book
+      output: exports/ppj-zapiski.pdf
+
+  downloads:
+    - file: /exports/ppj-zapiski.pdf
+      title: Prenesi PDF
+
   toc:
     - file: 00-uvod.md
     - file: 01-aritmeticni-izrazi/01-aritmeticni-izrazi.md
-    # - file: 02-ukazni-programski-jezik/02-ukazni-programski-jezik.md
+    - file: 02-ukazni-programski-jezik/02-ukazni-programski-jezik.md
     # - file: 03-dokazovanje-pravilnosti/03-dokazovanje-pravilnosti.md
     # - file: 04-lambda-racun/04-lambda-racun.md
     # - file: 05-deklarativno-programiranje/05-deklarativno-programiranje.md
@@ -24,12 +40,19 @@ project:
     # - file: 14-haskell-in-razredi-tipov/14-haskell-in-razredi-tipov.md
     # - file: 15-monade/15-monade.md
     # - file: 13-ucinki-in-prestrezniki/13-ucinki-in-prestrezniki.md
-    
+
+
 site:
   template: book-theme
+
   parts:
       primary_sidebar_footer: _includes/blank.md
+
   options:
     logo_text: "Principi programskih jezikov"
-  #   favicon: favicon.ico
-  #   logo: site_logo.png
+    page_authors: false
+
+  actions:
+    - title: Prenesi PDF
+      url: exports/ppj-zapiski.pdf
+      static: true
