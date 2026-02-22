@@ -1,12 +1,10 @@
 # Ukazni programski jezik
 
-Spoznali smo aritmetične izraze s spremenljivkami. Spremenljivke smo obravnavali
+V prejšnji lekciji smo spoznali aritmetične izraze s spremenljivkami. Spremenljivke smo obravnavali
 po mačehovsko, saj se jim ni dalo nastavljati vrednosti in ni bilo možno definirati novih spremenljivk.
 
 V tej lekciji bomo spoznali ukazni programski jezik, ki ima prave spremenljivke,
-pogojne stavke in zanke.
-
-Po vrsti bomo obravnavali:
+pogojne stavke in zanke. Po vrsti bomo obravnavali:
 
 * sintaksa jezika
 * operacijska semantika – kako se jezik izvaja
@@ -393,6 +391,50 @@ s := 5050
 
 :::
 
+## Denotacijska semantika
+
+Denotacijski semantiki se bomo posvetili na kratko, s preprostimi zgledi, saj bi natančna obravnava zahtevala več časa.
+
+Osnovno vprašanje, na katerega odgovarja denotacijska semantika je: *»Kaj je matematični pomen programa?«*
+Na primer, pomen izraza `3 * (6 + 8)` je celo število `42`, matematični pomen Python funkcije
+```python
+def fakt(n):
+   if n == 0:
+      return 1
+   else:
+      return n * fakt(n-1)
+```
+je matematična funkcija `n ↦ n!`, itn.
+
+Ukaz `c` v našem programskem jeziku prav tako predstavlja funkcijo, ki sprejme okolje in vrne okolje. Na primer,
+```
+x := x + 1 ;
+y := 10
+```
+predstavlja funkcijo, ki okolje `[x ↦ a, y ↦ b]` preslika v okolje `[x ↦ a+1, y ↦ 10]`. Ukaz
+```
+i := 1 ;
+s := 0 ;
+while i < n do
+  s := s + i ;
+  i := i + 1
+done
+```
+predstavlja funkcijo, ki sprejme okolje `[i ↦ a, s ↦ b, n ↦ c]` takole:
+
+* če je `c ≤ 0`, je vrednost funkcije `[i ↦ 1, s ↦ 0, n ↦ c]`
+* če je `c > 0`, je vrednost funkcije `[i ↦ c, s ↦ c·(c+1)/2, n ↦ c]`
+
+Funkcija, ki jo računa ukaz, je lahko *delna*, kar pomeni, da njena vrednost ni nujno definirana. Ukaz
+```
+while not (i = 100) do
+  i := i + 1
+done
+```
+predstavlja funkcijo, ki sprejme okolje `[i ↦ a]` in
+
+* če je `a > 100`, je vrednost funkcije nedefinirana (ker se zanka nikoli ne konča)
+* če je `a ≤ 100`, je vrednost funkcije okolje `[i ↦ 100]`.
 
 ## Prevajalnik
 
@@ -503,9 +545,19 @@ Stroj lahko med izvajanjem sproži izjemo:
 
 Opomba: model je namerno minimalen — ni preverjanja prepolnitve/podpraznjenja sklada (push/pop lahko trčita izven dovoljenega območja RAM-a, kar se izrazi kot `Illegal_address`).
 
+### Kako deluje prevajanje
+
+Kako točno deluje prevajalnik, je razvidno iz implementacije v OCamlu. Tu je kratek besedni opis.
+
+Prevajalnik pretvori izvorni program v zaporedje strojnih ukazov. Pri tem vodi **kontekst spremenljivk** (seznam trenutno veljavnih imen), ki vsako spremenljivko preslika v **lokacijo v RAM-u** po načelu *de Bruijnovih nivojev*: prva deklaracija je na lokaciji 0, naslednja na 1, itn. Tako lahko ukaz `let` novi spremenljivki dodeli naslednjo lokacijo, `:=` pa preprosto naslovi že dodeljeno lokacijo.
+
+Aritmetične in logične izraze prevajalnik prevede tako, da se izračunajo na skladu: najprej izračuna levi in desni podizraz (vsak potiska vrednosti na sklad), nato doda eno samo navodilo za operacijo. Boolovi vezniki so prevedeni s polnim vrednotenjem (niso kratkostični). Zaporedje ukazov prevede tako, da stakne skupaj prevode posameznih ukazov.
+
+Pogojni stavek `if` se prevede v izračun pogoja, pogojni skok čez vejo `then`, veja `then` s skokom čez vejo `else` in nazadnje veja `else`. Zanka `while` se prevede v test na začetku zanke, pogojni skok če telo zanke, nato telo zanke in na koncu *negativen* relativni skok nazaj na test.
+
 ### Implementacija v OCamlu
 
-Podrobneje si oglejmo implementacijo `comm` v OCAmlu. Še posebej nas zanima, kako deluje prevajalnik.
+Podrobneje si oglejmo implementacijo `comm` v OCAmlu:
 
 * abstraktna sintaksa je definirana s podatkovnimi tipi v `syntax.ml`
 * konkretna sintaksa je opisana v `lexer.mll` in `parser.mly`; uporabimo generator parserjev Menhir
