@@ -1,4 +1,4 @@
-COMM = $(HOME)/Documents/plzoo/comm.native
+COMM = $(HOME)/Documents/plzoo/comm.exe
 
 default: bench
 	@echo "----- C -----"

@@ -20,7 +20,7 @@ ukaze. Podajmo abstraktna sintaksa jezika:
 ```
 ⟨aritmetični-izraz⟩ ::=
   ⟨spremenljivka⟩ |
-  ⟨številka⟩
+  ⟨številka⟩ |
   ⟨aritmetični-izraz⟩ + ⟨aritmetični-izraz⟩ |
   ⟨aritmetični-izraz⟩ * ⟨aritmetični-izraz⟩
 
@@ -224,7 +224,7 @@ Dodajte pravila za enakost celih števil `==`.
 
 Semantika malih korakov za ukaze je podana z relacijo
 ```
-(η, c) ↦ (η', c')`
+(η, c) ↦ (η', c')
 ```
 ki jo preberemo: »v okolju `η` ukaz `c` v enem koraku spremeni okolje v `η'` in se nadaljuje z ukazom `c'`«.
 
@@ -301,7 +301,7 @@ Podajte čim bolj preprost program, ki se izvaja v nedogled.
 
 ## Ekvivalenca programov
 
-Pravimo, dasta dva ukaza ekvivalentna, če se v vseh pogledih obnašata enako. To pomeni, da lahko vedno enega zamenjamo z drugim. Kako bi to razložili natančneje?
+Pravimo, da sta dva ukaza ekvivalentna, če se v vseh pogledih obnašata enako. To pomeni, da lahko vedno enega zamenjamo z drugim. Kako bi to razložili natančneje?
 
 Najprej definiramo **evalvacijski kontekst**, to je del programske kode z »luknjo«, v katero lahko vstavimo kodo, označimo ga z  `C[ ]`, kjer `[ ]` predstavlja luknjo. Če v `C[ ]` vstavimo kodo `A`, dobimo kodo `C[A]`.
 
@@ -423,7 +423,7 @@ done
 predstavlja funkcijo, ki sprejme okolje `[i ↦ a, s ↦ b, n ↦ c]` takole:
 
 * če je `c ≤ 0`, je vrednost funkcije `[i ↦ 1, s ↦ 0, n ↦ c]`
-* če je `c > 0`, je vrednost funkcije `[i ↦ c, s ↦ c·(c+1)/2, n ↦ c]`
+* če je `c > 0`, je vrednost funkcije `[i ↦ c, s ↦ c·(c-1)/2, n ↦ c]`
 
 Funkcija, ki jo računa ukaz, je lahko *delna*, kar pomeni, da njena vrednost ni nujno definirana. Ukaz
 ```
@@ -446,7 +446,7 @@ Jezik `comm` podpira:
 
 * aritmetične in boolove izraze
 * spremenljivke
-   * deklaracija nove lokalne spremenljivke `let x := e in c`
+   * deklaracija nove lokalne spremenljivke `new x := e in c`
    * nastavljanje vrednosti `x := e`
 * pogojni stavek `if b then c₁ else c₂ done`
 * zanka `while b do c done`
@@ -456,14 +456,14 @@ Jezik `comm` podpira:
 
 Ukaz `print e` ni presenetljiv, saj le na zaslon izpiše vrednost izraza `e`.
 
-Bolj zanimiv je ukaz `let x := e in c`, s katerim deklariramo spremenljivko `x` z začetno vrednostjo `e`, ki je veljavna v ukazu `c`.
+Bolj zanimiv je ukaz `new x := e in c`, s katerim deklariramo spremenljivko `x` z začetno vrednostjo `e`, ki je veljavna v ukazu `c`.
 Na primer, ukaz
 
 ```
-let i := 1 in
-let s := 0 in
+new i := 1 in
+new s := 0 in
   while i < 100 do
-    let j := i * s in
+    new j := i * s in
     i := i + 1 ;
     s := s + j
   done
@@ -486,7 +486,7 @@ bi v Javi zapisali kot blok
 :::{attention}
 **Naloga**
 
-Ukaz `let x := e in c` programernja prisili, da novo spremenjivko inicializira, kar pomeni, da mora podati njeno začetno vrednost.
+Ukaz `new x := e in c` programernja prisili, da novo spremenjivko inicializira, kar pomeni, da mora podati njeno začetno vrednost.
 Mnogi programski jeziki dopuščajo deklaracijo nove spremenljivke tako, da ni treba podati njene začetne vrednosti.
 
 1. Kaj dopušča Java?
