@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>REPL in your browser (λ-calculus)</title>
+
+    <!-- Bootstrap required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- CodeMirror editor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.js" integrity="sha256-ag7KgA1S7cuuU2FCC2G7/L8IpaijDSPqzcLLLeJv5Iw=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.css" integrity="sha256-I8NyGs4wjbMuBSUE40o55W6k6P7tu/7G28/JGUUYCIs=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/theme/monokai.min.css" integrity="sha256-6ov3WWd9ybfZPeJBlXBgQuD/aLhTRCEp5kBhqD9ke0o=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/mllike/mllike.min.js" integrity="sha256-BOCKMndg6/AI2iWczANGB1/QIky96Pzxaj9l2yKKfkY=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/addon/edit/matchbrackets.min.js" integrity="sha256-BzzUspurJPtHi1Ux5geUVUtDLQDqDeUu9SMkOrsShUY=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/addon/edit/closebrackets.min.js" integrity="sha256-ckZJSSEwRjAtCl8YzZuhIqHYq+Bt+Csy3keSLdp8uxA=" crossorigin="anonymous"></script>
+
+  <!-- Jquery Terminal -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.11.0/css/jquery.terminal.min.css" integrity="sha256-NPnczI0KjCueVIbIZBIjffajQholjsUnhVe4sQgL80U=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.11.0/js/jquery.terminal.min.js" integrity="sha256-Qm1Nw4js01hUsHFCa8xirKnSZeRXR8uNgbAKwjhn9mA=" crossorigin="anonymous"></script>
+
+  <!-- local Javascript code -->
+  <script src="./repl.js"></script>
+
+  <!-- CodeMirror style, should probably go to a CSS file -->
+  <style>
+    .CodeMirror { height: 400px; border: 1px solid #ddd; }
+    .CodeMirror-scroll { max-height: 500px; }
+    .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+  </style>
+  </head>
+  <body>
+
+    <!-- More Bootstrap loading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Page content -->
+
+    <!-- The title and navigation bar -->
+    <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">REPL in your browser (λ-calculus)</a>
+    </nav>
+
+    <div class="container pt-5">
+      <div class="row">
+        <div class="col-8">
+          <!-- CodeMirror editor -->
+          <textarea id="sourcecode">
+-- Church numerals
+zero := ^ f x . x ;
+suc := ^ n f x . f (n f x) ;
+plus := ^ n m f x . n f (m f x) ;
+times := ^ n m f x . n (m f) x ;
+one := suc zero ;
+two := plus one one ;
+three := plus two one ;
+six := times two three ;
+:constant Z ;
+:constant S ;
+:eager ;
+(times six two) S Z ;
+:lazy ;
+(times six two) S Z
+</textarea>
+          <script>
+            var editor = CodeMirror.fromTextArea(document.getElementById("sourcecode"), {
+            lineNumbers: true,
+            matchBrackets: true
+            });
+          </script>
+
+          <!-- Run and Reset buttons (see also their activation below) -->
+          <div class="m-3">
+          <button type="button" class="btn btn-primary" id="runButton">Run</button>
+          <button type="button" class="btn btn-danger" id="resetButton">Reset</button>
+          </div>
+
+          <!-- The terminal window -->
+          <div id="terminal"></div>
+
+          <!-- Code to setup the terminal and the buttons -->
+          <script>
+          var terminal =
+          $('#terminal').terminal(function(command, term) {
+              if (command !== '') {
+                  env = repl.toplevel()(term.echo)(env)(command);
+              }
+          }, {
+              greetings: '',
+              name: 'repl_terminal',
+              height: 400,
+              width: "auto",
+              prompt: '# '
+          });
+
+         var env = repl.reset()(terminal.echo);
+
+         $('#runButton').click(function () {
+            env = repl.usefile()(terminal.echo)(env)(editor.getValue());
+         });
+
+         $('#resetButton').click(function () {
+          terminal.clear();
+          env = repl.reset()(terminal.echo);
+         });
+         </script>
+        </div>
+        <div class="col">
+          <h5>Untyped λ-calculus interpreter</h5>
+
+          <p>Expressions <code>E</code>:
+            <ul>
+              <li> λ-abstraction: <code>^ x y .. z . E</code>
+              <li> λ-abstraction: <code>\ x y .. z . E</code>
+              <li> abstraction: <code>E₁ E₂</code>
+            </ul>
+          </p>
+          <p>Commands:
+            <ul>
+              <li> <code>E</code> – evaluate expression <code>E</code>
+              <li> <code>x := E</code> – define <code>x</code>
+              <li> <code>:constant x</code> – declare constant <code>x</code>
+              <li> <code>:context</code> – print current context
+              <li> <code>:lazy</code> – lazy evaluation
+              <li> <code>:eager</code> – eager evaluation
+              <li> <code>:deep</code> – evaluate inside λ-abstractions
+              <li> <code>:shallow</code> – only evaluate top level
+            </ul>
+          </p>
+          <p>
+            In a file commands must be separated with <code>;</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

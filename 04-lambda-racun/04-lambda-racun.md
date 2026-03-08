@@ -5,16 +5,15 @@ Turing podal pojem stroja, ki še danes velja za standard. A pred Turingom je Al
 računanja, ki jo je poimenoval **λ-račun**. Kasneje se je izkazalo, da sta oba pojma ekvivalentna, vsaj kar se tiče
 računanja s števili.
 
-Kasneje je $λ$-račun pomembno vplival na razvoj programskih jezikov, zato je prav da ga spoznamo bolj podrobno. Poleg tega je
+Kasneje je λ-račun pomembno vplival na razvoj programskih jezikov, zato je prav da ga spoznamo bolj podrobno. Poleg tega je
 programiranje v λ-računu dobra vaja iz razumevanja osnovnih principov funkcijskega programiranja. Seveda čistega λ-računa, ki ga bomo
 uporabljati, nihče ne uporablja v praksi, tako kot tudi ne Turingovih strojev.
 
 Danes bomo spoznali **λ-račun brez tipov**, v poglavju o deklarativnem programiranju pa še λ-račun s tipi.
 
-
 ## Funkcijski predpis
 
-V matematiki poznamo zapis za **funkcijski predpis**:
+V matematiki poznamo **funkcijski predpis**:
 
     x ↦ e
 
@@ -32,6 +31,14 @@ Hkrati smo podali funkcijo in jo poimenovali `f`. Če poimenovanje in podajanje 
     f := (x ↦ x² + 3·x + 7)
 
 Torej so funkcijski predpisi *bolj splošni* kot imenovane funkcije.
+
+:::{note}
+**Opomba**
+
+Funkcijski predpis sam po sebi ne določa funkcije, saj moramo opredeliti še domeno in kodomeno funkcije.
+
+λ-račun sestoji samo iz funkcijskih predpisov, je *račun* (sistem za računanje s simboli).
+:::
 
 Funkcijski predpis lahko **uporabimo** na argumentu. Na primer, zgornji `f` lahko uporabimo na `3`
 in dobimo izraz `f(3)`, ki mu pravimo **aplikacija**.
@@ -98,9 +105,11 @@ Vezane in proste spremenljivke se pojavljajo tudi drugje v matematiki in računa
 
 sta `s` in `i` vezani spremenljivki.
 
-Proste in vezane spremenljivke je treba pravilno razumeti. Na primer, `y ↦ a + y` lahko preberemo »prištej `a`«, kar je
-različno od `a ↦ a + y`, kar preberemo »prištej `y`«.
+Pomembno je, katere spremenljivke so proste in katere vezane:
 
+* `x ↦ a · x + b` pomeni »pomnoži z `a` in prištej `b`«.
+* `a ↦ a · x + b` pomeni »pomnoži z `x` in prištej `b`«.
+* `b ↦ a · x + b` pomeni »prištej `a · x`«.
 
 ### Substitucija ali zamenjava
 
@@ -121,39 +130,59 @@ Ko napravimo substitucijo, moramo paziti, da se prosta spremenljivka ne »ujame�
 spremenljivko vstavili v podizraz, v katerem je že veljavna enako poimenovana vezana spremenljivka, s čimer bi prišlo do
 zmede med obema spremenljivkama. Na primer, če v integralu
 
-$$\int_0^1 x^2 + b \, d x$$
+$$\int_0^1 (x^2 + b) \, d x$$
 
 prosto spremenljivo $b$ naivno zamenjamo z izrazom $x + a$, dobimo
 
-$$\int_0^1 x^2 + x + a \, d x$$
+$$\int_0^1 (x^2 + x + a) \, d x$$
 
-To ni prav, saj je je $x$ iz $x + a$ ujel v integralu. Pravilen rezultat dobimo, če vezano spremenljivko v integralu
-najprej preimenujemo,
+To ni prav, saj je je $x$ iz $x + a$ ujel v integralu. Da dobimo pravilen rezultat, moramo vezano spremenljivko v integralu
+najprej preimenovati,
 
-$$\int_0^1 x^2 + b \, d x = \int_0^1 t^2 + b \, d t,$$
+$$\int_0^1 (x^2 + b) \, d x = \int_0^1 (t^2 + b) \, d t,$$
 
 in šele nato za $b$ vstavimo $x + a$:
 
-$$\int_0^1 t^2 + x + a \, d t.$$
+$$\int_0^1 (t^2 + x + a) \, d t.$$
 
 ### Računsko pravilo ali β-redukcija
 
-Vsi znamo računati s funkcijskimi predpisi in aplikacijami, čeprav se tega morda ne
-zavedamo. Računsko pravilo, ki se iz zgodovinski razlogov imenuje **β-redukcija**, pravi
+V λ-računu poznamo eno samo računsko pravilo, ki se imenuje tudi **β-redukcija** in se glasi
 
     (x ↦ e₁)(e₂)  =  e₁[e₂/x]
 
-in ga preberemo:
+To preberemo
 
 > *Če uporabimo funkcijski predpis `x ↦ e₁` na argumentu `e₂`, dobimo izraz `e₁`, v katerem `x` zamenjamo z `e₂`.*
 
-Primer uporabe β-redukcije:
+Pravzaprav je to pravilo, ki ga vsi uporabljamo, ko računamo pri matematičnih predmetih, le da imamo običajno opravka s poimenovanimi funkcijami.
 
-    (x ↦ x² + 3·x + 7)(3)  =  3² + 3·3 + 7
+:::{tip}
+**Primer**
 
-Pozor, pravilo za funkcijski zapis *ne* trdi `(x ↦ x² + 3·x + 7)(3) = 25`, ampak le, da lahko `x` zamenjamo s `3` in
-dobimo `3² + 3·3 + 7`. Če želimo od `3² + 3·3 + 7` preiti na `25`, moramo uporabiti še dodatna računska pravila, za
-aritmetične operacije.
+Če je `f(x) = x² + 3 · x + 7`, potem je `f(a + 3) = (a + 3)² + 3 · (a + 3) + 7`.
+
+Uporabili smo β-redukcijo, saj smo v funkcijskem predpisu `f` vezano spremenljivko `x` zamenjali z `a + 3`.
+Taisti primer z λ-računom:
+
+```
+(x ↦ x² + 3 · x + 7)(a + 3)  =  (a + 3)² + 3 · (a + 3) + 7
+```
+
+:::
+
+:::{warning}
+**Opozorilo**
+
+Pozor, pravilo za funkcijski zapis *ne* trdi `(x ↦ x² + 3·x + 7)(a + 3) = a² + 9 · a + 25`, ampak le
+`(x ↦ x² + 3 · x + 7)(a + 3) = (a + 3)² + 3 · (a + 3) + 7`.
+
+Da bi iz `(a + 3)² + 3 · (a + 3) + 7` dobili `a² + 9 · a + 25`, bi morali uporabiti še dodatna pravila
+algebre in aritmetike, ki jih λ-račun ne zajema. Tu števila in aritmetične operacije uporabljamo kot
+primitivne simbole in se pretvarjamo, da ne poznamo njihovega običajnega pomena.
+
+:::
+
 
 ### Gnezdeni funkcijski predpisi
 
@@ -161,8 +190,7 @@ Funkcijske predpise lahko gnezdimo, ali jih uporabljamo kot argumente. Primeri:
 
 1. `(x ↦ (y ↦ x · x + y))(42)  =  (y ↦ 42 · 42 + y)`
 2. `((x ↦ (y ↦ x · x + y))(42))(1)  =  (y ↦ 42 · 42 + y)(1) =  42 · 42 + 1`
-3. `(f ↦ f (f (3))) (n ↦ n · n + 1)  =  (n ↦ n · n + 1) ((n ↦ n · n + 1) (3)) =
-    (n ↦ n · n + 1) (3 · 3 + 1) = (3 · 3 + 1) · (3 · 3 + 1) + 1`
+3. `(f ↦ f (f (3))) (n ↦ n · n + 1)  =  (n ↦ n · n + 1) ((n ↦ n · n + 1) (3)) = (n ↦ n · n + 1) (3 · 3 + 1) = (3 · 3 + 1) · (3 · 3 + 1) + 1`
 
 Podobno kot pri integralih, je treba pred vstavljanjem izraza v funkcijski predpis po potrebi preimenovati vezano
 spremenljivko:
@@ -253,7 +281,8 @@ Poleg tega lahko računamo znotraj abstrakcij ali ne. Programski jeziki znotraj 
 ne računajo (to bi pomenilo, da se računa telo funkcije, še preden smo funkcijo
 poklicali).
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Izračunajmo `(λ x . (λ y . x) z) ((λ t . t) u)` na različne načine.
 
@@ -280,8 +309,11 @@ Računamo tudi znotraj λ-abstrakcij neučakano:
 :::
 
 :::{note}
+**Opomba**
 
-Obstajajo izrazi, ki nimajo normalne oblike. Takih izrazov ne moremo »izračunati do konca«. Tak izraz je `(λ x . x x) (λ x . x x)`, ki ima natanko en možen računski korak, a ta pripelje spet do istega izraza:
+Obstajajo izrazi, ki nimajo normalne oblike in jih ne moremo »izračunati do konca«.
+Primer je `(λ x . x x) (λ x . x x)`, ki ima natanko en možen računski korak, a ta pripelje
+spet do istega izraza:
 
     (λ x . x x) (λ x . x x) =
     (λ x . x x) (λ x . x x) =
@@ -290,10 +322,12 @@ Obstajajo izrazi, ki nimajo normalne oblike. Takih izrazov ne moremo »izračuna
 
 :::
 
-
 ## Programiranje v λ-računu
 
-λ-račun je splošen programski jezik, ki je po moči ekvivalenten Turingovim strojem.
+Na prvi pogled se zdi, da se v λ-računu ne da izračunati nič koristnega. A velja ravno obratno, λ-račun
+je po računski moči ekvivalenten Turingovim strojem – je splošen programski jezik.
+
+### Identiteta, kompzicija in konstantna preslikava
 
 Začnimo z osnovnimi preslikavami. **Identiteta** je preslikava `x ↦ x`, ki jo zapišemo tudi kot
 
@@ -307,14 +341,13 @@ Tudi konstantne funkcije ni težko definirati:
 
     const := λ c x . c
 
-Izraz `const e` je funkcija, ki vedno vrne `e`.
-
+Izraz `const e` je funkcija, ki vedno vrne `e`. Običajno se namesto `const` piše `K`.
 
 ### Boolove vrednosti in pogojni stavek
 
 Kako pa lahko dobimo Boolove vrednosti in pogojni stavek? Iščemo λ-izraze `true`, `false`, in `if`, za katere velja
 
-    if true a b = a
+    if true a b  = a
     if false a b = b
 
 V λ-računu ustrezne izraze definiramo takole:
@@ -410,9 +443,18 @@ Dobili smo število `3` in njegov predhodnik `2`, kar pripelje do programa
     
     > := λ m n . >= m (succ n)
 
+### Implementacija λ-računa
+
 Ročno računanje z λ-računom je mukotrpno. V [PL Zoo](http://plzoo.andrej.com/) najdete programski jezik `lambda`, ki olajša delo.
-Na voljo je tudi [spletni vmesnik](http://www.andrej.com/zapiski/ISRM-PPJ-2022/lambda/) za `lambda`. (Kogar zanima, kako se
+Na voljo je tudi [spletni vmesnik](http://www.andrej.com/lambda/) za `lambda`. (Kogar zanima, kako se
 tak vmesnik naredi, si lahko ogleda [`repl-in-browser`](https://github.com/andrejbauer/repl-in-browser)).
+
+:::{tip}
+**Nasvet**
+
+Na izpitu boste lahko uporabljali računalnik, a brez spletne povezave. S seboj prinesite [`lambda.zip`](http://www.andrej.com/lambda/lambda.zip), da boste lahko uporabljali `lambda` lokalno v brskalniku.
+
+:::
 
 
 Da ohranimo kompatibilnost z računalniki iz leta 1968, se izognemo simbolu `λ` in ga nadomestimo z `^`.
