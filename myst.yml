@@ -29,9 +29,9 @@ project:
     - file: 02-ukazni-programski-jezik/02-ukazni-programski-jezik.md
     - file: 03-dokazovanje-pravilnosti/03-dokazovanje-pravilnosti.md
     - file: 04-lambda-racun/04-lambda-racun.md
-    # - file: 05-deklarativno-programiranje/05-deklarativno-programiranje.md
-    # - file: 06-rekurzija/06-rekurzija.md
-    # - file: 07-izpeljava-tipov/07-izpeljava-tipov.md
+    - file: 05-deklarativno-programiranje/05-deklarativno-programiranje.md
+    - file: 06-rekurzija/06-rekurzija.md
+    - file: 07-izpeljava-tipov/07-izpeljava-tipov.md
     # - file: 08-abstrakcija/08-abstrakcija.md
     # - file: 09-logicno-programiranje/09-logicno-programiranje.md
     # - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami.md

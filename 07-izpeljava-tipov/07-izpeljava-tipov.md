@@ -227,25 +227,30 @@ v neznankah `α`, `β`, `γ`, `δ`, ... Rešujemo z naslednjim postopkom:
 
 Kako to deluje, si poglejmo na primerih.
 
-##### Primer 1
+:::{tip}
+**Primer**
 
 Izpelji glavni tip funkcije
 
     fun x -> x + 3
 
 **Odgovor:** `int -> int`
+:::
 
-##### Primer 2
+:::{tip}
+**Primer**
 
 Izpelji glavni tip izraza
 
     if 3 < 5 then (fun x -> x) else (fun y -> y + 3)
 
 **Odgovor:** `int -> int`
+:::
 
-###### Churchovi numerali
+:::{important}
+**Naloga**
 
-Kakšen je tip števila `3`?
+Kakšen je tip Churchevega numerala `3`?
 
     0 = (λ f x . x)
     1 = (λ f x . f x)
@@ -258,11 +263,12 @@ To naj izračuna OCaml:
     let one   = (fun f x -> f x) ;;
     let two   = (fun f x -> f (f x)) ;;
     let three = (fun f x -> f (f (f x))) ;;
+:::
 
+:::{important}
+**Naloga***
 
-##### Churchovi-Scottovi numerali
-
-Kakšen je tip števila `3`?
+Kakšen je tip Church-Scottovega numerala `3`?
 
     0 = (λ f x . x)
     1 = (λ f x . f 0 x)
@@ -277,3 +283,4 @@ To naj izračuna OCaml:
      let three' = (fun f x -> f two' (f one' (f zero' x))) ;;
      let four'  = (fun f x -> f three' (f two' (f one' (f zero' x)))) ;;
      let five'  = (fun f x -> f four' (f three' (f two' (f one' (f zero' x))))) ;;
+:::

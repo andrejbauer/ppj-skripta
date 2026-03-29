@@ -60,16 +60,21 @@ f :: Integer -> Integer
 f = telo f
 ```
 
-Rekurzivno funkcijo smo zapisali kot negibno točko funkcije `telo`.
+Pravimo, da smo **razprli** rekurzivno zanko.
 
-:::{admonition} Definicija
+Rekurzivno funkcijo `f` smo zapisali kot negibno točko funkcije `telo`.
+
+:::{important}
+**Definicija (negibna točka)**
+
 **Negibna točka** funkcije $h : X \to X$ je tak $x \in X$, da velja $x = h(x)$.
 :::
 
 V našem primeru je $h$ funkcija `telo`, $X$ je tip `Integer -> Integer` in $x$ je `f`.
 Negibne točke so pomembne tudi na drugih področjih matematike in o njih matematiki veliko vedo.
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 V numeričnih metodah enačbo oblike $x = h (x)$ poiščemo z zaporedjem približkov
 
@@ -82,7 +87,7 @@ Na primer, enačbo $x^2 = 1/2$ prepišemo v obliko $x = 1/2 - x^2 + x$, se pravi
 Če vzamemo $x_0 = 1$, dobimo zaporedje
 
 $$
-1.0, 0.5, 0.75, 0.6875, 0.714844, 0.703842, 0.708448, 0.706549, 0.707337, 0.707011, 0.707146,
+1.0, 0.5, 0.75, 0.6875, 0.714844, 0.703842, \ldots
 $$
 
 ki konvergira k rešitvi enačbe $1/\sqrt{2} = 0.70710678118654752440$.
@@ -159,7 +164,8 @@ f :: Integer -> Integer
 f = fix (\ self n -> if n == 0 then 1 else n * self (n - 1))
 ```
 
-:::{admonition} Vaja
+:::{important}
+**Naloga**
 
 Katero vrednost zavzame tip `a` iz definicije `fix` v zgornji definiciji `f`?
 :::
@@ -204,7 +210,8 @@ saj velja
 (while b do c done) = t (while b do c done)
 ```
 
-:::{note}
+:::{tip}
+**Primer**
 
 Zanko `while` lahko na zgornji način »odvijamo v nedogled«:
 
@@ -273,7 +280,8 @@ lahko v Haskellu definiramo rekurzivno:
 ℓ = 1 : 2 : ℓ
 ```
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Še bolj zanimiv primer rekurzivno definiranega seznama:
 
@@ -365,7 +373,8 @@ niso dovoljene. Primeri:
    * jeziki za označevanje podatkov
 5. hierarhija elementov v uporabniškem vmesniku
 
-#### Primer: naravna števila
+:::{tip}
+**Primer**
 
 Definicija naravnega števila:
 
@@ -402,14 +411,17 @@ Vendar to še vedno ni optimalna rešitev, ker lahko število nič predstavimo n
 ```none
 0 = Shl0 0 = Shl0 (Shl0 0) = Shl0 (Shl0 (Shl0 0)) = ⋯
 ```
+:::
 
-:::{admonition} Vaja
+:::{important}
+**Naloga**
 
 Poiščite predstavitev dvojiških števil z induktivnimi tipi (lahko jih je več), da bo
 imelo vsako nenegativno celo število natanko enega predstavnika.
 :::
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 [Standard za predstavitev podatkov JSON](http://json.org) se kot podatkovni tip glasi takole:
 
@@ -436,6 +448,7 @@ type d = Foo of (d -> bool)
 
 Vrednost tipa `d` je oblike `Foo f`, kjer je `f` funkcija iz `d` v `bool`. Ali znate zapisati kako tako vrednost?
 
+
 ### Strukturna rekurzija
 
 Ker so induktivni podatkovni tipi definirani rekurzivno, jih običajno obdelujemo z
@@ -449,7 +462,7 @@ Obravnavajmo preprosta **iskalna drevesa**, v katerih hranimo cela števila. Isk
   * vsa števila v vozliščih `l` so manjša od `x`,
   * vsa števila v vozliščih `r` so večja od `x`
 
-Primer:
+Primer drevesa:
 
 ```none
        5
@@ -471,7 +484,8 @@ V tipu *nismo* shranili informacije o tem, da je iskalno drevo urejeno! Če bo p
 ustvaril iskalno drevo, ki ni pravilno urejeno, prevajalnik tega ne bo zaznal.
 
 
-:::{admonition} Naloga
+:::{important}
+**Naloga**
 
 Sestavite funkcije za iskanje, vstavljanje in brisanje elementov v iskalnem drevesu.
 

@@ -29,7 +29,8 @@ rezultata je nato v večji ali manjši meri prepuščen programskemu jeziku.
 V λ-računu moramo vse podatke predstaviti, ali *kodirati*, s funkcijami. Tako opravilo je
 zamudno in podvrženo napakam, ker krši načelo:
 
-:::{admonition} Pomni!
+:::{admonition} **Pomni!**
+
 **Programski jezik naj programerju omogoči neposredno izražanje idej.**
 :::
 
@@ -167,7 +168,7 @@ Spletni viri za OCaml:
 
 * [Uradna spletna stran za OCaml](https://www.ocaml.org)
 * [REPL za OCaml na glot.io](https://glot.io/new/ocaml) (kaj pomeni [REPL](https://www.abbreviations.com/REPL)?)
-* Poglavje [Funkcijsko programiranje](https://matija.pretnar.info/programiranje-1/02-uvod-v-funkcijsko-programiranje.html#osnove-ocamla) v zapiskih Matije Pretnarja
+* Poglavje [Funkcijsko programiranje](https://matija.pretnar.info/programiranje-1/01-uvod-v-funkcijsko-programiranje.html) v zapiskih Matije Pretnarja
 * Učbenik [OCaml from the ground up](https://ocamlbook.org)
 
 ### Zmnožek tipov
@@ -240,7 +241,8 @@ val x : int = 3
 
 *nismo* spremenili `x`, ampak smo definirali *nov* `x`, ki je *prekril* staro definicijo. Če želimo pravo spremenljivko, v ta namen uporabimo [referenco](https://ocamlbook.org/records-and-references/) (o tem več kasneje).
 
-:::{admonition} Naloga
+:::{attention}
+**Naloga**
 
 Predavatelja poskusite prepričati, da so »ne-spremenljivke« slaba ideja.
 
