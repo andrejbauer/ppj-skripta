@@ -224,7 +224,7 @@ implementacije.
 abstrakten. Objektov abstraktnega razreda ne moremo ustvarjati z `new`, saj so
 neke vrste "nedokončani" razredi.
 
-Abstraktni razred je neke vrste mešanica implementacije in speficikacije
+Abstraktni razred je neke vrste mešanica implementacije in specifikacije
 (specifikacija sestoji iz abstraktnih metod).
 
 Razredi v OCamlu so lahko abstraktni, pravi se jim [virtualni razredi](https://v2.ocaml.org/manual/objectexamples.html#s%3Avirtual-methods).
