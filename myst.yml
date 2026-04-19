@@ -32,9 +32,9 @@ project:
     - file: 05-deklarativno-programiranje/05-deklarativno-programiranje.md
     - file: 06-rekurzija/06-rekurzija.md
     - file: 07-izpeljava-tipov/07-izpeljava-tipov.md
+    - file: 09-logicno-programiranje/09-logicno-programiranje.md
+    - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami.md
     # - file: 08-abstrakcija/08-abstrakcija.md
-    # - file: 09-logicno-programiranje/09-logicno-programiranje.md
-    # - file: 10-programiranje-z-omejitvami/10-programiranje-z-omejitvami.md
     # - file: 11-podtipi/11-podtipi.md
     # - file: 12-objektno-programiranje/12-objektno-programiranje.md
     # - file: 14-haskell-in-razredi-tipov/14-haskell-in-razredi-tipov.md
