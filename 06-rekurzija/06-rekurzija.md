@@ -54,7 +54,7 @@ Sedaj definicijo razstavimo na dva dela: na *telo* rekurzije, ki samo po sebi ni
 
 ```haskell
 telo :: (Integer -> Integer) -> (Integer -> Integer)
-telo g =  \n -> if n == 0 then 1 else n * g  (n - 1)
+telo self =  \n -> if n == 0 then 1 else n * self (n - 1)
 
 f :: Integer -> Integer
 f = telo f

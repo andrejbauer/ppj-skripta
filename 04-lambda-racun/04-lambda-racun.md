@@ -327,7 +327,7 @@ spet do istega izraza:
 Na prvi pogled se zdi, da se v λ-računu ne da izračunati nič koristnega. A velja ravno obratno, λ-račun
 je po računski moči ekvivalenten Turingovim strojem – je splošen programski jezik.
 
-### Identiteta, kompzicija in konstantna preslikava
+### Identiteta, kompozicija in konstantna preslikava
 
 Začnimo z osnovnimi preslikavami. **Identiteta** je preslikava `x ↦ x`, ki jo zapišemo tudi kot
 
@@ -379,7 +379,7 @@ Potrebujemo izraze `pair`, `first`, in `second`, ki zadoščajo enačbam:
 
 Naslednji programi delujejo:
 
-    pair := λ x y . λ p . p x y
+    pair := λ x y . λ f . f x y
     first := λ p . p (λ x y . x)
     second := λ p . p (λ x y. y)
 

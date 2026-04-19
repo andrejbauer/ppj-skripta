@@ -32,7 +32,8 @@ $$
 kjer je $p$ **relacijski simbol** in $t_1, \ldots, t_m$ **termi**. Nadalje je term
 izraz, ki ga lahko sestavimo iz konstant, funkcijskih simbolov in spremenljivk.
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Denimo, da imamo relacijski simbol `less`, funkcijske simbole `plus`, `times`, `succ`, kostanto `zero` in spremenljivki `X` in `Y`.
 Tedaj sta `plus(times(X,X), times(Y, Y))` in `times(succ(succ(zero)), times(X, Y))` terma in
@@ -57,7 +58,9 @@ $$
 \phi_1 \land \phi_2 \land \cdots \land \phi_n \Rightarrow \psi.
 $$
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
+
 Hornova formula
 
 $$
@@ -68,7 +71,9 @@ pove, da so psi živali: “za vsak $a$, če je $a$ pes, potem je $a$ žival”.
 :::
 
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
+
 Hornova formula
 
 $$
@@ -79,7 +84,9 @@ pravi: “za vse (osebe) $x$, $y$, $z$, če je $x$ otrok od $y$ in $y$ otrok od 
 in je $z$ ženska, potem je $z$ babica od $x$”.
 :::
 
-:::{admonition} Vzgojen primer
+:::{tip}
+**Primer**
+
 Formula
 
 $$
@@ -104,7 +111,8 @@ za seštevanje se glasita
 
 Pravzaprav v Prologu ni funkcij! Definirati moramo *relacijo*, ki predstavlja funkcijo:
 
-:::{admonition} Definicija
+:::{important}
+**Definicija**
 
 Pravimo, da relacija $R$ **predstavlja** funkcijo $f$, če je $f(x) = y \Leftrightarrow R(x, y)$.
 :::
@@ -146,7 +154,8 @@ beremo “zmnožek $x$ in $y$ je $z$”.
 :::
 
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Nekaterih dejstev s Hornovimi formulami ne moremo izraziti, na primer negacije $\lnot \phi$
 in eksistenčnih formul $\exists x . \phi$.
@@ -158,7 +167,8 @@ in eksistenčnih formul $\exists x . \phi$.
 Denimo, da imamo Hornove formule in želimo vedeti, ali iz njih sledi dana
 izjava. Kako bi *sistematično* poiskali dokaz?
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Najprej poglejmo primer brez kvantifikatorjev. Ali iz Hornovih formul
 
@@ -184,7 +194,8 @@ dokaza izjave $C$? Prva ali druga. Poskusimo obe:
 :::
 
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Ali iz
 
@@ -196,7 +207,8 @@ sledi $\mathsf{mlajsi}(\mathsf{miha}, \mathsf{mojca})$? Če v prvi formuli vzame
 formule.
 :::
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Ali iz
 
@@ -258,7 +270,8 @@ rešujemo po vrsti rekurzivno. (Če se v teh poizvedbah pojavljajo spremenljivke
 kvantificirali z $\exists$.)
 
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Poglejmo si še enkrat primer, ko imamo Hornove formule
 
@@ -307,7 +320,8 @@ $$
 Dokazali smo, da res obstaja liho število, namreč $\mathsf{succ}(\mathsf{zero})$.
 :::
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Če v prejšnjem primeru zamenjamo vrstni red pravil,
 

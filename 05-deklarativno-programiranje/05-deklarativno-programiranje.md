@@ -111,7 +111,7 @@ $$
 (B \times \mathbb{N}) + \mathbb{N} + \mathbb{N}
 $$
 
-Res: črn čevelj velikosti $42$ je element $\iota_1(\mathsf{črna}, 42)$, palica dolžine $7$ je $\iota_2(7$), posoda s prostornino $7$ pa je $\iota_3(7)$. Oznaki $\iota_2$ in $\iota_3$ ločita med palicami in posodami. Seveda je tak zapis s programerskega stališča nepraktičen, zato ga bomo v programskem jeziku izboljšali.
+Res: črn čevelj velikosti $42$ je element $\iota_1(\mathsf{crna}, 42)$, palica dolžine $7$ je $\iota_2(7$), posoda s prostornino $7$ pa je $\iota_3(7)$. Oznaki $\iota_2$ in $\iota_3$ ločita med palicami in posodami. Seveda je tak zapis s programerskega stališča nepraktičen, zato ga bomo v programskem jeziku izboljšali.
 
 ### Eksponent ali množica funkcij
 

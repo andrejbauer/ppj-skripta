@@ -272,7 +272,8 @@ Y = 4.
 Poglejmo si primere, s katerimi bomo najbolje spoznali, kako deluje programiranje
 z omejitvami.
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Vrnimo se k funkciji faktoriela:
 
@@ -318,7 +319,8 @@ false.
 
 :::
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 **Pitagorejska trojica** je trojica celih števil `(A, B, C)`, za katero velja `A² + B² = C²`.
 Poleg tega smemo zaradi simetrije med `A` in `B` predpostaviti `A ≤ B`.
@@ -338,7 +340,8 @@ pitagora_do([A,B,C], N) :-
 
 :::
 
-:::{admonition} Primer
+:::{tip}
+**Primer**
 
 Na vajah boste programirali permutacije seznamov v navadnem prologu. Permutacije
 števil lahko elegantno zapišemo z omejitvami:

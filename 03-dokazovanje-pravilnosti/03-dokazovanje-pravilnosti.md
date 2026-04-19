@@ -100,7 +100,7 @@ Hoarove trojice običajno pišemo navpično, takole:
     c₃
     ⋯
 
-in jih beremo kot zaporedje Hoarovih trojic: velja `{ P₁ } c₁ { P₂ }` in velja ``{ P₂ } c₂ { P₃ }` in velja `{ P₃ } c₃ { P₄ }` in tako naprej.
+in jih beremo kot zaporedje Hoarovih trojic: velja `{ P₁ } c₁ { P₂ }` in velja `{ P₂ } c₂ { P₃ }` in velja `{ P₃ } c₃ { P₄ }` in tako naprej.
 
 ## Pravila sklepanja
 
